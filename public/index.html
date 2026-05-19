@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Energy Dashboard</title>
+	<!-- Fluent UI Web Components v2 -->
+	<script type="module" src="https://unpkg.com/@fluentui/web-components@2"></script>
+	<!-- Apache ECharts v6.1.0 -->
+	<script src="https://cdn.jsdelivr.net/npm/echarts@6.1.0/dist/echarts.min.js"></script>	<link rel="stylesheet" href="styles/app.css">
+	<style>
+		:root {
+			--body-bg: #f3f2f1;
+			--header-bg: #ffffff;
+		}
+
+		body {
+			margin: 0;
+			padding: 0;
+			font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+			background-color: var(--body-bg);
+			height: 100vh;
+			display: flex;
+			flex-direction: column;
+		}
+
+		header {
+			background-color: var(--header-bg);
+			padding: 1rem;
+			box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+			z-index: 10;
+		}
+
+		main {
+			flex: 1;
+			padding: 1rem;
+			display: flex;
+			justify-content: center;
+			align-items: stretch;
+			overflow: hidden;
+		}
+
+		.dashboard-container {
+			width: 100%;
+			max-width: 1200px;
+			display: flex;
+			flex-direction: column;
+		}
+
+		#chart-container {
+			flex: 1;
+			min-height: 400px;
+			width: 100%;
+		}
+
+		fluent-card {
+			padding: 1rem;
+			height: 100%;
+			box-sizing: border-box;
+			display: flex;
+			flex-direction: column;
+		}
+	</style>
+</head>
+
+<body>
+	<header>
+		<fluent-breadcrumb>
+			<fluent-breadcrumb-item>Home Dashboard</fluent-breadcrumb-item>
+			<fluent-breadcrumb-item>Energy Consumption & Prices</fluent-breadcrumb-item>
+		</fluent-breadcrumb>
+	</header>
+
+	<main>
+		<div class="dashboard-container">
+			<fluent-card>
+				<div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+					<h2 style="margin: 0;">Forecast & Prices</h2>
+					<fluent-badge appearance="accent">Live Data</fluent-badge>
+				</div>
+				<div id="chart-container"></div>
+			</fluent-card>
+		</div>
+	</main>
+
+	<script type="module" src="scripts/app.js"></script>
+</body>
+
+</html>

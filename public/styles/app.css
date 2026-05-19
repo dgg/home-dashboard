@@ -1,0 +1,24 @@
+/* Basic overrides for Fluent UI components and app layout */
+
+body {
+	background-color: var(--body-bg);
+	color: #323130;
+}
+
+fluent-card {
+	--card-padding: 16px;
+	background-color: #ffffff;
+	border-radius: 8px;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+}
+
+h2 {
+	font-weight: 600;
+	color: #0078d4;
+}
+
+/* Ensure chart container takes up available space */
+#chart-container {
+	height: 100%;
+	width: 100%;
+}
