@@ -1,0 +1,5 @@
+@MaxPeakPower=10
+GET https://api.forecast.solar/estimate/{{$dotenv LAT}}/{{$dotenv LONG}}/{{$dotenv TILT}}/{{$dotenv AZIMUTH}}/{{MaxPeakPower}}
+?time=iso8601
+&limit=2
+&resolution=60

@@ -1,0 +1,9 @@
+GET https://api.open-meteo.com/v1/forecast
+?latitude={{$dotenv LAT}}
+&longitude={{$dotenv LONG}}
+&daily=sunrise,sunset
+&hourly=direct_radiation,diffuse_radiation,global_tilted_irradiance
+&timezone={{$dotenv TIMEZONE}}
+&forecast_days=2
+&tilt={{$dotenv TILT}}
+&azimuth={{$dotenv AZIMUTH}}
