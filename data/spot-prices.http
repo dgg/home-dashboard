@@ -1,4 +1,7 @@
-GET https://api.energidataservice.dk/dataset/DayAheadPrices
+@host = http://localhost:8081
+#@host = https://api.energidataservice.dk
+
+GET {{host}}/dataset/DayAheadPrices
 ?filter=%7B%22PriceArea%22:[%22DK1%22]%7D
 &start=StartOfDay
 &columns=TimeDK%2CDayAheadPriceDKK

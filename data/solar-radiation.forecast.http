@@ -1,4 +1,7 @@
-GET https://api.open-meteo.com/v1/forecast
+#@host= https://api.open-meteo.com
+@host= http://localhost:8081
+
+GET {{host}}/v1/forecast
 ?latitude={{$dotenv LAT}}
 &longitude={{$dotenv LONG}}
 &daily=sunrise,sunset
