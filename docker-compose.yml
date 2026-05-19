@@ -1,6 +1,6 @@
 services:
   mocks:
-    image: dhi.io/wiremock:3.13
+    image: dhi.io/wiremock:${WIREMOCK_VERSION:-3.13}
     ports:
       - "8081:8080"
     volumes:
