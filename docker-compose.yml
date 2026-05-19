@@ -1,0 +1,10 @@
+services:
+  mocks:
+    image: dhi.io/wiremock:3.13
+    ports:
+      - "8081:8080"
+    volumes:
+      - ./data/mocks:/home/wiremock/mappings
+      - ./data/spot-prices.json:/home/wiremock/__files/spot-prices.json
+      - ./data/solar-radiation.forecast.json:/home/wiremock/__files/solar-radiation.forecast.json
+      - ./data/solar-production.forecast.json:/home/wiremock/__files/solar-production.forecast.json

@@ -1,0 +1,13 @@
+{
+	"request": {
+		"method": "GET",
+		"urlPathTemplate": "/estimate/{lat}/{lon}/{dec}/{az}/{kwp}"
+	},
+	"response": {
+		"status": 200,
+		"bodyFileName": "solar-production.forecast.json",
+		"headers": {
+			"Content-Type": "application/json"
+		}
+	}
+}

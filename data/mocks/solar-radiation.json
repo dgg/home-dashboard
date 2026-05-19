@@ -1,0 +1,13 @@
+{
+	"request": {
+		"method": "GET",
+		"urlPath": "/v1/forecast"
+	},
+	"response": {
+		"status": 200,
+		"bodyFileName": "solar-radiation.forecast.json",
+		"headers": {
+			"Content-Type": "application/json"
+		}
+	}
+}
