@@ -61,6 +61,7 @@ export function renderMainChart(containerId, priceData, radiationData) {
 			{
 				type: "value",
 				name: priceData.header.columns[1].symbol,
+				nameTextStyle: { color: "#0078d4" },
 				position: "left",
 				min: priceAxisMinAdjusted,
 				max: priceMax,
@@ -69,7 +70,8 @@ export function renderMainChart(containerId, priceData, radiationData) {
 					lineStyle: { color: "#0078d4" }
 				},
 				axisLabel: {
-					formatter: "{value}"
+					formatter: "{value}",
+					color: "#0078d4"
 				}
 			},
 			{
@@ -83,18 +85,38 @@ export function renderMainChart(containerId, priceData, radiationData) {
 					lineStyle: { color: "#ff8c00" }
 				},
 				axisLabel: {
-					formatter: "{value}"
+					formatter: "{value}",
+					color: "#ff8c00"
 				}
 			}
 		],
 		series: [
-			{
+{
 				name: `${priceData.header.columns[1].name} (${priceData.header.columns[1].symbol})`,
 				type: "bar",
-				data: priceData.data.map(d => [d[0].epochMilliseconds, d[1]]),
+				data: priceData.data.map(d => ({
+					value: [d[0].epochMilliseconds, d[1]],
+					itemStyle: {
+						color: d[1] > priceData.header.columns[1].avg ? "#c50f1f" : "#107c10"
+					}
+				})),
 				itemStyle: {
-					color: "#0078d4",
 					opacity: 0.6
+				},
+				markLine: {
+					silent: true,
+					symbol: "none",
+					data: [
+						{
+							yAxis: priceData.header.columns[1].avg,
+							lineStyle: { type: "dashed", color: "#63276d" },
+							label: {
+								formatter: `Avg: ${priceData.header.columns[1].avg.toFixed(2)}`,
+								position: "start",
+								color: "#63276d"
+							}
+						}
+					]
 				}
 			},
 		{
