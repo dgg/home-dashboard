@@ -45,11 +45,13 @@ export class Column {
 	 * @param {string} name - The name of the column
 	 * @param {string} quantifiable - The quantifiable type as a QUDT quantity kind
 	 * @param {string} unit - The unit of measurement as a QUDT unit
+	 * @param {string} symbol - The unit of measurement symbol (optional)
 	 */
-	constructor(name, quantifiable, unit) {
+	constructor(name, quantifiable, unit, symbol = "") {
 		this.name = name;
 		this.quantifiable = quantifiable;
 		this.unit = unit;
+		this.symbol = symbol;
 	}
 
 	/**

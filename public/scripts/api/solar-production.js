@@ -28,9 +28,9 @@ const assertResponse = (response) => {
 }
 
 const initTimeSeries = () => {
-	const powerProduction = new Column("PowerProduction", "Power", "W")
-	const energyProduction = new Column("EnergyProduction", "Energy", "Wh")
-	const accumulatedEnergyProduction = new Column("AccumulatedEnergyProduction", "Energy", "Wh")
+	const powerProduction = new Column("PowerProduction", "Power", "W", "W")
+	const energyProduction = new Column("EnergyProduction", "Energy", "W-HR", "Wh")
+	const accumulatedEnergyProduction = new Column("AccumulatedEnergyProduction", "Energy", "W-HR", "Wh")
 	const timeSeries = new TimeSeries(Series.regular("PT1H"), [powerProduction, energyProduction, accumulatedEnergyProduction])
 	return timeSeries
 }

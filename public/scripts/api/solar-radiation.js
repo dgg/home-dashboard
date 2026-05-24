@@ -27,9 +27,9 @@ const assertResponse = (response) => {
 }
 
 const initTimeSeries = () => {
-	const direct = new Column("DirectRadiation", "PowerPerArea", "W-PER-M2")
-	const diffuse = new Column("DiffuseRadiation", "PowerPerArea", "W-PER-M2")
-	const tilted = new Column("TiltedIrradiance", "PowerPerArea", "W-PER-M2")
+	const direct = new Column("DirectRadiation", "PowerPerArea", "W-PER-M2", "W/m²")
+	const diffuse = new Column("DiffuseRadiation", "PowerPerArea", "W-PER-M2", "W/m²")
+	const tilted = new Column("TiltedIrradiance", "PowerPerArea", "W-PER-M2", "W/m²")
 	const timeSeries = new TimeSeries(Series.regular("PT1H"), [direct, diffuse, tilted])
 	return timeSeries
 }

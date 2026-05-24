@@ -1,45 +1,34 @@
 export function renderMainChart(containerId, priceData, radiationData) {
-	const container = document.getElementById(containerId);
-	if (!container) return;
+	const container = document.getElementById(containerId)
+	if (!container) return
 
-	const chart = echarts.init(container);
-
-	const priceUnit = "DKK/kWh"
-	const irradianceUnit = "W/m²"
-	const powerUnit = "W"
-	const energyUnit = "Wh"
+	const chart = echarts.init(container)
 
 	// Calculate min/max for price (left axis)
-	const priceValues = priceData.data.map(d => d[1]);
-	const priceMin = Math.min(...priceValues);
-	const priceMax = Math.max(...priceValues);
+	const priceValues = priceData.data.map(d => d[1])
+	const priceMin = Math.min(...priceValues)
+	const priceMax = Math.max(...priceValues)
 
-	// Calculate min/max for radiation (right axis)
-	const radiationValues = radiationData.data.flatMap(d => [d[1], d[2], d[3]]);
-	const radiationMin = Math.min(...radiationValues);
-	const radiationMax = Math.max(...radiationValues);
+	// Calculate max for radiation (right axis) — values are always positive
+	const radiationValues = radiationData.data.flatMap(d => [d[1], d[2], d[3]])
+	const radiationMax = Math.max(...radiationValues)
 
-	// Set axis min: use actual min if negative, else 0
-	const priceAxisMin = priceMin < 0 ? priceMin : 0;
-	const radiationAxisMin = radiationMin < 0 ? radiationMin : 0;
+	// Set axis min
+	const priceAxisMin = priceMin < 0 ? priceMin : 0
 
 	// Align zeros: calculate ratio of below/above zero for each axis
-	const priceBelowZero = Math.abs(priceAxisMin);
-	const priceAboveZero = priceMax;
-	const radiationBelowZero = Math.abs(radiationAxisMin);
-	const radiationAboveZero = radiationMax;
+	const priceBelowZero = Math.abs(priceAxisMin)
+	const priceAboveZero = priceMax
 
 	// For each axis, ensure min/max symmetric around zero at same ratio
-	// Find which axis needs more expansion
-	const priceRatio = priceBelowZero > 0 ? priceAboveZero / priceBelowZero : 1;
-	const radiationRatio = radiationBelowZero > 0 ? radiationAboveZero / radiationBelowZero : 1;
+	const priceRatio = priceBelowZero > 0 ? priceAboveZero / priceBelowZero : 1
 
-	// Use max ratio for both—this aligns zeros
-	const maxRatio = Math.max(priceRatio, radiationRatio);
+	// Use max ratio for both — this aligns zeros
+	const maxRatio = Math.max(priceRatio, 1)
 
 	// Recalculate mins to align zeros using max ratio
-	const priceAxisMinAdjusted = -(priceAboveZero / maxRatio);
-	const radiationAxisMinAdjusted = -(radiationAboveZero / maxRatio);
+	const priceAxisMinAdjusted = -(priceAboveZero / maxRatio)
+	const radiationAxisMinAdjusted = -(radiationMax / maxRatio)
 
 	const option = {
 		tooltip: {
@@ -50,10 +39,10 @@ export function renderMainChart(containerId, priceData, radiationData) {
 		},
 		legend: {
 			data: [
-				`${priceData.header.columns[1].name} (${priceUnit})`,
-				`${radiationData.header.columns[1].name} (${irradianceUnit})`,
-				`${radiationData.header.columns[2].name} (${irradianceUnit})`,
-				`${radiationData.header.columns[3].name} (${irradianceUnit})`
+				`${priceData.header.columns[1].name} (${priceData.header.columns[1].symbol})`,
+				`${radiationData.header.columns[1].name} (${radiationData.header.columns[1].symbol})`,
+				`${radiationData.header.columns[2].name} (${radiationData.header.columns[2].symbol})`,
+				`${radiationData.header.columns[3].name} (${radiationData.header.columns[3].symbol})`
 			],
 			bottom: 0
 		},
@@ -72,7 +61,7 @@ export function renderMainChart(containerId, priceData, radiationData) {
 		yAxis: [
 			{
 				type: "value",
-				name: priceUnit,
+				name: priceData.header.columns[1].symbol,
 				position: "left",
 				min: priceAxisMinAdjusted,
 				max: priceMax,
@@ -86,7 +75,7 @@ export function renderMainChart(containerId, priceData, radiationData) {
 			},
 			{
 				type: "value",
-				name: irradianceUnit,
+				name: radiationData.header.columns[1].symbol,
 				position: "right",
 				min: radiationAxisMinAdjusted,
 				max: radiationMax,
@@ -101,7 +90,7 @@ export function renderMainChart(containerId, priceData, radiationData) {
 		],
 		series: [
 			{
-				name: `${priceData.header.columns[1].name} (${priceUnit})`,
+				name: `${priceData.header.columns[1].name} (${priceData.header.columns[1].symbol})`,
 				type: "bar",
 				data: priceData.data.map(d => [d[0].epochMilliseconds, d[1]]),
 				itemStyle: {
@@ -110,7 +99,7 @@ export function renderMainChart(containerId, priceData, radiationData) {
 				}
 			},
 		{
-			name: `${radiationData.header.columns[1].name} (${irradianceUnit})`,
+			name: `${radiationData.header.columns[1].name} (${radiationData.header.columns[1].symbol})`,
 			type: "line",
 			smooth: true,
 			yAxisIndex: 1,
@@ -120,7 +109,7 @@ export function renderMainChart(containerId, priceData, radiationData) {
 			lineStyle: { color: "#f9e2ae", type: "dashed" }
 		},
 		{
-			name: `${radiationData.header.columns[2].name} (${irradianceUnit})`,
+			name: `${radiationData.header.columns[2].name} (${radiationData.header.columns[2].symbol})`,
 			type: "line",
 			smooth: true,
 			yAxisIndex: 1,
@@ -130,7 +119,7 @@ export function renderMainChart(containerId, priceData, radiationData) {
 			lineStyle: { color: "#ffddb3", type: "dotted" }
 		},
 		{
-			name: `${radiationData.header.columns[3].name} (${irradianceUnit})`,
+			name: `${radiationData.header.columns[3].name} (${radiationData.header.columns[3].symbol})`,
 			type: "line",
 			smooth: true,
 			yAxisIndex: 1,
@@ -139,11 +128,11 @@ export function renderMainChart(containerId, priceData, radiationData) {
 			itemStyle: { color: "#ff8c00" }
 		}
 		]
-	};
+	}
 
-	chart.setOption(option);
+	chart.setOption(option)
 
 	window.addEventListener("resize", () => {
-		chart.resize();
-	});
+		chart.resize()
+	})
 }

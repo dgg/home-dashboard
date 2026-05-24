@@ -18,7 +18,7 @@ class ApiUrl {
 }
 
 const initTimeSeries = () => {
-	const price = new Column("SpotPrice", "CostPerEnergy", "CCY_DKK-PER-KiloW-HR")
+	const price = new Column("SpotPrice", "CostPerEnergy", "CCY_DKK-PER-KiloW-HR", "DKK/kWh")
 	const timeSeries = new TimeSeries(Series.regular("PT1H"), [price])
 	return timeSeries
 }
