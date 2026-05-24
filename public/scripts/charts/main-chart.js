@@ -19,9 +19,27 @@ export function renderMainChart(containerId, priceData, radiationData) {
 	const radiationMin = Math.min(...radiationValues);
 	const radiationMax = Math.max(...radiationValues);
 
-	// Align zeros: find absolute max magnitude on each axis
-	const priceAbsMax = Math.max(Math.abs(priceMin), Math.abs(priceMax));
-	const radiationAbsMax = Math.max(Math.abs(radiationMin), Math.abs(radiationMax));
+	// Set axis min: use actual min if negative, else 0
+	const priceAxisMin = priceMin < 0 ? priceMin : 0;
+	const radiationAxisMin = radiationMin < 0 ? radiationMin : 0;
+
+	// Align zeros: calculate ratio of below/above zero for each axis
+	const priceBelowZero = Math.abs(priceAxisMin);
+	const priceAboveZero = priceMax;
+	const radiationBelowZero = Math.abs(radiationAxisMin);
+	const radiationAboveZero = radiationMax;
+
+	// For each axis, ensure min/max symmetric around zero at same ratio
+	// Find which axis needs more expansion
+	const priceRatio = priceBelowZero > 0 ? priceAboveZero / priceBelowZero : 1;
+	const radiationRatio = radiationBelowZero > 0 ? radiationAboveZero / radiationBelowZero : 1;
+
+	// Use max ratio for both—this aligns zeros
+	const maxRatio = Math.max(priceRatio, radiationRatio);
+
+	// Recalculate mins to align zeros using max ratio
+	const priceAxisMinAdjusted = -(priceAboveZero / maxRatio);
+	const radiationAxisMinAdjusted = -(radiationAboveZero / maxRatio);
 
 	const option = {
 		tooltip: {
@@ -56,8 +74,8 @@ export function renderMainChart(containerId, priceData, radiationData) {
 				type: "value",
 				name: priceUnit,
 				position: "left",
-				min: -priceAbsMax,
-				max: priceAbsMax,
+				min: priceAxisMinAdjusted,
+				max: priceMax,
 				axisLine: {
 					show: true,
 					lineStyle: { color: "#0078d4" }
@@ -70,8 +88,8 @@ export function renderMainChart(containerId, priceData, radiationData) {
 				type: "value",
 				name: irradianceUnit,
 				position: "right",
-				min: -radiationAbsMax,
-				max: radiationAbsMax,
+				min: radiationAxisMinAdjusted,
+				max: radiationMax,
 				axisLine: {
 					show: true,
 					lineStyle: { color: "#ff8c00" }
