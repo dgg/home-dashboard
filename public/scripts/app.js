@@ -3,6 +3,7 @@ import { fetchSolarRadiation } from "./api/solar-radiation.js"
 import { fetchSolarProduction } from "./api/solar-production.js"
 import { renderMainChart as renderIrradianceChart } from "./charts/irradiance-chart.js"
 import { renderPriceChart } from "./charts/price-chart.js"
+import { renderProductionChart } from "./charts/production-chart.js"
 
 async function init() {
 	try {
@@ -15,13 +16,14 @@ async function init() {
 		const [priceData, radiationData, productionData] = await Promise.all([
 			fetchSpotPrices(),
 			fetchSolarRadiation(),
-			//fetchSolarProduction(localhost)
+			fetchSolarProduction()
 		])
 
 		console.info("All data loaded, rendering...")
 
 		renderPriceChart("price-chart-container", priceData)
 		renderIrradianceChart("irradiance-chart-container", priceData, radiationData)
+		renderProductionChart("production-chart-container", productionData)
 
 	} catch (error) {
 		console.error("Dashboard initialization failed:", error);
