@@ -18,7 +18,7 @@ h3 {
 }
 
 /* Ensure chart container takes up available space */
-#chart-container {
+.chart-container {
 	height: 100%;
 	width: 100%;
 }

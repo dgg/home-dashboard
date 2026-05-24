@@ -6,6 +6,7 @@ class ApiUrl {
 	static build(host, dt, area = "DK1") {
 		const effectiveHost = host ?? new URL("https://www.elprisenligenu.dk")
 
+		console.log("Fetching spot prices from", effectiveHost)
 		const path = `/api/v1/prices/${dt.year}/${this.#month(dt)}-${this.#day(dt)}_${area}.json`
 		return new URL(path, effectiveHost)
 	}

@@ -1,8 +1,4 @@
 @host = http://localhost:8081
-#@host = https://api.energidataservice.dk
+#@host = https://www.elprisenligenu.dk/
 
-GET {{host}}/dataset/DayAheadPrices
-?filter=%7B%22PriceArea%22:[%22DK1%22]%7D
-&start=StartOfDay
-&columns=TimeDK%2CDayAheadPriceDKK
-&sort=TimeDK%20ASC
+GET {{host}}/api/v1/prices/2026/05-24_DK1.json

@@ -1,13 +1,19 @@
 {
 	"request": {
 		"method": "GET",
-		"urlPath": "/dataset/DayAheadPrices"
+		"urlPathTemplate": "/api/v1/prices/{year}/{month}-{day}_{area}.json"
 	},
 	"response": {
 		"status": 200,
 		"bodyFileName": "spot-prices.json",
 		"headers": {
-			"Content-Type": "application/json"
+			"Content-Type": "application/json",
+			"Access-Control-Allow-Origin": "*",
+			"Access-Control-Allow-Methods": "*",
+			"Access-Control-Allow-Headers": "Accept, Content-Type, Content-Encoding, Server, Transfer-Encoding",
+			"X-Content-Type-Options": "nosniff",
+			"x-frame-options": "DENY",
+			"x-xss-protection": "1; mode=block"
 		}
 	}
 }

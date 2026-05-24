@@ -1,7 +1,8 @@
 import { fetchSpotPrices } from "./api/spot-prices.js"
 import { fetchSolarRadiation } from "./api/solar-radiation.js"
 import { fetchSolarProduction } from "./api/solar-production.js"
-import { renderMainChart } from "./charts/main-chart.js"
+import { renderMainChart as renderIrradianceChart } from "./charts/irradiance-chart.js"
+import { renderPriceChart } from "./charts/price-chart.js"
 
 async function init() {
 	try {
@@ -12,19 +13,20 @@ async function init() {
 
 		// Load data in parallel
 		const [priceData, radiationData, productionData] = await Promise.all([
-			fetchSpotPrices(),
-			fetchSolarRadiation(),
+			fetchSpotPrices(localhost),
+			fetchSolarRadiation(localhost),
 			//fetchSolarProduction(localhost)
 		])
 
 		console.info("All data loaded, rendering...")
 
-		renderMainChart("chart-container", priceData, radiationData)
+		renderPriceChart("price-chart-container", priceData)
+		renderIrradianceChart("irradiance-chart-container", priceData, radiationData)
 
 	} catch (error) {
 		console.error("Dashboard initialization failed:", error);
 		// Error handling as per AGENTS.md: surface in UI
-		const container = document.getElementById("chart-container");
+		const container = document.getElementById("price-chart-container");
 		if (container) {
 			container.innerHTML =
 			`<div style="color: #d83b01; padding: 2rem; text-align: center;">
