@@ -43,12 +43,17 @@ export function renderMainChart(containerId, priceData, radiationData) {
 				`${radiationData.header.columns[2].name} (${radiationData.header.columns[2].symbol})`,
 				`${radiationData.header.columns[3].name} (${radiationData.header.columns[3].symbol})`
 			],
-			bottom: 0
+			left: "center",
+			top: 0,
+			itemWidth: 12,
+			itemHeight: 8,
+			textStyle: { fontSize: 10 }
 		},
 		grid: {
 			left: "3%",
 			right: "4%",
-			bottom: "10%",
+			top: 22,
+			bottom: 8,
 			containLabel: true
 		},
 		xAxis: [
@@ -61,7 +66,10 @@ export function renderMainChart(containerId, priceData, radiationData) {
 			{
 				type: "value",
 				name: priceData.header.columns[1].symbol,
-				nameTextStyle: { color: "#0078d4" },
+				nameLocation: "middle",
+				nameRotate: 90,
+				nameGap: 36,
+				nameTextStyle: { color: "#0078d4", fontSize: 10, fontWeight: "bold" },
 				position: "left",
 				min: priceAxisMinAdjusted,
 				max: priceMax,
@@ -77,6 +85,10 @@ export function renderMainChart(containerId, priceData, radiationData) {
 			{
 				type: "value",
 				name: radiationData.header.columns[1].symbol,
+				nameLocation: "middle",
+				nameRotate: 90,
+				nameGap: 36,
+				nameTextStyle: { color: "#ff8c00", fontSize: 10, fontWeight: "bold" },
 				position: "right",
 				min: radiationAxisMinAdjusted,
 				max: radiationMax,
@@ -111,7 +123,7 @@ export function renderMainChart(containerId, priceData, radiationData) {
 							yAxis: priceData.header.columns[1].avg,
 							lineStyle: { type: "dashed", color: "#63276d" },
 							label: {
-								formatter: `Avg: ${priceData.header.columns[1].avg.toFixed(2)}`,
+								formatter: `${priceData.header.columns[1].avg.toFixed(2)}`,
 								position: "start",
 								color: "#63276d"
 							}
