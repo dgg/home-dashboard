@@ -8,8 +8,8 @@ export class Series {
 	 * @param {string} [period] - The period for regular series (optional)ß
 	 */
 	constructor(kind, period = undefined) {
-		this.kind = kind;
-		this.period = period;
+		this.kind = kind
+		this.period = period
 	}
 
 	/**
@@ -18,11 +18,11 @@ export class Series {
 	 * @returns {Series} A regular Series instance
 	 */
 	static regular(period) {
-		let effectivePeriod = period;
+		let effectivePeriod = period
 		if (typeof period === "string") {
-			effectivePeriod = Temporal.Duration.from(period);
+			effectivePeriod = Temporal.Duration.from(period)
 		} else if (!(period instanceof Temporal.Duration)) {
-			throw new Error('Period must be a string in ISO 8601 format or a Temporal.Duration instance');
+			throw new Error('Period must be a string in ISO 8601 format or a Temporal.Duration instance')
 		}
 		return new Series("regular", effectivePeriod)
 	}
@@ -32,7 +32,7 @@ export class Series {
 	 * @returns {Series} An irregular Series instance
 	 */
 	static irregular() {
-		return new Series("irregular");
+		return new Series("irregular")
 	}
 }
 
@@ -40,6 +40,7 @@ export class Series {
  * Represents a column in the time series
  */
 export class Column {
+	#count = 0
 	/**
 	 * Create a Column instance
 	 * @param {string} name - The name of the column
@@ -48,10 +49,13 @@ export class Column {
 	 * @param {string} symbol - The unit of measurement symbol (optional)
 	 */
 	constructor(name, quantifiable, unit, symbol = "") {
-		this.name = name;
-		this.quantifiable = quantifiable;
-		this.unit = unit;
-		this.symbol = symbol;
+		this.name = name
+		this.quantifiable = quantifiable
+		this.unit = unit
+		this.symbol = symbol
+		this.min = undefined
+		this.max = undefined
+		this.avg = undefined
 	}
 
 	/**
@@ -59,7 +63,27 @@ export class Column {
 	 * @returns {Column} A time Column instance
 	 */
 	static time() {
-		return new Column("ts", "Time", "UNITLESS");
+		return new Column("ts", "Time", "UNITLESS")
+	}
+
+	/**
+	 * Recalculates the aggregates with each new value added
+	 * @param {number} val - The value to add
+	 */
+	recalculateAggregates(val) {
+		// recalculate column minimum
+		if (this.min === undefined || val < this.min) this.min = val
+
+		// recalculate column maximum
+		if (this.max === undefined || val > this.max) this.max = val
+
+		// recalculate column average
+		if (this.avg === undefined) {
+			this.avg = val
+		} else {
+			this.avg = this.avg + (val - this.avg) / (this.#count + 1)
+		}
+		this.#count++
 	}
 }
 
@@ -76,11 +100,11 @@ class Header {
 	 * @param {Array<Column>} columns - The array of columns
 	 */
 	constructor(series, start, end, records, columns) {
-		this.series = series;
-		this.start = start;
-		this.end = end;
-		this.records = records;
-		this.columns = columns;
+		this.series = series
+		this.start = start
+		this.end = end
+		this.records = records
+		this.columns = columns
 	}
 }
 
@@ -98,7 +122,7 @@ export class TimeSeries {
 		// add time if not there
 		this.columns = columns[0].name !== "ts" ? [Column.time(), ...columns] : columns
 
-		this.rows = [];
+		this.rows = []
 	}
 
 	/**
@@ -109,11 +133,15 @@ export class TimeSeries {
 	 * @throws {Error} If timestamp is invalid or number of values doesn't match columns
 	 */
 	addRecord(ts, ...values) {
-		this.#assertColumns(values);
+		this.#assertColumns(values)
 
-		this.rows.push([ts, ...values]);
-		// fluently build
-		return this;
+		this.rows.push([ts, ...values])
+
+		values.forEach((val, i) => {
+			this.columns[i + 1].recalculateAggregates(val)
+		})
+
+		return this
 	}
 
 	/**
@@ -123,9 +151,9 @@ export class TimeSeries {
 	 * @throws {Error} If the number of values doesn't match the number of columns
 	 */
 	#assertColumns(values) {
-		const recordLength = this.columns.length -1; // +1 for timestamp
+		const recordLength = this.columns.length -1 // +1 for timestamp
 		if (values.length !== recordLength) {
-			throw new Error(`Expected ${recordLength} values, but got ${values.length}.`);
+			throw new Error(`Expected ${recordLength} values, but got ${values.length}.`)
 		}
 	}
 
@@ -135,13 +163,16 @@ export class TimeSeries {
 	 * @throws {Error} If there are no records to build from
 	 */
 	build() {
-		this.#assertRecords();
+		this.#assertRecords()
 
 		// sort by ts ascending
-		this.rows.sort((a, b) => a[0].epochMilliseconds - b[0].epochMilliseconds);
+		this.rows.sort((a, b) => a[0].epochMilliseconds - b[0].epochMilliseconds)
 
-		const start = this.#calculateStart();
-		const end = this.#calculateEnd();
+		const start = this.#calculateStart()
+		const end = this.#calculateEnd()
+
+		this.columns[0].min = start
+		this.columns[0].max = end
 
 		const header = new Header(
 			this.series,
@@ -149,10 +180,10 @@ export class TimeSeries {
 			end,
 			this.rows.length,
 			this.columns
-		);
+		)
 
-		const built = { header, data: this.rows };
-		return built;
+		const built = { header, data: this.rows }
+		return built
 	}
 
 	/**
@@ -162,7 +193,7 @@ export class TimeSeries {
 	 */
 	#assertRecords() {
 		if (this.rows.length === 0) {
-			throw new Error('Cannot build a TimeSeries with no records');
+			throw new Error('Cannot build a TimeSeries with no records')
 		}
 	}
 
@@ -172,7 +203,7 @@ export class TimeSeries {
 	 * @returns {Date} The end date
 	 */
 	#calculateEnd() {
-		return this.rows[this.rows.length - 1][0];
+		return this.rows[this.rows.length - 1][0]
 	}
 
 	/**
@@ -181,6 +212,6 @@ export class TimeSeries {
 	 * @returns {Date} The start date
 	 */
 	#calculateStart() {
-		return this.rows[0][0];
+		return this.rows[0][0]
 	}
 }

@@ -4,20 +4,19 @@ export function renderMainChart(containerId, priceData, radiationData) {
 
 	const chart = echarts.init(container)
 
-	// Calculate min/max for price (left axis)
-	const priceValues = priceData.data.map(d => d[1])
-	const priceMin = Math.min(...priceValues)
-	const priceMax = Math.max(...priceValues)
-
 	// Calculate max for radiation (right axis) — values are always positive
-	const radiationValues = radiationData.data.flatMap(d => [d[1], d[2], d[3]])
-	const radiationMax = Math.max(...radiationValues)
+	const radiationMax = Math.max(
+		radiationData.header.columns[1].max,
+		radiationData.header.columns[2].max,
+		radiationData.header.columns[3].max)
 
 	// Set axis min
+	const priceMin = priceData.header.columns[1].min
 	const priceAxisMin = priceMin < 0 ? priceMin : 0
 
 	// Align zeros: calculate ratio of below/above zero for each axis
 	const priceBelowZero = Math.abs(priceAxisMin)
+	const priceMax = priceData.header.columns[1].max
 	const priceAboveZero = priceMax
 
 	// For each axis, ensure min/max symmetric around zero at same ratio
