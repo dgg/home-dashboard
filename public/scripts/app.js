@@ -14,7 +14,7 @@ async function init() {
 		const [priceData, radiationData, productionData] = await Promise.all([
 			fetchSpotPrices(),
 			fetchSolarRadiation(),
-			fetchSolarProduction(localhost)
+			//fetchSolarProduction(localhost)
 		])
 
 		console.info("All data loaded, rendering...")
