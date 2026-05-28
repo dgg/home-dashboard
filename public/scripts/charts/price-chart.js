@@ -48,9 +48,7 @@ export function renderPriceChart(containerId, priceData) {
 				nameGap: 36,
 				nameTextStyle: { fontSize: 10, fontWeight: "bold" },
 				position: "left",
-				axisLine: {
-					show: true,
-				},
+				axisLine: { show: true, },
 				axisLabel: {
 					formatter: "{value}"
 				}

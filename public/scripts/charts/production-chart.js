@@ -1,15 +1,10 @@
-import { createLineIcon } from "./iconHelpers.js"
+import { createAreaIcon, createLineIcon, createBarIcon } from "./iconHelpers.js"
 
 export function renderProductionChart(containerId, productionData) {
 	const container = document.getElementById(containerId)
 	if (!container) return
 
 	const chart = echarts.init(container)
-
-	const powerMax = productionData.header.columns[1].max
-	const energyMax = Math.max(
-		productionData.header.columns[2].max,
-		productionData.header.columns[3].max)
 
 	const powerAxis = {
 		type: "value",
@@ -19,8 +14,7 @@ export function renderProductionChart(containerId, productionData) {
 		nameGap: 36,
 		nameTextStyle: { fontSize: 10, fontWeight: "bold" },
 		position: "left",
-		min: 0,
-		max: powerMax,
+		splitLine: { show: false },
 		axisLine: { show: true },
 		axisLabel: { formatter: "{value}" }
 	}
@@ -33,15 +27,16 @@ export function renderProductionChart(containerId, productionData) {
 		nameGap: 36,
 		nameTextStyle: { fontSize: 10 },
 		position: "right",
-		min: 0,
-		max: energyMax,
+		splitLine: {
+			lineStyle: { type: "dashed", opacity: 0.2 }
+		},
 		axisLine: { show: true },
 		axisLabel: { formatter: "{value}" }
 	}
 
 	const powerLegend = {
 		name: `${productionData.header.columns[1].name} (${productionData.header.columns[1].symbol})`,
-		icon: createLineIcon(12, 8, "#4caf50", "solid")
+		icon: createAreaIcon(12, 8, "#ffc107", 0.3)
 	}
 
 	const powerSeries = {
@@ -51,29 +46,41 @@ export function renderProductionChart(containerId, productionData) {
 		yAxisIndex: 0,
 		emphasis: { focus: "series" },
 		data: productionData.data.map(d => [d[0].epochMilliseconds, d[1]]),
-		symbol: "none",
-		lineStyle: { color: "#4caf50", width: 2 }
+		symbol: "circle", // Round markers
+		symbolSize: 4, // Size of the markers
+		showSymbol: true, // Ensure symbols are shown
+		lineStyle: { color: "#ffc107", width: 3 },
+		itemStyle: { color: "#ffffff", borderColor: "#ffc107", borderWidth: 2 }, // Hollow markers with yellow border
+		areaStyle: {
+			color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+				{ offset: 0, color: "rgba(255, 193, 7, 0.4)" },
+				{ offset: 1, color: "rgba(255, 193, 7, 0.02)" }
+			])
+		}
 	}
+
 
 	const energyLegend = {
 		name: `${productionData.header.columns[2].name} (${productionData.header.columns[2].symbol})`,
-		icon: createLineIcon(12, 8, "#ff9800", "dashed")
+		icon: createBarIcon(12, 8, "#FF8C00") // Updated to orange color
 	}
 
 	const energySeries = {
 		name: `${productionData.header.columns[2].name} (${productionData.header.columns[2].symbol})`,
-		type: "line",
-		smooth: true,
+		type: "bar",
 		yAxisIndex: 1,
-		emphasis: { focus: "series" },
+		itemStyle: {
+			color: '#FF8C00', // Orange color
+			opacity: 0.8,
+			borderRadius: [6, 6, 0, 0] // Increased rounding
+		},
+		barWidth: 20, // Fixed width in pixels for consistent thickness
+		barGap: '30%', // Increased gap between bars
 		data: productionData.data.map(d => [d[0].epochMilliseconds, d[2]]),
-		symbol: "none",
-		lineStyle: { color: "#ff9800", type: "dashed", width: 2 }
 	}
 
 	const accumulatedLegend = {
 		name: `${productionData.header.columns[3].name} (${productionData.header.columns[3].symbol})`,
-		icon: createLineIcon(12, 8, "#7c4dff", "dotted")
 	}
 
 	const accumulatedSeries = {
@@ -83,8 +90,11 @@ export function renderProductionChart(containerId, productionData) {
 		yAxisIndex: 1,
 		emphasis: { focus: "series" },
 		data: productionData.data.map(d => [d[0].epochMilliseconds, d[3]]),
-		symbol: "none",
-		lineStyle: { color: "#7c4dff", type: "dotted", width: 2 }
+		symbol: "circle", // Round markers
+		symbolSize: 4, // Size of the markers
+		showSymbol: true, // Ensure symbols are shown
+		lineStyle: { color: "#FF8C00", width: 2 }, // Changed to orange color
+		itemStyle: { color: "#ffffff", borderColor: "#FF8C00", borderWidth: 2 } // Hollow markers with orange border
 	}
 
 	const option = {
@@ -116,7 +126,7 @@ export function renderProductionChart(containerId, productionData) {
 		xAxis: [
 			{
 				type: "time",
-				boundaryGap: false
+				boundaryGap: ['2%', '2%'], // Add padding at both ends
 			}
 		],
 		yAxis: [
