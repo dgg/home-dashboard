@@ -6,6 +6,7 @@
 	"response": {
 		"status": 200,
 		"bodyFileName": "solar-production.forecast.json",
+		"transformers": ["response-template"],
 		"headers": {
 			"Content-Type": "application/json",
 			"Access-Control-Allow-Origin": "*",

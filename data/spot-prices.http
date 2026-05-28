@@ -1,4 +1,4 @@
 @host = http://localhost:8081
 #@host = https://www.elprisenligenu.dk/
 
-GET {{host}}/api/v1/prices/2026/05-24_DK1.json
+GET {{host}}/api/v1/prices/2026/05-29_DK1.json
