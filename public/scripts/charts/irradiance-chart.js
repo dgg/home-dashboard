@@ -8,31 +8,6 @@ export function renderMainChart(containerId, priceData, radiationData) {
 
 	const chart = echarts.init(container)
 
-	// Calculate max for radiation (right axis) — values are always positive
-	const radiationMax = Math.max(
-		radiationData.forecast.header.columns[1].max,
-		radiationData.forecast.header.columns[2].max,
-		radiationData.forecast.header.columns[3].max)
-
-	// Set axis min
-	const priceMin = priceData.forecast.header.columns[1].min
-	const priceAxisMin = priceMin < 0 ? priceMin : 0
-
-	// Align zeros: calculate ratio of below/above zero for each axis
-	const priceBelowZero = Math.abs(priceAxisMin)
-	const priceMax = priceData.forecast.header.columns[1].max
-	const priceAboveZero = priceMax
-
-	// For each axis, ensure min/max symmetric around zero at same ratio
-	const priceRatio = priceBelowZero > 0 ? priceAboveZero / priceBelowZero : 1
-
-	// Use max ratio for both — this aligns zeros
-	const maxRatio = Math.max(priceRatio, 1)
-
-	// Recalculate mins to align zeros using max ratio
-	const priceAxisMinAdjusted = -(priceAboveZero / maxRatio)
-	const radiationAxisMinAdjusted = -(radiationMax / maxRatio)
-
 	const priceAxis = {
 		type: "value",
 		name: priceData.forecast.header.columns[1].symbol,
@@ -41,8 +16,7 @@ export function renderMainChart(containerId, priceData, radiationData) {
 		nameGap: 36,
 		nameTextStyle: { fontSize: 10, fontWeight: "bold" },
 		position: "left",
-		min: priceAxisMinAdjusted,
-		max: priceMax,
+		min: 0, // no need to display rare negative values (they appear in tooltip and price chart)
 		axisLine: { show: true },
 		axisLabel: { formatter: "{value}" }
 	}
@@ -55,8 +29,6 @@ export function renderMainChart(containerId, priceData, radiationData) {
 		nameGap: 36,
 		nameTextStyle: { fontSize: 10 },
 		position: "right",
-		min: radiationAxisMinAdjusted,
-		max: radiationMax,
 		axisLine: { show: true },
 		axisLabel: { formatter: "{value}" }
 	}
