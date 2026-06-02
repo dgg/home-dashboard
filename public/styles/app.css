@@ -22,3 +22,63 @@ h3 {
 	height: 100%;
 	width: 100%;
 }
+
+.summary-container {
+	display: grid;
+	grid-template-columns: repeat(7, 1fr);
+	grid-template-rows: repeat(2, 1fr);
+	gap: 8px;
+	height: 100%;
+	box-sizing: border-box;
+}
+
+.summary-card {
+	display: flex;
+	flex-direction: column;
+	padding: 10px;
+	position: relative;
+	overflow: hidden;
+}
+
+.summary-card.tomorrow {
+	--fill-color: #faf9f8;
+	background-color: var(--fill-color);
+}
+
+.card-icon {
+	width: 24px;
+	height: 24px;
+	margin-bottom: 4px;
+}
+
+.card-label {
+	font-size: 0.7rem;
+	color: #605e5c;
+	font-weight: 400;
+	text-transform: uppercase;
+	letter-spacing: 0.5px;
+}
+
+.card-value {
+	font-size: 1.4rem;
+	font-weight: 600;
+	margin: 2px 0;
+	color: #323130;
+}
+
+.card-unit {
+	font-size: 0.75rem;
+	font-weight: 400;
+	color: #605e5c;
+}
+
+.card-time {
+	font-size: 0.75rem;
+	color: #0078d4;
+	font-weight: 500;
+	margin-top: auto;
+}
+
+.card-value.min { color: #107c10; }
+.card-value.max { color: #d13438; }
+.card-value.avg { color: #0078d4; }

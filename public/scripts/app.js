@@ -4,6 +4,7 @@ import { fetchSolarProduction } from "./api/solar-production.js"
 import { renderMainChart as renderIrradianceChart } from "./charts/irradiance-chart.js"
 import { renderPriceChart } from "./charts/price-chart.js"
 import { renderProductionChart } from "./charts/production-chart.js"
+import { renderSummaryCards } from "./charts/summary-cards.js"
 
 async function init() {
 	try {
@@ -21,6 +22,7 @@ async function init() {
 
 		console.info("All data loaded, rendering...")
 
+		renderSummaryCards("summary-cards-container", priceData, radiationData, productionData)
 		renderPriceChart("price-chart-container", priceData)
 		renderIrradianceChart("irradiance-chart-container", priceData, radiationData)
 		renderProductionChart("production-chart-container", productionData)
