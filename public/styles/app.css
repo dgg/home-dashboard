@@ -35,48 +35,54 @@ h3 {
 .summary-card {
 	display: flex;
 	flex-direction: column;
-	padding: 10px;
+	align-items: center;
+	justify-content: space-between;
+	padding: 12px 8px;
 	position: relative;
 	overflow: hidden;
+	text-align: center;
 }
 
 .summary-card.tomorrow {
-	--fill-color: #faf9f8;
+	--fill-color: #f3f2f1;
 	background-color: var(--fill-color);
 }
 
 .card-icon {
-	width: 24px;
-	height: 24px;
+	width: 40px;
+	height: 40px;
 	margin-bottom: 4px;
+	flex-shrink: 0;
 }
 
 .card-label {
-	font-size: 0.7rem;
+	font-size: 0.65rem;
 	color: #605e5c;
-	font-weight: 400;
+	font-weight: 600;
 	text-transform: uppercase;
 	letter-spacing: 0.5px;
+	line-height: 1.2;
 }
 
 .card-value {
-	font-size: 1.4rem;
-	font-weight: 600;
-	margin: 2px 0;
+	font-size: 1.6rem;
+	font-weight: 700;
+	margin: 4px 0;
 	color: #323130;
+	line-height: 1;
 }
 
 .card-unit {
-	font-size: 0.75rem;
+	font-size: 0.8rem;
 	font-weight: 400;
 	color: #605e5c;
 }
 
 .card-time {
-	font-size: 0.75rem;
+	font-size: 0.8rem;
 	color: #0078d4;
-	font-weight: 500;
-	margin-top: auto;
+	font-weight: 600;
+	margin-top: 2px;
 }
 
 .card-value.min { color: #107c10; }
