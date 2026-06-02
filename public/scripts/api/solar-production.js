@@ -62,7 +62,10 @@ export async function fetchSolarProduction(host = null) {
 				return acc.addRecord(ts, power, energy, accumulatedEnergy)
 			}, initForecast())
 
-		return { forecast: forecast.build() }
+		return { 
+			forecast: forecast.build(),
+			fetchedAt: Temporal.Now.zonedDateTimeISO(DK_TIMEZONE)
+		}
 	} catch (error) {
 		console.error(error)
 		throw error

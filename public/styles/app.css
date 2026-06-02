@@ -109,6 +109,13 @@ h3 {
 	margin: 0;
 }
 
+.header-fetch {
+	margin-left: auto;
+	font-size: 0.8rem;
+	color: #a19f9d;
+	font-weight: 600;
+}
+
 .day-header.tomorrow {
 	margin-top: 4px;
 	background-color: #faf9f8;

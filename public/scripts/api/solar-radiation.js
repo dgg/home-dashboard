@@ -76,7 +76,8 @@ export async function fetchSolarRadiation(host = null) {
 
 		return {
 			forecast: forecast.build(),
-			transit: transit.build()
+			transit: transit.build(),
+			fetchedAt: Temporal.Now.zonedDateTimeISO(DK_TIMEZONE)
 		}
 	} catch (error) {
 		console.error(error)

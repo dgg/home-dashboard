@@ -168,14 +168,18 @@ export function renderSummaryCards(containerId, priceData, radiationData, produc
 		return `${day}-${month}-${year}`
 	}
 
-	const addHeader = (title, date, isTomorrow) => {
+	const addHeader = (title, date, isTomorrow, fetchedAt) => {
 		const header = document.createElement("header")
 		header.className = `day-header ${isTomorrow ? 'tomorrow' : ''}`
-		header.innerHTML = `<h1>${title}</h1><h2 class="header-date">${formatDate(date)}</h2>`
+
+		const fetchedTime = fetchedAt ? fetchedAt.toPlainTime().toString({ smallestUnit: 'minutes' }) : ""
+		const fetchedHtml = fetchedTime ? `<div class="header-fetch">${fetchedTime}</div>` : ""
+
+		header.innerHTML = `<h1>${title}</h1><h2 class="header-date">${formatDate(date)}</h2>${fetchedHtml}`
 		container.appendChild(header)
 	}
 
-	addHeader("Today", today, false)
+	addHeader("Today", today, false, priceData.fetchedAt)
 	renderDay(container, today, false, priceData, radiationData, productionData)
 
 	addHeader("Tomorrow", tomorrow, true)

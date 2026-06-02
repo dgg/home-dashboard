@@ -69,7 +69,10 @@ export async function fetchSpotPrices(host = null) {
 			addRecords(forecast, tomorrowsData)
 		}
 
-		return { forecast: forecast.build() };
+		return { 
+			forecast: forecast.build(),
+			fetchedAt: Temporal.Now.zonedDateTimeISO(DK_TIMEZONE)
+		};
 	} catch (error) {
 		console.error(error);
 		throw error;
