@@ -71,6 +71,9 @@ export class Column {
 	 * @param {number} val - The value to add
 	 */
 	recalculateAggregates(val) {
+		if (typeof val !== "number") {
+			return
+		}
 		// recalculate column minimum
 		if (this.min === undefined || val < this.min) this.min = val
 

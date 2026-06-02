@@ -8,7 +8,7 @@ export function renderProductionChart(containerId, productionData) {
 
 	const powerAxis = {
 		type: "value",
-		name: productionData.header.columns[1].symbol,
+		name: productionData.forecast.header.columns[1].symbol,
 		nameLocation: "middle",
 		nameRotate: 90,
 		nameGap: 36,
@@ -21,7 +21,7 @@ export function renderProductionChart(containerId, productionData) {
 
 	const energyAxis = {
 		type: "value",
-		name: productionData.header.columns[2].symbol,
+		name: productionData.forecast.header.columns[2].symbol,
 		nameLocation: "middle",
 		nameRotate: 90,
 		nameGap: 36,
@@ -35,17 +35,16 @@ export function renderProductionChart(containerId, productionData) {
 	}
 
 	const powerLegend = {
-		name: `${productionData.header.columns[1].name} (${productionData.header.columns[1].symbol})`,
-		icon: createAreaIcon(12, 8, "#ffc107", 0.3)
+		name: `${productionData.forecast.header.columns[1].name} (${productionData.forecast.header.columns[1].symbol})`
 	}
 
 	const powerSeries = {
-		name: `${productionData.header.columns[1].name} (${productionData.header.columns[1].symbol})`,
+		name: `${productionData.forecast.header.columns[1].name} (${productionData.forecast.header.columns[1].symbol})`,
 		type: "line",
 		smooth: true,
 		yAxisIndex: 0,
 		emphasis: { focus: "series" },
-		data: productionData.data.map(d => [d[0].epochMilliseconds, d[1]]),
+		data: productionData.forecast.data.map(d => [d[0].epochMilliseconds, d[1]]),
 		symbol: "circle", // Round markers
 		symbolSize: 4, // Size of the markers
 		showSymbol: true, // Ensure symbols are shown
@@ -61,12 +60,12 @@ export function renderProductionChart(containerId, productionData) {
 
 
 	const energyLegend = {
-		name: `${productionData.header.columns[2].name} (${productionData.header.columns[2].symbol})`,
+		name: `${productionData.forecast.header.columns[2].name} (${productionData.forecast.header.columns[2].symbol})`,
 		icon: createBarIcon(12, 8, "#FF8C00") // Updated to orange color
 	}
 
 	const energySeries = {
-		name: `${productionData.header.columns[2].name} (${productionData.header.columns[2].symbol})`,
+		name: `${productionData.forecast.header.columns[2].name} (${productionData.forecast.header.columns[2].symbol})`,
 		type: "bar",
 		yAxisIndex: 1,
 		itemStyle: {
@@ -76,20 +75,20 @@ export function renderProductionChart(containerId, productionData) {
 		},
 		barWidth: 20, // Fixed width in pixels for consistent thickness
 		barGap: '30%', // Increased gap between bars
-		data: productionData.data.map(d => [d[0].epochMilliseconds, d[2]]),
+		data: productionData.forecast.data.map(d => [d[0].epochMilliseconds, d[2]]),
 	}
 
 	const accumulatedLegend = {
-		name: `${productionData.header.columns[3].name} (${productionData.header.columns[3].symbol})`,
+		name: `${productionData.forecast.header.columns[3].name} (${productionData.forecast.header.columns[3].symbol})`,
 	}
 
 	const accumulatedSeries = {
-		name: `${productionData.header.columns[3].name} (${productionData.header.columns[3].symbol})`,
+		name: `${productionData.forecast.header.columns[3].name} (${productionData.forecast.header.columns[3].symbol})`,
 		type: "line",
 		smooth: true,
 		yAxisIndex: 1,
 		emphasis: { focus: "series" },
-		data: productionData.data.map(d => [d[0].epochMilliseconds, d[3]]),
+		data: productionData.forecast.data.map(d => [d[0].epochMilliseconds, d[3]]),
 		symbol: "circle", // Round markers
 		symbolSize: 4, // Size of the markers
 		showSymbol: true, // Ensure symbols are shown

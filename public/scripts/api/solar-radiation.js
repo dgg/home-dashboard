@@ -26,11 +26,18 @@ const assertResponse = (response) => {
 	}
 }
 
-const initTimeSeries = () => {
+const initForecast = () => {
 	const direct = new Column("DirectRadiation", "PowerPerArea", "W-PER-M2", "W/m²")
 	const diffuse = new Column("DiffuseRadiation", "PowerPerArea", "W-PER-M2", "W/m²")
 	const tilted = new Column("TiltedIrradiance", "PowerPerArea", "W-PER-M2", "W/m²")
 	const timeSeries = new TimeSeries(Series.regular("PT1H"), [direct, diffuse, tilted])
+	return timeSeries
+}
+
+const initTransit = () => {
+	const sunset = new Column("Sunset", "Time", "UNITLESS", "一")
+	const sunrise = new Column("Sunrise", "Time", "UNITLESS", "一")
+	const timeSeries = new TimeSeries(Series.irregular(), [sunrise, sunset])
 	return timeSeries
 }
 
@@ -45,18 +52,31 @@ export async function fetchSolarRadiation(host = null) {
 		assertResponse(response)
 		const data = await response.json()
 
-		const timeSeries = data.hourly.time
+		const forecast = data.hourly.time
 			.reduce((acc, time, index) => {
 				const annotatedTime = `${time}[${DK_TIMEZONE}]`
 				return acc.addRecord(Temporal.ZonedDateTime.from(annotatedTime),
 					data.hourly.direct_radiation[index],
 					data.hourly.diffuse_radiation[index],
 					data.hourly.global_tilted_irradiance[index])
-			}, initTimeSeries())
+			}, initForecast())
 
-		return timeSeries.build();
+		const transit = data.daily.time.reduce((acc, ts, index) => {
+			const annotatedTimestamp = `${ts}[${DK_TIMEZONE}]`
+			const annotatedSunset = `${data.daily.sunset[index]}[${DK_TIMEZONE}]`
+			const annotatedSunrise = `${data.daily.sunrise[index]}[${DK_TIMEZONE}]`
+			return acc.addRecord(
+				Temporal.ZonedDateTime.from(annotatedTimestamp),
+				Temporal.ZonedDateTime.from(annotatedSunrise),
+				Temporal.ZonedDateTime.from(annotatedSunset))
+		}, initTransit())
+
+		return {
+			forecast: forecast.build(),
+			transit: transit.build()
+		}
 	} catch (error) {
-		console.error(error);
-		throw error;
+		console.error(error)
+		throw error
 	}
 }

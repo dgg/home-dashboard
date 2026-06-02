@@ -16,7 +16,7 @@ export function renderPriceChart(containerId, priceData) {
 		legend: {
 			data: [
 				{
-					name: `${priceData.header.columns[1].name} (${priceData.header.columns[1].symbol})`,
+					name: `${priceData.forecast.header.columns[1].name} (${priceData.forecast.header.columns[1].symbol})`,
 					icon: createGradientIcon(12, 8, "#dc626d", "#54b054")
 				}
 			],
@@ -42,7 +42,7 @@ export function renderPriceChart(containerId, priceData) {
 		yAxis: [
 			{
 				type: "value",
-				name: priceData.header.columns[1].symbol,
+				name: priceData.forecast.header.columns[1].symbol,
 				nameLocation: "middle",
 				nameRotate: 90,
 				nameGap: 36,
@@ -56,12 +56,12 @@ export function renderPriceChart(containerId, priceData) {
 		],
 		series: [
 			{
-				name: `${priceData.header.columns[1].name} (${priceData.header.columns[1].symbol})`,
+				name: `${priceData.forecast.header.columns[1].name} (${priceData.forecast.header.columns[1].symbol})`,
 				type: "bar",
-				data: priceData.data.map(d => ({
+				data: priceData.forecast.data.map(d => ({
 					value: [d[0].epochMilliseconds, d[1]],
 					itemStyle: {
-						color: d[1] > priceData.header.columns[1].avg ? "#dc626d" : "#54b054"
+						color: d[1] > priceData.forecast.header.columns[1].avg ? "#dc626d" : "#54b054"
 					}
 				})),
 				itemStyle: {
@@ -72,10 +72,10 @@ export function renderPriceChart(containerId, priceData) {
 					symbol: "none",
 					data: [
 						{
-							yAxis: priceData.header.columns[1].avg,
+							yAxis: priceData.forecast.header.columns[1].avg,
 							lineStyle: { type: "dashed", color: "#adadad" },
 							label: {
-								formatter: `${priceData.header.columns[1].avg.toFixed(2)}`,
+								formatter: `${priceData.forecast.header.columns[1].avg.toFixed(2)}`,
 								position: "start",
 								color: "#adadad"
 							}

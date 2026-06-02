@@ -18,7 +18,7 @@ class ApiUrl {
 	}
 }
 
-const initTimeSeries = () => {
+const initForecast = () => {
 	const price = new Column("SpotPrice", "CostPerEnergy", "CCY_DKK-PER-KiloW-HR", "DKK/kWh")
 	const timeSeries = new TimeSeries(Series.regular("PT1H"), [price])
 	return timeSeries
@@ -26,7 +26,7 @@ const initTimeSeries = () => {
 
 const addRecords = (timeSeries, records) => {
 	for (const record of records) {
-		const annotatedTime =`${record.time_start}[${DK_TIMEZONE}]`
+		const annotatedTime = `${record.time_start}[${DK_TIMEZONE}]`
 		const ts = Temporal.ZonedDateTime.from(annotatedTime)
 		timeSeries.addRecord(ts, record.DKK_per_kWh)
 	}
@@ -60,15 +60,15 @@ export async function fetchSpotPrices(host = null) {
 
 		const todaysData = await todayResponse.json()
 
-		const timeSeries = initTimeSeries()
-		addRecords(timeSeries, todaysData)
+		const forecast = initForecast()
+		addRecords(forecast, todaysData)
 
 		if (tomorrowResponse.ok) {
 			const tomorrowsData = await tomorrowResponse.json()
-			addRecords(timeSeries, tomorrowsData)
+			addRecords(forecast, tomorrowsData)
 		}
 
-		return timeSeries.build();
+		return { forecast: forecast.build() };
 	} catch (error) {
 		console.error(error);
 		throw error;
