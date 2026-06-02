@@ -3,6 +3,12 @@
 body {
 	background-color: var(--body-bg);
 	color: #323130;
+	font-family: var(--body-font);
+	margin: 0;
+	padding: 0;
+	width: 960px;
+	height: 476px;
+	overflow: hidden;
 }
 
 fluent-card {
@@ -10,16 +16,59 @@ fluent-card {
 	background-color: #ffffff;
 	border-radius: 8px;
 	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+	padding: 0.5rem 0.75rem;
+	height: 100%;
+	box-sizing: border-box;
+	display: flex;
+	flex-direction: column;
+}
+
+main {
+	width: 100%;
+	height: 100%;
+}
+
+/* Hide scrollbar */
+.swipe-view::-webkit-scrollbar {
+	display: none;
+}
+
+.swipe-view {
+	display: flex;
+	overflow-x: auto;
+	scroll-snap-type: x mandatory;
+	width: 100%;
+	height: 100%;
+	-webkit-overflow-scrolling: touch;
+	-ms-overflow-style: none;
+	scrollbar-width: none;
+}
+
+.dashboard-container {
+	flex: 0 0 100%;
+	width: 100%;
+	height: 100%;
+	scroll-snap-align: start;
+	box-sizing: border-box;
+	padding: 8px;
+}
+
+
+.chart-container {
+	flex: 1;
+	width: 100%;
 }
 
 h3 {
-	font-weight: 600;
+	/*font-weight: 600;*/
 	color: #0078d4;
 }
 
 /* Ensure chart container takes up available space */
 .chart-container {
 	height: 100%;
+	width: 100%;
+	flex: 1;
 	width: 100%;
 }
 
@@ -34,12 +83,8 @@ h3 {
 
 .day-header {
 	grid-column: span 7;
-	font-size: 1.1rem;
-	font-weight: 800;
-	color: #323130;
-	text-transform: uppercase;
-	letter-spacing: 1.5px;
 	padding: 6px 10px;
+	margin: 0;
 	background-color: #ffffff;
 	border-radius: 4px;
 	display: flex;
@@ -48,15 +93,25 @@ h3 {
 	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
 }
 
+.day-header h1 {
+	font-size: 1.1rem;
+	font-weight: 800;
+	color: #323130;
+	letter-spacing: 0.5px;
+	margin: 0;
+}
+
 .header-date {
 	color: #605e5c;
 	font-weight: 600;
 	font-size: 0.9rem;
 	letter-spacing: 0.5px;
+	margin: 0;
 }
 
 .day-header.tomorrow {
 	margin-top: 4px;
+	background-color: #faf9f8;
 }
 
 .summary-card {
@@ -75,9 +130,37 @@ h3 {
 	background-color: var(--fill-color);
 }
 
+.min path {
+	fill: #107c10
+}
+
+.max path {
+	fill: #b10e1c
+}
+
+.avg path {
+	fill: #4a89ba
+}
+
+.sunrise path {
+	fill: #ff8c00
+}
+
+.sunset path {
+	fill: #ea4335
+}
+
+.irradiance path {
+	fill: #ffb900
+}
+
+.production path {
+	fill: #4cb4b7
+}
+
 .card-icon {
-	width: 32px;
-	height: 32px;
+	width: 48px;
+	height: 48px;
 	margin-bottom: 6px;
 	flex-shrink: 0;
 }
@@ -113,7 +196,7 @@ h3 {
 }
 
 .card-value {
-	font-size: 2rem;
+	font-size: 2.75rem;
 	font-weight: 700;
 	margin: 0;
 	color: #323130;
@@ -149,10 +232,22 @@ h3 {
 	color: inherit;
 }
 
+.time-icon path {
+	fill: currentColor;
+}
+
 .card-time .time-icon {
 	color: #605e5c;
 }
 
-.card-value.min { color: #107c10; }
-.card-value.max { color: #d13438; }
-.card-value.avg { color: #0078d4; }
+.card-value.min {
+	color: #107c10;
+}
+
+.card-value.max {
+	color: #d13438;
+}
+
+.card-value.avg {
+	color: #0078d4;
+}

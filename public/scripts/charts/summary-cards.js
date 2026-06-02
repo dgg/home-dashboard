@@ -1,184 +1,183 @@
 /**
  * Helper to render summary cards
  */
-
 const ICONS = {
-	PRICE_MIN: `<svg class="card-icon" viewBox="0 0 24 24" fill="#107c10"><path d="M7 15.5c0 .28.22.5.5.5h9a.5.5 0 0 0 0-1h-9a.5.5 0 0 0-.5.5ZM7.5 12h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1 0-1ZM7.5 9h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1 0-1ZM12 2a10 10 0 1 1 0 20 10 10 0 0 1 0-20Zm5 14.5a1.5 1.5 0 0 0 0-3h-.08a1.5 1.5 0 1 0-9.84 0h-.08a1.5 1.5 0 0 0 0 3h10Z"/></svg>`,
-	PRICE_AVG: `<svg class="card-icon" viewBox="0 0 24 24" fill="#0078d4"><path d="M3.5 17a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2a.5.5 0 0 1 .5-.5ZM7.5 14a.5.5 0 0 1 .5.5v5a.5.5 0 0 1-1 0v-5a.5.5 0 0 1 .5-.5ZM11.5 11a.5.5 0 0 1 .5.5v8a.5.5 0 0 1-1 0v-8a.5.5 0 0 1 .5-.5ZM16 7.5a.5.5 0 0 0-1 0v12a.5.5 0 0 0 1 0v-12ZM20 4.5a.5.5 0 0 0-1 0v15a.5.5 0 0 0 1 0v-15Z"/></svg>`,
-	PRICE_MAX: `<svg class="card-icon" viewBox="0 0 24 24" fill="#d13438"><path d="M7 15.5c0 .28.22.5.5.5h9a.5.5 0 0 0 0-1h-9a.5.5 0 0 0-.5.5ZM7.5 12h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1 0-1ZM7.5 9h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1 0-1ZM12 2a10 10 0 1 1 0 20 10 10 0 0 1 0-20Zm5 14.5a1.5 1.5 0 0 0 0-3h-.08a1.5 1.5 0 1 0-9.84 0h-.08a1.5 1.5 0 0 0 0 3h10Z"/></svg>`,
-	SUNRISE: `<svg class="card-icon" viewBox="0 0 24 24" fill="#ff8c00"><path d="M12 5a1 1 0 0 1 1 1v2a1 1 0 1 1-2 0V6a1 1 0 0 1 1-1ZM5.64 6.05a1 1 0 0 1 1.41 0l1.42 1.42a1 1 0 0 1-1.42 1.42L5.64 7.46a1 1 0 0 1 0-1.41ZM18.36 6.05a1 1 0 0 1 0 1.41l-1.42 1.42a1 1 0 1 1-1.41-1.42l1.41-1.41a1 1 0 0 1 1.42 0ZM3 12a1 1 0 0 1 1-1h2a1 1 0 1 1 0 2H4a1 1 0 0 1-1-1ZM18 12a1 1 0 0 1 1-1h2a1 1 0 1 1 0 2h-2a1 1 0 0 1-1-1ZM12 9a6 6 0 0 1 6 6v2a1 1 0 1 1-2 0v-2a4 4 0 1 0-8 0v2a1 1 0 1 1-2 0v-2a6 6 0 0 1 6-6ZM5.64 17.95a1 1 0 0 1 1.41-1.42l1.42 1.42a1 1 0 1 1-1.42 1.41l-1.41-1.41ZM18.36 17.95a1 1 0 0 1-1.42-1.42l-1.41 1.42a1 1 0 1 1 1.41 1.41l1.42-1.41Z"/></svg>`,
-	SUNSET: `<svg class="card-icon" viewBox="0 0 24 24" fill="#ea4335"><path d="M12 5a1 1 0 0 1 1 1v2a1 1 0 1 1-2 0V6a1 1 0 0 1 1-1ZM5.64 6.05a1 1 0 0 1 1.41 0l1.42 1.42a1 1 0 0 1-1.42 1.42L5.64 7.46a1 1 0 0 1 0-1.41ZM18.36 6.05a1 1 0 0 1 0 1.41l-1.42 1.42a1 1 0 1 1-1.41-1.42l1.41-1.41a1 1 0 0 1 1.42 0ZM3 12a1 1 0 0 1 1-1h2a1 1 0 1 1 0 2H4a1 1 0 0 1-1-1ZM18 12a1 1 0 0 1 1-1h2a1 1 0 1 1 0 2h-2a1 1 0 0 1-1-1ZM12 9a6 6 0 0 1 6 6v1H6v-1a6 6 0 0 1 6-6ZM5.64 17.95a1 1 0 0 1 1.41-1.42l1.42 1.42a1 1 0 1 1-1.42 1.41l-1.41-1.41ZM18.36 17.95a1 1 0 0 1-1.42-1.42l-1.41 1.42a1 1 0 1 1 1.41 1.41l1.42-1.41Z"/></svg>`,
-	IRRADIANCE: `<svg class="card-icon" viewBox="0 0 24 24" fill="#ffb900"><path d="M12 5a1 1 0 0 1 1 1v2a1 1 0 1 1-2 0V6a1 1 0 0 1 1-1ZM5.64 6.05a1 1 0 0 1 1.41 0l1.42 1.42a1 1 0 0 1-1.42 1.42L5.64 7.46a1 1 0 0 1 0-1.41ZM18.36 6.05a1 1 0 0 1 0 1.41l-1.42 1.42a1 1 0 1 1-1.41-1.42l1.41-1.41a1 1 0 0 1 1.42 0ZM3 12a1 1 0 0 1 1-1h2a1 1 0 1 1 0 2H4a1 1 0 0 1-1-1ZM18 12a1 1 0 0 1 1-1h2a1 1 0 1 1 0 2h-2a1 1 0 0 1-1-1ZM12 9a3 3 0 1 1 0 6 3 3 0 0 1 0-6ZM5.64 17.95a1 1 0 0 1 1.41-1.42l1.42 1.42a1 1 0 1 1-1.42 1.41l-1.41-1.41ZM18.36 17.95a1 1 0 0 1-1.42-1.42l-1.41 1.42a1 1 0 1 1 1.41 1.41l1.42-1.41ZM12 21a1 1 0 0 1 1-1h2a1 1 0 1 1 0 2h-2a1 1 0 0 1-1-1Z"/></svg>`,
-	PRODUCTION: `<svg class="card-icon" viewBox="0 0 24 24" fill="#00a2ad"><path d="M12.28 2.05a1 1 0 0 1 .68.29l8 8a1 1 0 0 1-1.42 1.42L13 5.41V21a1 1 0 1 1-2 0V5.41l-6.54 6.54a1 1 0 0 1-1.42-1.42l8-8a1 1 0 0 1 .68-.28ZM12 11a1 1 0 1 1 0 2 1 1 0 0 1 0-2Z"/></svg>`,
-	CLOCK: `<svg class="time-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2zM13 7v4.585l3.243 3.243a1 1 0 0 1-1.415 1.415L11.5 12.915A1 1 0 0 1 11 12.207V7a1 1 0 1 1 2 0z"/></svg>`
-};
+	PRICE: `<svg class="card-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+	<path d="M19 7C19 9.76142 15.866 12 12 12C8.13401 12 5 9.76142 5 7C5 4.23858 8.13401 2 12 2C15.866 2 19 4.23858 19 7ZM18.6197 10.3702C17.1803 11.9575 14.7525 13 12 13C9.24754 13 6.81974 11.9575 5.38031 10.3702C5.13383 10.881 5 11.4294 5 12C5 14.7614 8.13401 17 12 17C15.866 17 19 14.7614 19 12C19 11.4294 18.8662 10.881 18.6197 10.3702ZM18.6197 15.3702C17.1803 16.9575 14.7525 18 12 18C9.24754 18 6.81974 16.9575 5.38031 15.3702C5.13383 15.881 5 16.4294 5 17C5 19.7614 8.13401 22 12 22C15.866 22 19 19.7614 19 17C19 16.4294 18.8662 15.881 18.6197 15.3702Z" />
+	</svg>`,
+	PRICE_AVG: `<svg class="card-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+	<path d="M7.5 10V21H3.75C3.33579 21 3 20.6642 3 20.25V12.25C3 11.0074 4.00736 10 5.25 10H7.5ZM12.75 3C13.9926 3 15 4.00736 15 5.25V21H9V5.25C9 4.00736 10.0074 3 11.25 3H12.75ZM18.75 7C19.9926 7 21 8.00736 21 9.25V20.25C21 20.6642 20.6642 21 20.25 21H16.5V7H18.75Z" />
+	</svg>`,
+	SUNRISE: `<svg class="card-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+		<path d="M12 2C12.4142 2 12.75 2.33579 12.75 2.75V3.25C12.75 3.66421 12.4142 4 12 4C11.5858 4 11.25 3.66421 11.25 3.25V2.75C11.25 2.33579 11.5858 2 12 2ZM8 9C8 6.79086 9.79086 5 12 5C14.2091 5 16 6.79086 16 9C16 11.2091 14.2091 13 12 13C9.79086 13 8 11.2091 8 9ZM12.75 14.75C12.75 14.3358 12.4142 14 12 14C11.5858 14 11.25 14.3358 11.25 14.75V15.25C11.25 15.6642 11.5858 16 12 16C12.4142 16 12.75 15.6642 12.75 15.25V14.75ZM5.75 8C5.33579 8 5 8.33579 5 8.75C5 9.16421 5.33579 9.5 5.75 9.5H6.25C6.66421 9.5 7 9.16421 7 8.75C7 8.33579 6.66421 8 6.25 8H5.75ZM17 8.75C17 8.33579 17.3358 8 17.75 8H18.25C18.6642 8 19 8.33579 19 8.75C19 9.16421 18.6642 9.5 18.25 9.5H17.75C17.3358 9.5 17 9.16421 17 8.75ZM6.71967 5.78034C7.01256 6.07323 7.48744 6.07323 7.78033 5.78034C8.07322 5.48745 8.07322 5.01257 7.78033 4.71968L7.28033 4.21968C6.98744 3.92679 6.51256 3.92679 6.21967 4.21968C5.92678 4.51257 5.92678 4.98745 6.21967 5.28034L6.71967 5.78034ZM7.78033 12.2197C7.48744 11.9268 7.01256 11.9268 6.71967 12.2197L6.21967 12.7197C5.92678 13.0126 5.92678 13.4874 6.21967 13.7803C6.51256 14.0732 6.98744 14.0732 7.28033 13.7803L7.78033 13.2803C8.07322 12.9874 8.07322 12.5126 7.78033 12.2197ZM17.2803 5.78034C16.9874 6.07323 16.5126 6.07323 16.2197 5.78034C15.9268 5.48745 15.9268 5.01257 16.2197 4.71968L16.7197 4.21968C17.0126 3.92679 17.4874 3.92679 17.7803 4.21968C18.0732 4.51257 18.0732 4.98745 17.7803 5.28034L17.2803 5.78034ZM16.2197 12.2197C16.5126 11.9268 16.9874 11.9268 17.2803 12.2197L17.7803 12.7197C18.0732 13.0126 18.0732 13.4874 17.7803 13.7803C17.4874 14.0732 17.0126 14.0732 16.7197 13.7803L16.2197 13.2803C15.9268 12.9874 15.9268 12.5126 16.2197 12.2197ZM3.21824 21.8359C2.89481 22.0944 2.4231 22.0418 2.16444 21.7185C1.75623 21.2084 2.28256 20.6636 2.28256 20.6636L2.2839 20.6625L2.29919 20.6505C2.30873 20.643 2.32192 20.6328 2.33871 20.62C2.37228 20.5944 2.42023 20.5584 2.48208 20.5136C2.60575 20.4241 2.78516 20.299 3.0164 20.1504C3.47855 19.8533 4.14967 19.4607 4.9983 19.069C6.69334 18.2867 9.11404 17.5 12.0001 17.5C14.8861 17.5 17.3068 18.2867 19.0019 19.069C19.8505 19.4607 20.5216 19.8533 20.9838 20.1504C21.215 20.299 21.3944 20.4241 21.5181 20.5136C21.5799 20.5584 21.6279 20.5944 21.6615 20.62C21.6783 20.6328 21.6915 20.643 21.701 20.6505L21.7126 20.6595L21.7163 20.6625L21.7186 20.6643C22.0421 20.9231 22.0945 21.3951 21.8357 21.7185C21.5771 22.0418 21.105 22.0941 20.7816 21.8357L20.7773 21.8323L20.7518 21.8127C20.7277 21.7943 20.6898 21.7658 20.6383 21.7285C20.5354 21.654 20.3789 21.5447 20.1726 21.4121C19.7598 21.1467 19.1497 20.7893 18.3733 20.431C16.8183 19.7133 14.614 19 12.0001 19C9.38614 19 7.18184 19.7133 5.62688 20.431C4.85051 20.7893 4.24038 21.1467 3.82753 21.4121C3.62127 21.5447 3.46474 21.654 3.36185 21.7285C3.31041 21.7658 3.27243 21.7943 3.24838 21.8127L3.22284 21.8323L3.21824 21.8359Z" />
+	</svg>`,
+	SUNSET: `<svg class="card-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+		<path d="M12.75 2.75C12.75 2.33579 12.4142 2 12 2C11.5858 2 11.25 2.33579 11.25 2.75V4.25C11.25 4.66421 11.5858 5 12 5C12.4142 5 12.75 4.66421 12.75 4.25V2.75ZM19.0303 4.96966C19.3232 5.26255 19.3232 5.73743 19.0303 6.03032L17.9697 7.09098C17.6768 7.38387 17.2019 7.38387 16.909 7.09098C16.6161 6.79809 16.6161 6.32321 16.909 6.03032L17.9697 4.96966C18.2626 4.67677 18.7374 4.67677 19.0303 4.96966ZM6.59069 13C6.53112 12.6757 6.5 12.3415 6.5 12C6.5 8.96243 8.96243 6.5 12 6.5C15.0376 6.5 17.5 8.96243 17.5 12C17.5 12.3415 17.4689 12.6757 17.4093 13H21.25C21.6642 13 22 13.3358 22 13.75C22 14.1642 21.6642 14.5 21.25 14.5H2.75C2.33579 14.5 2 14.1642 2 13.75C2 13.3358 2.33579 13 2.75 13H6.59069ZM6.75 16C6.33579 16 6 16.3358 6 16.75C6 17.1642 6.33579 17.5 6.75 17.5H17.25C17.6642 17.5 18 17.1642 18 16.75C18 16.3358 17.6642 16 17.25 16H6.75ZM10.75 19C10.3358 19 10 19.3358 10 19.75C10 20.1642 10.3358 20.5 10.75 20.5H13.25C13.6642 20.5 14 20.1642 14 19.75C14 19.3358 13.6642 19 13.25 19H10.75ZM4.96978 4.96967C5.26268 4.67678 5.73755 4.67678 6.03044 4.96967L7.0911 6.03033C7.384 6.32322 7.384 6.7981 7.0911 7.09099C6.79821 7.38388 6.32334 7.38388 6.03044 7.09099L4.96978 6.03033C4.67689 5.73744 4.67689 5.26256 4.96978 4.96967Z" fill="#212121"/>
+	</svg>`,
+	IRRADIANCE: `<svg class="card-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+		<path d="M12 2C12.4142 2 12.75 2.33579 12.75 2.75V4.25C12.75 4.66421 12.4142 5 12 5C11.5858 5 11.25 4.66421 11.25 4.25V2.75C11.25 2.33579 11.5858 2 12 2ZM17 12C17 14.7614 14.7614 17 12 17C9.23858 17 7 14.7614 7 12C7 9.23858 9.23858 7 12 7C14.7614 7 17 9.23858 17 12ZM21.25 12.75C21.6642 12.75 22 12.4142 22 12C22 11.5858 21.6642 11.25 21.25 11.25H19.75C19.3358 11.25 19 11.5858 19 12C19 12.4142 19.3358 12.75 19.75 12.75H21.25ZM12 19C12.4142 19 12.75 19.3358 12.75 19.75V21.25C12.75 21.6642 12.4142 22 12 22C11.5858 22 11.25 21.6642 11.25 21.25V19.75C11.25 19.3358 11.5858 19 12 19ZM4.25 12.75C4.66421 12.75 5 12.4142 5 12C5 11.5858 4.66421 11.25 4.25 11.25H2.75C2.33579 11.25 2 11.5858 2 12C2 12.4142 2.33579 12.75 2.75 12.75H4.25ZM4.21967 4.22004C4.51256 3.92715 4.98744 3.92715 5.28033 4.22004L6.78033 5.72004C7.07322 6.01294 7.07322 6.48781 6.78033 6.7807C6.48744 7.0736 6.01256 7.0736 5.71967 6.7807L4.21967 5.2807C3.92678 4.98781 3.92678 4.51294 4.21967 4.22004ZM5.28033 19.7807C4.98744 20.0736 4.51256 20.0736 4.21967 19.7807C3.92678 19.4878 3.92678 19.0129 4.21967 18.72L5.71967 17.22C6.01256 16.9271 6.48744 16.9271 6.78033 17.22C7.07322 17.5129 7.07322 17.9878 6.78033 18.2807L5.28033 19.7807ZM19.7803 4.22004C19.4874 3.92715 19.0126 3.92715 18.7197 4.22004L17.2197 5.72004C16.9268 6.01294 16.9268 6.48781 17.2197 6.7807C17.5126 7.0736 17.9874 7.0736 18.2803 6.7807L19.7803 5.2807C20.0732 4.98781 20.0732 4.51294 19.7803 4.22004ZM18.7197 19.7807C19.0126 20.0736 19.4874 20.0736 19.7803 19.7807C20.0732 19.4878 20.0732 19.0129 19.7803 18.72L18.2803 17.22C17.9874 16.9271 17.5126 16.9271 17.2197 17.22C16.9268 17.5129 16.9268 17.9878 17.2197 18.2807L18.7197 19.7807Z" />
+	</svg>`,
+	PRODUCTION: `<svg class="card-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+		<path d="M8.60256 2C8.07392 2 7.60245 2.33254 7.42505 2.83052L4.10392 12.1532C3.69895 13.2899 4.53898 14.4858 5.74573 14.4904L7.31418 14.4964L6.04495 20.1645C5.71405 21.6422 7.53226 22.6236 8.586 21.536L12.5447 17.4502C12.5064 17.4344 12.4675 17.4199 12.4281 17.4066L11.0425 16.9567L11.0307 16.9525C10.7295 16.8463 10.4685 16.6494 10.2839 16.3886C10.0992 16.1278 10 15.8162 10 15.4966C10 15.1769 10.0992 14.8653 10.2839 14.6045C10.4685 14.3438 10.7295 14.1468 11.0307 14.0406L11.0425 14.0365L12.4225 13.5883C12.6875 13.4955 12.9277 13.3434 13.1247 13.1435C13.3175 12.9479 13.4638 12.7117 13.553 12.4524L13.5619 12.426L14.0121 11.0417L14.0163 11.03C14.1227 10.7286 14.3199 10.4678 14.5807 10.2834C14.8416 10.099 15.1531 10 15.4724 10C15.7918 10 16.1033 10.099 16.3641 10.2834C16.625 10.4678 16.8222 10.7286 16.9286 11.03L16.9328 11.0417L17.3833 12.4268L17.3907 12.4485L19.647 10.1198C20.4153 9.32682 19.8534 8 18.7492 8H14.7905L16.242 3.64528C16.5118 2.83587 15.9094 2 15.0562 2H8.60256ZM13.8539 17.1457C13.9377 17.2298 14.016 17.3189 14.0883 17.4123C14.2851 17.6666 14.4378 17.9533 14.539 18.2604L14.9868 19.6371C15.0242 19.7432 15.0937 19.8351 15.1856 19.9001C15.2776 19.9651 15.3874 20 15.5 20C15.6126 20 15.7224 19.9651 15.8144 19.9001C15.8964 19.8421 15.9605 19.7627 16 19.6709C16.0048 19.6598 16.0092 19.6486 16.0132 19.6371L16.461 18.2604C16.6003 17.8418 16.8353 17.4615 17.1474 17.1496C17.4595 16.8377 17.8402 16.6029 18.259 16.4637L19.6368 16.0163C19.743 15.9788 19.835 15.9094 19.9 15.8176C19.9651 15.7257 20 15.616 20 15.5034C20 15.3909 19.9651 15.2812 19.9 15.1893C19.835 15.0975 19.743 15.028 19.6368 14.9906L19.6093 14.9837L18.2315 14.5363C17.8126 14.3971 17.432 14.1623 17.1198 13.8504C16.8077 13.5385 16.5727 13.1582 16.4335 12.7396L15.9857 11.3629C15.9482 11.2568 15.8787 11.1649 15.7868 11.0999C15.6949 11.0349 15.5851 11 15.4724 11C15.3598 11 15.25 11.0349 15.1581 11.0999C15.0662 11.1649 14.9967 11.2568 14.9592 11.3629L14.5114 12.7396L14.5 12.7737C14.3623 13.1759 14.1357 13.5422 13.837 13.8454C13.5299 14.1571 13.1547 14.3935 12.741 14.5363L11.3632 14.9837C11.257 15.0212 11.165 15.0906 11.1 15.1824C11.0349 15.2743 11 15.384 11 15.4966C11 15.6091 11.0349 15.7188 11.1 15.8107C11.165 15.9025 11.257 15.972 11.3632 16.0094L12.741 16.4568C13.1606 16.5967 13.5417 16.8326 13.8539 17.1457ZM21.7829 21.2132L21.0175 20.9646C20.7848 20.8873 20.5733 20.7568 20.3999 20.5836C20.2265 20.4103 20.0959 20.199 20.0186 19.9665L19.7698 19.2016C19.749 19.1427 19.7104 19.0916 19.6593 19.0555C19.6083 19.0194 19.5473 19 19.4847 19C19.4221 19 19.3611 19.0194 19.31 19.0555C19.259 19.0916 19.2204 19.1427 19.1996 19.2016L18.9508 19.9665C18.875 20.1974 18.7467 20.4076 18.5761 20.5808C18.4055 20.7539 18.1971 20.8853 17.9672 20.9646L17.2018 21.2132C17.1428 21.234 17.0917 21.2725 17.0555 21.3236C17.0194 21.3746 17 21.4356 17 21.4981C17 21.5606 17.0194 21.6216 17.0555 21.6726C17.0917 21.7236 17.1428 21.7622 17.2018 21.783L17.9672 22.0316C18.2003 22.1093 18.412 22.2403 18.5855 22.4143C18.7589 22.5882 18.8893 22.8003 18.9661 23.0335L19.2149 23.7984C19.2357 23.8573 19.2743 23.9084 19.3254 23.9445C19.3764 23.9806 19.4374 24 19.5 24C19.5626 24 19.6236 23.9806 19.6746 23.9445C19.7257 23.9084 19.7643 23.8573 19.7851 23.7984L20.0339 23.0335C20.1113 22.801 20.2418 22.5897 20.4152 22.4164C20.5886 22.2432 20.8001 22.1127 21.0328 22.0354L21.7982 21.7868C21.8572 21.766 21.9083 21.7275 21.9445 21.6764C21.9806 21.6254 22 21.5644 22 21.5019C22 21.4394 21.9806 21.3784 21.9445 21.3274C21.9083 21.2764 21.8572 21.2378 21.7982 21.217L21.7829 21.2132Z" />
+	</svg>`,
+	CLOCK: `<svg class="time-icon" viewBox="0 0 24 24"><path d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2zM13 7v4.585l3.243 3.243a1 1 0 0 1-1.415 1.415L11.5 12.915A1 1 0 0 1 11 12.207V7a1 1 0 1 1 2 0z"/></svg>`
+}
 
 const formatTime = (ts) => {
-	if (!ts) return "--:--";
-	return ts.toPlainTime().toString({ smallestUnit: 'minutes' });
-};
+	if (!ts) return "--:--"
+	return ts.toPlainTime().toString({ smallestUnit: 'minutes' })
+}
 
 const createCard = (label, value, unit, time, icon, type, isTomorrow) => {
-	const card = document.createElement("fluent-card");
-	card.className = `summary-card ${isTomorrow ? 'tomorrow' : ''}`;
-	
-	let valueClass = "";
-	if (type === "min") valueClass = "min";
-	else if (type === "max") valueClass = "max";
-	else if (type === "avg") valueClass = "avg";
+	const card = document.createElement("fluent-card")
+	card.className = `summary-card ${isTomorrow ? 'tomorrow' : ''}`
 
-	const isTimedMetric = type === 'min' || type === 'max' || label === 'Max Irrad.';
+	let valueClass = ""
+	if (type === "min") valueClass = "min"
+	else if (type === "max") valueClass = "max"
+	else if (type === "avg") valueClass = "avg"
+
+	const isTimedMetric = type === 'min' || type === 'max' || label === 'Max Irrad.'
 	const timeHtml = time ? `<div class="card-time ${isTimedMetric ? 'align-right' : ''}">
 		${isTimedMetric ? ICONS.CLOCK : ''}
 		${time}
-	</div>` : '<div class="card-time"></div>';
+	</div>` : '<div class="card-time"></div>'
 
 	card.innerHTML = `
-		${icon}
+		<span class="${type}">${icon}</span>
 		<div class="card-header">
 			<div class="card-label">${label}</div>
 			<div class="card-unit">${unit}</div>
 		</div>
 		<div class="card-value ${valueClass}">${value !== null ? value : "--"}</div>
 		${timeHtml}
-	`;
-	return card;
-};
+	`
+	return card
+}
 
 const getStats = (data, colIndex) => {
-	if (!data || data.length === 0) return { min: null, max: null, avg: null };
-	
-	let minRow = data[0];
-	let maxRow = data[0];
-	let sum = 0;
-	let count = 0;
+	if (!data || data.length === 0) return { min: null, max: null, avg: null }
+
+	let minRow = data[0]
+	let maxRow = data[0]
+	let sum = 0
+	let count = 0
 
 	for (const row of data) {
-		const val = row[colIndex];
-		if (val === undefined || val === null) continue;
-		if (val < minRow[colIndex]) minRow = row;
-		if (val > maxRow[colIndex]) maxRow = row;
-		sum += val;
-		count++;
+		const val = row[colIndex]
+		if (val === undefined || val === null) continue
+		if (val < minRow[colIndex]) minRow = row
+		if (val > maxRow[colIndex]) maxRow = row
+		sum += val
+		count++
 	}
 
 	return {
 		min: { value: minRow[colIndex], time: minRow[0] },
 		max: { value: maxRow[colIndex], time: maxRow[0] },
 		avg: count > 0 ? sum / count : null
-	};
-};
+	}
+}
+
+// Filter data by day
+const getDayData = (ts, date) => ts.data.filter(row => row[0].toPlainDate().equals(date))
+
+const renderDay = (container, date, isTomorrow, priceData, radiationData, productionData) => {
+	const priceStats = getStats(getDayData(priceData.forecast, date), 1)
+	const radiationStats = getStats(getDayData(radiationData.forecast, date), 3)
+	const transit = radiationData.transit.data.find(row => row[0].toPlainDate().equals(date))
+	const totalEnergy = getDayData(productionData.forecast, date).reduce((sum, row) => sum + (row[2] || 0), 0)
+
+	// Min Price
+	container.appendChild(createCard(
+		"Min Price",
+		priceStats.min?.value.toFixed(2),
+		priceData.forecast.header.columns[1].symbol,
+		formatTime(priceStats.min?.time),
+		ICONS.PRICE, "min", isTomorrow
+	))
+
+	// Avg Price
+	container.appendChild(createCard(
+		"Avg Price",
+		priceStats.avg?.toFixed(2),
+		priceData.forecast.header.columns[1].symbol,
+		"",
+		ICONS.PRICE_AVG, "avg", isTomorrow
+	))
+
+	// Max Price
+	container.appendChild(createCard(
+		"Max Price",
+		priceStats.max?.value.toFixed(2),
+		priceData.forecast.header.columns[1].symbol,
+		formatTime(priceStats.max?.time),
+		ICONS.PRICE, "max", isTomorrow
+	))
+
+	// Sunrise
+	container.appendChild(createCard(
+		"Sunrise",
+		transit ? formatTime(transit[1]) : "--:--",
+		ICONS.CLOCK,
+		"",
+		ICONS.SUNRISE, "sunrise", isTomorrow
+	))
+
+	// Max Irradiance
+	container.appendChild(createCard(
+		"Max Irrad.",
+		radiationStats.max?.value.toFixed(0),
+		radiationData.forecast.header.columns[3].symbol,
+		formatTime(radiationStats.max?.time),
+		ICONS.IRRADIANCE, "irradiance", isTomorrow
+	))
+
+	// Production
+	container.appendChild(createCard(
+		"Production",
+		totalEnergy.toFixed(1),
+		productionData.forecast.header.columns[2].symbol,
+		"",
+		ICONS.PRODUCTION, "production", isTomorrow
+	))
+
+	// Sunset
+	container.appendChild(createCard(
+		"Sunset",
+		transit ? formatTime(transit[2]) : "--:--",
+		ICONS.CLOCK,
+		"",
+		ICONS.SUNSET, "sunset", isTomorrow
+	))
+}
 
 export function renderSummaryCards(containerId, priceData, radiationData, productionData) {
-	const container = document.getElementById(containerId);
-	if (!container) return;
-	container.innerHTML = "";
+	const container = document.getElementById(containerId)
+	if (!container) return
+	container.innerHTML = ""
 
-	const dkNow = Temporal.Now.zonedDateTimeISO("Europe/Copenhagen");
-	const today = dkNow.toPlainDate();
-	const tomorrow = today.add({ days: 1 });
+	const dkNow = Temporal.Now.zonedDateTimeISO("Europe/Copenhagen")
+	const today = dkNow.toPlainDate()
+	const tomorrow = today.add({ days: 1 })
 
 	const formatDate = (date) => {
-		const day = String(date.day).padStart(2, '0');
-		const month = String(date.month).padStart(2, '0');
-		const year = date.year;
-		return `${day}-${month}-${year}`;
-	};
-
-	// Filter data by day
-	const getDayData = (ts, date) => ts.data.filter(row => row[0].toPlainDate().equals(date));
-
-	const priceToday = getDayData(priceData.forecast, today);
-	const priceTomorrow = getDayData(priceData.forecast, tomorrow);
-
-	const radiationToday = getDayData(radiationData.forecast, today);
-	const radiationTomorrow = getDayData(radiationData.forecast, tomorrow);
-
-	const productionToday = getDayData(productionData.forecast, today);
-	const productionTomorrow = getDayData(productionData.forecast, tomorrow);
-
-	const transitToday = radiationData.transit.data.find(row => row[0].toPlainDate().equals(today));
-	const transitTomorrow = radiationData.transit.data.find(row => row[0].toPlainDate().equals(tomorrow));
+		const day = String(date.day).padStart(2, '0')
+		const month = String(date.month).padStart(2, '0')
+		const year = date.year
+		return `${day}-${month}-${year}`
+	}
 
 	const addHeader = (title, date, isTomorrow) => {
-		const header = document.createElement("div");
-		header.className = `day-header ${isTomorrow ? 'tomorrow' : ''}`;
-		header.innerHTML = `${title} <span class="header-date">${formatDate(date)}</span>`;
-		container.appendChild(header);
-	};
+		const header = document.createElement("header")
+		header.className = `day-header ${isTomorrow ? 'tomorrow' : ''}`
+		header.innerHTML = `<h1>${title}</h1><h2 class="header-date">${formatDate(date)}</h2>`
+		container.appendChild(header)
+	}
 
-	const renderDay = (date, prices, radiation, production, transit, isTomorrow) => {
-		const priceStats = getStats(prices, 1);
-		const radiationStats = getStats(radiation, 3);
-		const totalEnergy = production.reduce((sum, row) => sum + (row[2] || 0), 0);
+	addHeader("Today", today, false)
+	renderDay(container, today, false, priceData, radiationData, productionData)
 
-		// Min Price
-		container.appendChild(createCard(
-			"Min Price", 
-			priceStats.min?.value.toFixed(2), 
-			"DKK", 
-			formatTime(priceStats.min?.time), 
-			ICONS.PRICE_MIN, "min", isTomorrow
-		));
-
-		// Avg Price
-		container.appendChild(createCard(
-			"Avg Price", 
-			priceStats.avg?.toFixed(2), 
-			"DKK", 
-			"", 
-			ICONS.PRICE_AVG, "avg", isTomorrow
-		));
-
-		// Max Price
-		container.appendChild(createCard(
-			"Max Price", 
-			priceStats.max?.value.toFixed(2), 
-			"DKK", 
-			formatTime(priceStats.max?.time), 
-			ICONS.PRICE_MAX, "max", isTomorrow
-		));
-
-		// Sunrise
-		container.appendChild(createCard(
-			"Sunrise", 
-			transit ? formatTime(transit[1]) : "--:--", 
-			ICONS.CLOCK, 
-			"", 
-			ICONS.SUNRISE, "neutral", isTomorrow
-		));
-
-		// Max Irradiance
-		container.appendChild(createCard(
-			"Max Irrad.", 
-			radiationStats.max?.value.toFixed(0), 
-			"W/m²", 
-			formatTime(radiationStats.max?.time), 
-			ICONS.IRRADIANCE, "neutral", isTomorrow
-		));
-
-		// Production
-		container.appendChild(createCard(
-			"Production", 
-			totalEnergy.toFixed(1), 
-			"kWh", 
-			"", 
-			ICONS.PRODUCTION, "neutral", isTomorrow
-		));
-
-		// Sunset
-		container.appendChild(createCard(
-			"Sunset", 
-			transit ? formatTime(transit[2]) : "--:--", 
-			ICONS.CLOCK, 
-			"", 
-			ICONS.SUNSET, "neutral", isTomorrow
-		));
-	};
-
-	addHeader("Today", today, false);
-	renderDay(today, priceToday, radiationToday, productionToday, transitToday, false);
-	
-	addHeader("Tomorrow", tomorrow, true);
-	renderDay(tomorrow, priceTomorrow, radiationTomorrow, productionTomorrow, transitTomorrow, true);
+	addHeader("Tomorrow", tomorrow, true)
+	renderDay(container, tomorrow, true, priceData, radiationData, productionData)
 }

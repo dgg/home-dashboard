@@ -14,72 +14,12 @@
 		:root {
 			--body-bg: #f3f2f1;
 		}
-
-		body {
-			margin: 0;
-			padding: 0;
-			font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-			background-color: var(--body-bg);
-			width: 960px;
-			height: 476px;
-			overflow: hidden;
-		}
-
-		main {
-			width: 100%;
-			height: 100%;
-		}
-
-		.swipe-view {
-			display: flex;
-			overflow-x: auto;
-			scroll-snap-type: x mandatory;
-			width: 100%;
-			height: 100%;
-			-webkit-overflow-scrolling: touch;
-		}
-
-		/* Hide scrollbar */
-		.swipe-view::-webkit-scrollbar {
-			display: none;
-		}
-
-		.swipe-view {
-			-ms-overflow-style: none;
-			scrollbar-width: none;
-		}
-
-		.dashboard-container {
-			flex: 0 0 100%;
-			width: 100%;
-			height: 100%;
-			scroll-snap-align: start;
-			box-sizing: border-box;
-			padding: 8px;
-		}
-
-		.chart-container {
-			flex: 1;
-			width: 100%;
-		}
-
-		fluent-card {
-			padding: 0.5rem 0.75rem;
-			height: 100%;
-			box-sizing: border-box;
-			display: flex;
-			flex-direction: column;
-		}
 	</style>
 </head>
 
 <body>
 	<main>
 		<div class="swipe-view">
-			<div class="dashboard-container">
-				<div id="summary-cards-container" class="summary-container"></div>
-			</div>
-
 			<div class="dashboard-container">
 				<fluent-card>
 					<div id="price-chart-container" class="chart-container"></div>
@@ -94,6 +34,9 @@
 				<fluent-card>
 					<div id="production-chart-container" class="chart-container"></div>
 				</fluent-card>
+			</div>
+			<div class="dashboard-container">
+				<div id="summary-cards-container" class="summary-container"></div>
 			</div>
 		</div>
 	</main>
