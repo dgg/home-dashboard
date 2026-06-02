@@ -9,7 +9,8 @@ const ICONS = {
 	SUNRISE: `<svg class="card-icon" viewBox="0 0 24 24" fill="#ff8c00"><path d="M12 5a1 1 0 0 1 1 1v2a1 1 0 1 1-2 0V6a1 1 0 0 1 1-1ZM5.64 6.05a1 1 0 0 1 1.41 0l1.42 1.42a1 1 0 0 1-1.42 1.42L5.64 7.46a1 1 0 0 1 0-1.41ZM18.36 6.05a1 1 0 0 1 0 1.41l-1.42 1.42a1 1 0 1 1-1.41-1.42l1.41-1.41a1 1 0 0 1 1.42 0ZM3 12a1 1 0 0 1 1-1h2a1 1 0 1 1 0 2H4a1 1 0 0 1-1-1ZM18 12a1 1 0 0 1 1-1h2a1 1 0 1 1 0 2h-2a1 1 0 0 1-1-1ZM12 9a6 6 0 0 1 6 6v2a1 1 0 1 1-2 0v-2a4 4 0 1 0-8 0v2a1 1 0 1 1-2 0v-2a6 6 0 0 1 6-6ZM5.64 17.95a1 1 0 0 1 1.41-1.42l1.42 1.42a1 1 0 1 1-1.42 1.41l-1.41-1.41ZM18.36 17.95a1 1 0 0 1-1.42-1.42l-1.41 1.42a1 1 0 1 1 1.41 1.41l1.42-1.41Z"/></svg>`,
 	SUNSET: `<svg class="card-icon" viewBox="0 0 24 24" fill="#ea4335"><path d="M12 5a1 1 0 0 1 1 1v2a1 1 0 1 1-2 0V6a1 1 0 0 1 1-1ZM5.64 6.05a1 1 0 0 1 1.41 0l1.42 1.42a1 1 0 0 1-1.42 1.42L5.64 7.46a1 1 0 0 1 0-1.41ZM18.36 6.05a1 1 0 0 1 0 1.41l-1.42 1.42a1 1 0 1 1-1.41-1.42l1.41-1.41a1 1 0 0 1 1.42 0ZM3 12a1 1 0 0 1 1-1h2a1 1 0 1 1 0 2H4a1 1 0 0 1-1-1ZM18 12a1 1 0 0 1 1-1h2a1 1 0 1 1 0 2h-2a1 1 0 0 1-1-1ZM12 9a6 6 0 0 1 6 6v1H6v-1a6 6 0 0 1 6-6ZM5.64 17.95a1 1 0 0 1 1.41-1.42l1.42 1.42a1 1 0 1 1-1.42 1.41l-1.41-1.41ZM18.36 17.95a1 1 0 0 1-1.42-1.42l-1.41 1.42a1 1 0 1 1 1.41 1.41l1.42-1.41Z"/></svg>`,
 	IRRADIANCE: `<svg class="card-icon" viewBox="0 0 24 24" fill="#ffb900"><path d="M12 5a1 1 0 0 1 1 1v2a1 1 0 1 1-2 0V6a1 1 0 0 1 1-1ZM5.64 6.05a1 1 0 0 1 1.41 0l1.42 1.42a1 1 0 0 1-1.42 1.42L5.64 7.46a1 1 0 0 1 0-1.41ZM18.36 6.05a1 1 0 0 1 0 1.41l-1.42 1.42a1 1 0 1 1-1.41-1.42l1.41-1.41a1 1 0 0 1 1.42 0ZM3 12a1 1 0 0 1 1-1h2a1 1 0 1 1 0 2H4a1 1 0 0 1-1-1ZM18 12a1 1 0 0 1 1-1h2a1 1 0 1 1 0 2h-2a1 1 0 0 1-1-1ZM12 9a3 3 0 1 1 0 6 3 3 0 0 1 0-6ZM5.64 17.95a1 1 0 0 1 1.41-1.42l1.42 1.42a1 1 0 1 1-1.42 1.41l-1.41-1.41ZM18.36 17.95a1 1 0 0 1-1.42-1.42l-1.41 1.42a1 1 0 1 1 1.41 1.41l1.42-1.41ZM12 21a1 1 0 0 1 1-1h2a1 1 0 1 1 0 2h-2a1 1 0 0 1-1-1Z"/></svg>`,
-	PRODUCTION: `<svg class="card-icon" viewBox="0 0 24 24" fill="#00a2ad"><path d="M12.28 2.05a1 1 0 0 1 .68.29l8 8a1 1 0 0 1-1.42 1.42L13 5.41V21a1 1 0 1 1-2 0V5.41l-6.54 6.54a1 1 0 0 1-1.42-1.42l8-8a1 1 0 0 1 .68-.28ZM12 11a1 1 0 1 1 0 2 1 1 0 0 1 0-2Z"/></svg>`
+	PRODUCTION: `<svg class="card-icon" viewBox="0 0 24 24" fill="#00a2ad"><path d="M12.28 2.05a1 1 0 0 1 .68.29l8 8a1 1 0 0 1-1.42 1.42L13 5.41V21a1 1 0 1 1-2 0V5.41l-6.54 6.54a1 1 0 0 1-1.42-1.42l8-8a1 1 0 0 1 .68-.28ZM12 11a1 1 0 1 1 0 2 1 1 0 0 1 0-2Z"/></svg>`,
+	CLOCK: `<svg class="time-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2zM13 7v4.585l3.243 3.243a1 1 0 0 1-1.415 1.415L11.5 12.915A1 1 0 0 1 11 12.207V7a1 1 0 1 1 2 0z"/></svg>`
 };
 
 const formatTime = (ts) => {
@@ -26,6 +27,12 @@ const createCard = (label, value, unit, time, icon, type, isTomorrow) => {
 	else if (type === "max") valueClass = "max";
 	else if (type === "avg") valueClass = "avg";
 
+	const isTimedMetric = type === 'min' || type === 'max' || label === 'Max Irrad.';
+	const timeHtml = time ? `<div class="card-time ${isTimedMetric ? 'align-right' : ''}">
+		${isTimedMetric ? ICONS.CLOCK : ''}
+		${time}
+	</div>` : '<div class="card-time"></div>';
+
 	card.innerHTML = `
 		${icon}
 		<div class="card-header">
@@ -33,7 +40,7 @@ const createCard = (label, value, unit, time, icon, type, isTomorrow) => {
 			<div class="card-unit">${unit}</div>
 		</div>
 		<div class="card-value ${valueClass}">${value !== null ? value : "--"}</div>
-		<div class="card-time">${time || ""}</div>
+		${timeHtml}
 	`;
 	return card;
 };
@@ -136,7 +143,7 @@ export function renderSummaryCards(containerId, priceData, radiationData, produc
 		container.appendChild(createCard(
 			"Sunrise", 
 			transit ? formatTime(transit[1]) : "--:--", 
-			"", 
+			ICONS.CLOCK, 
 			"", 
 			ICONS.SUNRISE, "neutral", isTomorrow
 		));
@@ -147,7 +154,7 @@ export function renderSummaryCards(containerId, priceData, radiationData, produc
 			radiationStats.max?.value.toFixed(0), 
 			"W/m²", 
 			formatTime(radiationStats.max?.time), 
-			ICONS.IRRADIANCE, "max", isTomorrow
+			ICONS.IRRADIANCE, "neutral", isTomorrow
 		));
 
 		// Production
@@ -163,7 +170,7 @@ export function renderSummaryCards(containerId, priceData, radiationData, produc
 		container.appendChild(createCard(
 			"Sunset", 
 			transit ? formatTime(transit[2]) : "--:--", 
-			"", 
+			ICONS.CLOCK, 
 			"", 
 			ICONS.SUNSET, "neutral", isTomorrow
 		));

@@ -71,7 +71,7 @@ h3 {
 }
 
 .summary-card.tomorrow {
-	--fill-color: #f3f2f1;
+	--fill-color: #faf9f8;
 	background-color: var(--fill-color);
 }
 
@@ -105,8 +105,11 @@ h3 {
 	font-size: 0.6rem;
 	font-weight: 600;
 	color: #a19f9d;
-	text-transform: uppercase;
 	letter-spacing: 0.5px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	height: 12px;
 }
 
 .card-value {
@@ -123,10 +126,31 @@ h3 {
 
 .card-time {
 	font-size: 0.75rem;
-	color: #0078d4;
+	color: #605e5c;
 	font-weight: 700;
 	margin-top: 2px;
 	height: 1rem;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 100%;
+}
+
+.card-time.align-right {
+	justify-content: flex-end;
+	padding-right: 4px;
+	box-sizing: border-box;
+}
+
+.time-icon {
+	width: 12px;
+	height: 12px;
+	margin-right: 4px;
+	color: inherit;
+}
+
+.card-time .time-icon {
+	color: #605e5c;
 }
 
 .card-value.min { color: #107c10; }
