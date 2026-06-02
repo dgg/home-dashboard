@@ -28,8 +28,11 @@ const createCard = (label, value, unit, time, icon, type, isTomorrow) => {
 
 	card.innerHTML = `
 		${icon}
-		<div class="card-label">${label}</div>
-		<div class="card-value ${valueClass}">${value !== null ? value : "--"} <span class="card-unit">${unit}</span></div>
+		<div class="card-header">
+			<div class="card-label">${label}</div>
+			<div class="card-unit">${unit}</div>
+		</div>
+		<div class="card-value ${valueClass}">${value !== null ? value : "--"}</div>
 		<div class="card-time">${time || ""}</div>
 	`;
 	return card;
@@ -68,6 +71,13 @@ export function renderSummaryCards(containerId, priceData, radiationData, produc
 	const today = dkNow.toPlainDate();
 	const tomorrow = today.add({ days: 1 });
 
+	const formatDate = (date) => {
+		const day = String(date.day).padStart(2, '0');
+		const month = String(date.month).padStart(2, '0');
+		const year = date.year;
+		return `${day}-${month}-${year}`;
+	};
+
 	// Filter data by day
 	const getDayData = (ts, date) => ts.data.filter(row => row[0].toPlainDate().equals(date));
 
@@ -83,20 +93,16 @@ export function renderSummaryCards(containerId, priceData, radiationData, produc
 	const transitToday = radiationData.transit.data.find(row => row[0].toPlainDate().equals(today));
 	const transitTomorrow = radiationData.transit.data.find(row => row[0].toPlainDate().equals(tomorrow));
 
+	const addHeader = (title, date, isTomorrow) => {
+		const header = document.createElement("div");
+		header.className = `day-header ${isTomorrow ? 'tomorrow' : ''}`;
+		header.innerHTML = `${title} <span class="header-date">${formatDate(date)}</span>`;
+		container.appendChild(header);
+	};
+
 	const renderDay = (date, prices, radiation, production, transit, isTomorrow) => {
 		const priceStats = getStats(prices, 1);
-		const radiationStats = getStats(radiation, 3); // Tilted Irradiance is column 3 (0: ts, 1: direct, 2: diffuse, 3: tilted)
-		
-		// Production stats - today's total energy
-		const energyToday = production.length > 0 ? production[production.length - 1][2] : null; // AccumulatedEnergyProduction is column 3, but let's check index. 
-		// Column indices for production: 0: ts, 1: power, 2: energy, 3: accumulated
-		// We want total for the day. If it's accumulated, we take the last one of the day.
-		// Wait, solar-production.js says:
-		// const powerProduction = new Column("PowerProduction", "Power", "KiloW", "kW")
-		// const energyProduction = new Column("EnergyProduction", "Energy", "KiloW-HR", "kWh")
-		// const accumulatedEnergyProduction = new Column("AccumulatedEnergyProduction", "Energy", "KiloW-HR", "kWh")
-		// So 1 is Power, 2 is Energy (period), 3 is Accumulated.
-		// Total for day is sum of column 2.
+		const radiationStats = getStats(radiation, 3);
 		const totalEnergy = production.reduce((sum, row) => sum + (row[2] || 0), 0);
 
 		// Min Price
@@ -163,6 +169,9 @@ export function renderSummaryCards(containerId, priceData, radiationData, produc
 		));
 	};
 
+	addHeader("Today", today, false);
 	renderDay(today, priceToday, radiationToday, productionToday, transitToday, false);
+	
+	addHeader("Tomorrow", tomorrow, true);
 	renderDay(tomorrow, priceTomorrow, radiationTomorrow, productionTomorrow, transitTomorrow, true);
 }
