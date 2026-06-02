@@ -6,7 +6,6 @@ class ApiUrl {
 	static build(host, dt, area = "DK1") {
 		const effectiveHost = host ?? new URL("https://www.elprisenligenu.dk")
 
-		console.log("Fetching spot prices from", effectiveHost)
 		const path = `/api/v1/prices/${dt.year}/${this.#month(dt)}-${this.#day(dt)}_${area}.json`
 		return new URL(path, effectiveHost)
 	}
@@ -52,6 +51,8 @@ export async function fetchSpotPrices(host = null) {
 
 		const todayUrl = ApiUrl.build(host, dkNow)
 		const tomorrowUrl = ApiUrl.build(host, dkTomorrow)
+
+		console.debug("Fetching spot prices from:", todayUrl, tomorrowUrl)
 
 		const [todayResponse, tomorrowResponse] = await Promise.all([fetch(todayUrl), fetch(tomorrowUrl)])
 

@@ -20,6 +20,10 @@ async function init() {
 			fetchSolarProduction(localhost)
 		])
 
+		console.debug("Price data:", priceData)
+		console.debug("Radiation data:", radiationData)
+		console.debug("Production data:", productionData)
+
 		console.info("All data loaded, rendering...")
 
 		renderSummaryCards("summary-cards-container", priceData, radiationData, productionData)

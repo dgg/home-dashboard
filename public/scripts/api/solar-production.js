@@ -42,6 +42,9 @@ const initForecast = () => {
 export async function fetchSolarProduction(host = null) {
 	try {
 		const requestUrl = ApiUrl.build(host)
+
+		console.debug("Fetching solar production from:", requestUrl)
+
 		const response = await fetch(requestUrl)
 
 		assertResponse(response)
@@ -52,6 +55,7 @@ export async function fetchSolarProduction(host = null) {
 				const annotatedTime = `${key}[${DK_TIMEZONE}]`
 				const ts = Temporal.ZonedDateTime.from(annotatedTime)
 
+				// Convert watts to kilowatts and watt-hours to kilowatt-hours for better readability
 				const power = value / 1000
 				const energy = data.result.watt_hours_period[key] / 1000
 				const accumulatedEnergy = data.result.watt_hours[key] / 1000

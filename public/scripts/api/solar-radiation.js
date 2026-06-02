@@ -48,6 +48,9 @@ const initTransit = () => {
 export async function fetchSolarRadiation(host = null) {
 	try {
 		const requestUrl = ApiUrl.build(host)
+
+		console.debug("Fetching solar radiation from:", requestUrl)
+
 		const response = await fetch(requestUrl)
 		assertResponse(response)
 		const data = await response.json()
