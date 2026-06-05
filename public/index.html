@@ -5,43 +5,80 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=960, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 	<title>Energy Dashboard</title>
-	<!-- Fluent UI Web Components v2 -->
-	<script type="module" src="https://unpkg.com/@fluentui/web-components@2"></script>
-	<!-- Apache ECharts v6.1.0 -->
-	<script src="https://cdn.jsdelivr.net/npm/echarts@6.1.0/dist/echarts.min.js"></script>
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/core@1.4.0/dist/css/tabler.min.css"
+		integrity="sha256-fvdQvRBUamldCxJ2etgEi9jz7F3n2u+xBn+dDao9HJo=" crossorigin="anonymous">
+	<link rel="preconnect" href="https://rsms.me/">
+	<link rel="stylesheet" href="https://rsms.me/inter/inter.css">
+	<!-- 3.35.0 to be able to use filled icons-->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tabler-icons/3.35.0/tabler-icons.min.css"
+		integrity="sha512-gzw5zNP2TRq+DKyAqZfDclaTG4dOrGJrwob2Fc8xwcJPDPVij0HowLIMZ8c1NefFM0OZZYUUUNoPfcoI5jqudw=="
+		crossorigin="anonymous" referrerpolicy="no-referrer" />
 	<link rel="stylesheet" href="styles/app.css">
-	<style>
-		:root {
-			--body-bg: #f3f2f1;
-		}
-	</style>
 </head>
 
 <body>
-	<main>
-		<div class="swipe-view">
-			<div class="dashboard-container">
-				<fluent-card>
-					<div id="price-chart-container" class="chart-container"></div>
-				</fluent-card>
+	<div class="page flex-row">
+		<!-- Sidebar -->
+		<aside class="navbar navbar-vertical navbar-expand-lg nav-minimal" data-bs-theme="dark">
+			<div class="container-fluid flex-column px-0">
+				<ul class="navbar-nav flex-column pt-3" role="tablist">
+					<li class="nav-item mb-2" title="Summary" role="presentation">
+						<a class="nav-link active" href="#tabs-summary" data-bs-toggle="tab" role="tab">
+							<h1 class="nav-link-icon">
+								<i class="ti ti-clipboard-data"></i>
+							</h1>
+						</a>
+					</li>
+					<li class="nav-item mb-2" title="Price" role="presentation">
+						<a class="nav-link" href="#tabs-price" data-bs-toggle="tab" role="tab">
+							<h1 class="nav-link-icon">
+								<i class="ti ti-coin-euro-filled"></i>
+							</h1>
+						</a>
+					</li>
+					<li class="nav-item mb-2" title="Irradiation" role="presentation">
+						<a class="nav-link" href="#tabs-irradiation" data-bs-toggle="tab" role="tab">
+							<h1 class="nav-link-icon">
+								<i class="ti ti-sun-filled"></i>
+							</h1>
+						</a>
+					</li>
+					<li class="nav-item mb-2" title="Production" role="presentation">
+						<a class="nav-link" href="#tabs-production" data-bs-toggle="tab" role="tab">
+							<h1 class="nav-link-icon">
+								<i class="ti ti-bolt-filled"></i>
+							</h1>
+						</a>
+					</li>
+				</ul>
 			</div>
-			<div class="dashboard-container">
-				<fluent-card>
-					<div id="irradiance-chart-container" class="chart-container"></div>
-				</fluent-card>
-			</div>
-			<div class="dashboard-container">
-				<fluent-card>
-					<div id="production-chart-container" class="chart-container"></div>
-				</fluent-card>
-			</div>
-			<div class="dashboard-container">
-				<div id="summary-cards-container" class="summary-container"></div>
+		</aside>
+
+		<div class="page-wrapper flex-fill">
+			<div class="page-body m-0 p-0">
+				<div class="tab-content h-100">
+					<div class="tab-pane fade active show bg-blue-lt" id="tabs-summary" role="tabpanel">
+						<div class="d-flex align-items-center justify-content-center h-100"><h2>Summary</h2></div>
+					</div>
+					<div class="tab-pane fade bg-green-lt" id="tabs-price" role="tabpanel">
+						<div class="d-flex align-items-center justify-content-center h-100"><h2>Price</h2></div>
+					</div>
+					<div class="tab-pane fade bg-yellow-lt" id="tabs-irradiation" role="tabpanel">
+						<div class="d-flex align-items-center justify-content-center h-100"><h2>Irradiation</h2></div>
+					</div>
+					<div class="tab-pane fade bg-orange-lt" id="tabs-production" role="tabpanel">
+						<div class="d-flex align-items-center justify-content-center h-100"><h2>Production</h2></div>
+					</div>
+				</div>
 			</div>
 		</div>
-	</main>
+	</div>
 
-	<script type="module" src="scripts/app.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/@tabler/core@1.4.0/dist/js/tabler.min.js"
+		integrity="sha256-tgx2Fg6XYkV027jPEKvmrummSTtgCW/fwV3R3SvZnrk=" crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/chart.js@4.5.1/dist/chart.umd.min.js"
+		integrity="sha256-SERKgtTty1vsDxll+qzd4Y2cF9swY9BCq62i9wXJ9Uo=" crossorigin="anonymous"></script>
+	<script type="module" src="scripts/app.mjs"></script>
 </body>
 
 </html>
