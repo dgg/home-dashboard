@@ -1,4 +1,4 @@
-import { Column, Series, TimeSeries } from "./time-series.js"
+import { Column, Series, TimeSeries } from "./time-series.mjs"
 
 const DK_TIMEZONE = "Europe/Copenhagen"
 

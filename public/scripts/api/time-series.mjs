@@ -4,7 +4,7 @@
 export class Series {
 	/**
 	 * Create a Series instance
-	 * @param {string} kind - The kind of series ('regular' or 'irregular')
+	 * @param {string} kind - The kind of series ("regular" or "irregular")
 	 * @param {string} [period] - The period for regular series (optional)ß
 	 */
 	constructor(kind, period = undefined) {
@@ -14,7 +14,7 @@ export class Series {
 
 	/**
 	 * Create a regular series
-	 * @param {string|Duration} period - The period for the regular series in ISO 8601 format (e.g., 'PT1H')
+	 * @param {string|Duration} period - The period for the regular series in ISO 8601 format (e.g., "PT1H")
 	 * @returns {Series} A regular Series instance
 	 */
 	static regular(period) {
@@ -22,7 +22,7 @@ export class Series {
 		if (typeof period === "string") {
 			effectivePeriod = Temporal.Duration.from(period)
 		} else if (!(period instanceof Temporal.Duration)) {
-			throw new Error('Period must be a string in ISO 8601 format or a Temporal.Duration instance')
+			throw new Error("Period must be a string in ISO 8601 format or a Temporal.Duration instance")
 		}
 		return new Series("regular", effectivePeriod)
 	}
@@ -133,7 +133,7 @@ export class TimeSeries {
 	 * @param {ZonedDateTime} timestamp - The timestamp for the record as a local date time
 	 * @param {...*} values - Variable number of column values matching the initial columns
 	 * @returns {TimeSeries} The time series instance for fluent chaining
-	 * @throws {Error} If timestamp is invalid or number of values doesn't match columns
+	 * @throws {Error} If timestamp is invalid or number of values doesn"t match columns
 	 */
 	addRecord(ts, ...values) {
 		this.#assertColumns(values)
@@ -151,7 +151,7 @@ export class TimeSeries {
 	 * Asserts that the number of values matches the number of columns
 	 * @private
 	 * @param {Array} values - The array of values to assert
-	 * @throws {Error} If the number of values doesn't match the number of columns
+	 * @throws {Error} If the number of values doesn"t match the number of columns
 	 */
 	#assertColumns(values) {
 		const recordLength = this.columns.length -1 // +1 for timestamp
@@ -196,7 +196,7 @@ export class TimeSeries {
 	 */
 	#assertRecords() {
 		if (this.rows.length === 0) {
-			throw new Error('Cannot build a TimeSeries with no records')
+			throw new Error("Cannot build a TimeSeries with no records")
 		}
 	}
 

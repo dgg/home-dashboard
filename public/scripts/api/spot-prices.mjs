@@ -1,4 +1,4 @@
-import { Column, Series, TimeSeries } from "./time-series.js"
+import { Column, Series, TimeSeries } from "./time-series.mjs"
 
 const DK_TIMEZONE = "Europe/Copenhagen"
 
@@ -69,12 +69,12 @@ export async function fetchSpotPrices(host = null) {
 			addRecords(forecast, tomorrowsData)
 		}
 
-		return { 
+		return {
 			forecast: forecast.build(),
 			fetchedAt: Temporal.Now.zonedDateTimeISO(DK_TIMEZONE)
-		};
+		}
 	} catch (error) {
-		console.error(error);
-		throw error;
+		console.error(error)
+		throw error
 	}
 }

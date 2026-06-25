@@ -1,4 +1,9 @@
-@host = http://localhost:8081
-#@host = https://www.elprisenligenu.dk/
+#@host = http://localhost:8081
+@host = https://www.elprisenligenu.dk
+#@host=https://billigkwh.dk
 
-GET {{host}}/api/v1/prices/2026/05-29_DK1.json
+GET {{host}}/api/v1/prices/2026/06-07_DK1.json
+#GET {{host}}/api/Priser/HentPriser
+#?sted=DK1
+#&netselskab=konstant_c
+#&produkt=groen_ok_el_spot

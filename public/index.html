@@ -55,19 +55,44 @@
 		</aside>
 
 		<div class="page-wrapper flex-fill">
-			<div class="page-body m-0 p-0">
+			<div class="page-body">
 				<div class="tab-content h-100">
-					<div class="tab-pane fade active show bg-blue-lt" id="tabs-summary" role="tabpanel">
-						<div class="d-flex align-items-center justify-content-center h-100"><h2>Summary</h2></div>
+					<div class="tab-pane fade bg-blue-lt" id="tabs-summary" role="tabpanel">
+						<div class="align-items-center justify-content-center h-100">
+							<h2>Summary</h2>
+						</div>
 					</div>
 					<div class="tab-pane fade bg-green-lt" id="tabs-price" role="tabpanel">
-						<div class="d-flex align-items-center justify-content-center h-100"><h2>Price</h2></div>
+						<div class="align-items-center justify-content-center h-100">
+							<article class="card">
+								<div class="card-body">
+									<h2 class="card-title">Electricity Price</h2>
+									<div id="chart-price-container" class="chart-container">
+										<canvas id="chart-price"></canvas>
+									</div>
+								</div>
+							</article>
+						</div>
 					</div>
-					<div class="tab-pane fade bg-yellow-lt" id="tabs-irradiation" role="tabpanel">
-						<div class="d-flex align-items-center justify-content-center h-100"><h2>Irradiation</h2></div>
+					<div class="tab-pane fade bg-orange-lt" id="tabs-irradiation" role="tabpanel">
+						<div class="align-items-center justify-content-center h-100">
+							<h2>Irradiation</h2>
+							<div id="chart-irradiation-container" class="chart-container">
+								<canvas id="chart-irradiation"></canvas>
+							</div>
+						</div>
 					</div>
-					<div class="tab-pane fade bg-orange-lt" id="tabs-production" role="tabpanel">
-						<div class="d-flex align-items-center justify-content-center h-100"><h2>Production</h2></div>
+					<div class="tab-pane fade active show" id="tabs-production" role="tabpanel">
+						<div class="align-items-center justify-content-center h-100">
+							<article class="card">
+								<div class="card-body">
+									<h2 class="card-title">Energy Production</h2>
+									<div id="chart-production-container" class="chart-container">
+										<canvas id="chart-production"></canvas>
+									</div>
+								</div>
+							</article>
+						</div>
 					</div>
 				</div>
 			</div>

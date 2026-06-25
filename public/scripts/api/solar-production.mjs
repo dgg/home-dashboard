@@ -1,4 +1,4 @@
-import { Column, Series, TimeSeries } from "./time-series.js"
+import { Column, Series, TimeSeries } from "./time-series.mjs"
 
 const DK_TIMEZONE = "Europe/Copenhagen"
 
@@ -28,9 +28,9 @@ const assertResponse = (response) => {
 }
 
 const initForecast = () => {
-	const powerProduction = new Column("PowerProduction", "Power", "KiloW", "kW")
-	const energyProduction = new Column("EnergyProduction", "Energy", "KiloW-HR", "kWh")
-	const accumulatedEnergyProduction = new Column("AccumulatedEnergyProduction", "Energy", "KiloW-HR", "kWh")
+	const powerProduction = new Column("Power", "Power", "KiloW", "kW")
+	const energyProduction = new Column("Energy", "Energy", "KiloW-HR", "kWh")
+	const accumulatedEnergyProduction = new Column("Accumulated Energy", "Energy", "KiloW-HR", "kWh")
 	const timeSeries = new TimeSeries(Series.regular("PT1H"), [powerProduction, energyProduction, accumulatedEnergyProduction])
 	return timeSeries
 }
@@ -62,7 +62,7 @@ export async function fetchSolarProduction(host = null) {
 				return acc.addRecord(ts, power, energy, accumulatedEnergy)
 			}, initForecast())
 
-		return { 
+		return {
 			forecast: forecast.build(),
 			fetchedAt: Temporal.Now.zonedDateTimeISO(DK_TIMEZONE)
 		}

@@ -1,6 +1,6 @@
-import { fetchSpotPrices } from "./api/spot-prices.js"
-import { fetchSolarRadiation } from "./api/solar-radiation.js"
-import { fetchSolarProduction } from "./api/solar-production.js"
+import { fetchSpotPrices } from "./api/spot-prices.mjs"
+import { fetchSolarRadiation } from "./api/solar-radiation.mjs"
+import { fetchSolarProduction } from "./api/solar-production.mjs"
 import { renderMainChart as renderIrradianceChart } from "./charts/irradiance-chart.js"
 import { renderPriceChart } from "./charts/price-chart.js"
 import { renderProductionChart } from "./charts/production-chart.js"
@@ -8,7 +8,7 @@ import { renderSummaryCards } from "./charts/summary-cards.js"
 
 // Configuration for scheduling
 const SCHEDULED_HOURS = [5, 13, 21] // 3 times a day
-const SCHEDULED_MINUTE = 5 // At 05 past the hour to ensure prices are published
+const SCHEDULED_MINUTE = 15 // At 15 past the hour to ensure prices are published
 const RETRY_DELAY_MS = 5 * 60 * 1000 // 5 minutes retry delay
 
 /**
