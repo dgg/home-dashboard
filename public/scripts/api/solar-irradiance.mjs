@@ -45,11 +45,11 @@ const initTransit = () => {
  * Fetches solar radiation forecast from a local JSON file and normalizes it to JTS format.
  * @returns {Promise<Object>} JTS formatted solar radiation.
  */
-export async function fetchSolarRadiation(host = null) {
+export async function fetchSolarIrradiance(host = null) {
 	try {
 		const requestUrl = ApiUrl.build(host)
 
-		console.debug("Fetching solar radiation from:", requestUrl)
+		console.debug("Fetching solar irradiance from:", requestUrl)
 
 		const response = await fetch(requestUrl)
 		assertResponse(response)

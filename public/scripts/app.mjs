@@ -1,11 +1,10 @@
 import { fetchSpotPrices } from "./api/spot-prices.mjs"
-import { fetchSolarRadiation } from "./api/solar-radiation.mjs"
+import { fetchSolarIrradiance } from "./api/solar-irradiance.mjs"
 import { fetchSolarProduction } from "./api/solar-production.mjs"
 
 import { handleNavSelection } from "./ui/navigation.mjs"
 import { ProductionChart } from "./charts/production-chart.mjs"
-
-import data from "../../data/solar-production.forecast.json" with {type: "json"}
+import { IrradianceChart } from "./charts/irradiance-chart.mjs"
 
 const init = async () => {
 	try {
@@ -18,15 +17,18 @@ const init = async () => {
 		const localhost = new URL("http://localhost:8081")
 
 		// Load data in parallel
-		const [priceData, radiationData, productionData] = await Promise.all([
+		const [priceData, irradianceData, productionData] = await Promise.all([
 			fetchSpotPrices(localhost),
-			fetchSolarRadiation(localhost),
+			fetchSolarIrradiance(localhost),
 			fetchSolarProduction(localhost)
 		])
 
 		console.info("Data loaded successfully")
 		const productionCanvas = document.getElementById("chart-production")
-		const productionChart = new ProductionChart(productionCanvas, productionData)//renderProductionChart(productionCanvas, data, productionData)
+		const productionChart = new ProductionChart(productionCanvas, productionData)
+
+		const irradianceCanvas = document.getElementById("chart-irradiance")
+		const irradianceChart = new IrradianceChart(irradianceCanvas, irradianceData, priceData)
 
 		console.info("Initialized")
 

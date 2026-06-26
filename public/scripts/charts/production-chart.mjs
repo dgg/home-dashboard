@@ -1,5 +1,15 @@
 import { getColorHex, Color } from "../ui/color.mjs"
 
+const onTickFont = (context) => {
+	const label = context.tick.label
+	const isDayOfTheMonth = label &&
+		label.length === 5 && // day of the month
+		!label.includes(":") // no time separator
+	if (isDayOfTheMonth) {
+		return { weight: "bold" }
+	}
+}
+
 const maxEnergyLabel = (productionData) => ({
 	id: "maxEnergyLabel",
 	afterDatasetsDraw(chart) {
@@ -28,9 +38,18 @@ const TIME_FORMATTER = new Intl.DateTimeFormat("en", {
 	hour12: false
 })
 
-// TODO: debug why only rendered times from first day
+const DAY_FORMATTER = new Intl.DateTimeFormat("da", {
+	day: "2-digit",
+	month: "2-digit"
+})
+
+const isMidnight = (ts) => ts.hour < 6
+const isPrintable = (ts) => ts.hour % 6 === 0
+
 const labels = (timestamps) => (timestamps.map(ts => {
-	if (ts.hour % 6 === 0) {
+	if (isMidnight(ts)) {
+		return DAY_FORMATTER.format(ts.toInstant())
+	} else if (isPrintable(ts)) {
 		return TIME_FORMATTER.format(ts.toInstant())
 	}
 	return ""
@@ -203,7 +222,8 @@ export class ProductionChart extends Chart {
 						grid: { display: false },
 						ticks: {
 							maxRotation: 0,
-							minRotation: 0
+							minRotation: 0,
+							onTickFont
 						}
 					},
 					yPower: powerAxis(productionData),
