@@ -179,6 +179,36 @@ const title = (timestamps, context) => {
 	return DATE_FORMATTER.format(instant)
 }
 
+const priceAxis = (priceData) => ({
+	type: "linear",
+	display: true,
+	position: "right",
+	title: {
+		display: true,
+		text: priceData.forecast.header.columns[1].symbol,
+		font: { weight: "bold" }
+	},
+	beginAtZero: true,
+	min: 0,
+	grid: {
+		drawOnChartArea: false, // only want the grid lines for one axis
+	}
+})
+
+
+const irradianceAxis = (irradianceData) => ({
+	type: "linear",
+	display: true,
+	position: "left",
+	title: {
+		display: true,
+		text: irradianceData.forecast.header.columns[3].symbol,
+		font: { weight: "bold" }
+	},
+	beginAtZero: true,
+	min: 0
+})
+
 export class IrradianceChart extends Chart {
 	constructor(canvas, irradianceData, priceData) {
 		const timestamps = irradianceData.forecast.data.map(d => d[0])
@@ -227,33 +257,8 @@ export class IrradianceChart extends Chart {
 							font: onTickFont
 						}
 					},
-					yRadiation: {
-						type: "linear",
-						display: true,
-						position: "left",
-						title: {
-							display: true,
-							text: "W/m²",
-							font: { weight: "bold" }
-						},
-						beginAtZero: true,
-						min: 0
-					},
-					yPrice: {
-						type: "linear",
-						display: true,
-						position: "right",
-						title: {
-							display: true,
-							text: "DKK/kWh",
-							font: { weight: "bold" }
-						},
-						beginAtZero: true,
-						min: 0,
-						grid: {
-							drawOnChartArea: false, // only want the grid lines for one axis
-						}
-					}
+					yRadiation: irradianceAxis(irradianceData),
+					yPrice: priceAxis(priceData)
 				}
 			}
 		})
