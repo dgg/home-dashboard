@@ -1,170 +1,67 @@
 [
 	{
-		"DKK_per_kWh": 1.00046,
-		"EUR_per_kWh": 0.13383,
-		"EXR": 7.47559,
-		"time_start": "{{request.pathSegments.[3]}}-{{substring request.pathSegments.[4] 0 5}}T00:00:00+02:00",
-		"time_end": "{{request.pathSegments.[3]}}-{{substring request.pathSegments.[4] 0 5}}T01:00:00+02:00"
+		"dato": "{{now format='yyyy-MM-dd'}}T00:00:00Z",
+		"priser": [
+			1.61,
+			1.54,
+			1.48,
+			1.46,
+			1.46,
+			1.44,
+			1.55,
+			1.52,
+			1.47,
+			1.19,
+			0.84,
+			0.58,
+			0.54,
+			0.54,
+			0.54,
+			0.62,
+			0.97,
+			1.8,
+			2.05,
+			2.49,
+			3,
+			2.58,
+			2.15,
+			1.86
+		],
+		"spotExMoms": [
+			0.61028,
+			0.984,
+			0.92988,
+			0.88145,
+			0.86577,
+			0.862,
+			0.85209,
+			0.84256,
+			0.81676,
+			0.77387,
+			0.55395,
+			0.26927,
+			0.06725,
+			0.03008,
+			0.0336,
+			0.03003,
+			0.09543,
+			0.37845,
+			0.74861,
+			0.95225,
+			1.30376,
+			1.71259,
+			1.66427,
+			1.32258,
+			1.0867
+		]
 	},
 	{
-		"DKK_per_kWh": 0.97631,
-		"EUR_per_kWh": 0.1306,
-		"EXR": 7.47559,
-		"time_start": "{{request.pathSegments.[3]}}-{{substring request.pathSegments.[4] 0 5}}T01:00:00+02:00",
-		"time_end": "{{request.pathSegments.[3]}}-{{substring request.pathSegments.[4] 0 5}}T02:00:00+02:00"
-	},
-	{
-		"DKK_per_kWh": 0.94095,
-		"EUR_per_kWh": 0.12587,
-		"EXR": 7.47559,
-		"time_start": "{{request.pathSegments.[3]}}-{{substring request.pathSegments.[4] 0 5}}T02:00:00+02:00",
-		"time_end": "{{request.pathSegments.[3]}}-{{substring request.pathSegments.[4] 0 5}}T03:00:00+02:00"
-	},
-	{
-		"DKK_per_kWh": 0.91501,
-		"EUR_per_kWh": 0.1224,
-		"EXR": 7.47559,
-		"time_start": "{{request.pathSegments.[3]}}-{{substring request.pathSegments.[4] 0 5}}T03:00:00+02:00",
-		"time_end": "{{request.pathSegments.[3]}}-{{substring request.pathSegments.[4] 0 5}}T04:00:00+02:00"
-	},
-	{
-		"DKK_per_kWh": 0.90103,
-		"EUR_per_kWh": 0.12053,
-		"EXR": 7.47559,
-		"time_start": "{{request.pathSegments.[3]}}-{{substring request.pathSegments.[4] 0 5}}T04:00:00+02:00",
-		"time_end": "{{request.pathSegments.[3]}}-{{substring request.pathSegments.[4] 0 5}}T05:00:00+02:00"
-	},
-	{
-		"DKK_per_kWh": 0.86418,
-		"EUR_per_kWh": 0.1156,
-		"EXR": 7.47559,
-		"time_start": "{{request.pathSegments.[3]}}-{{substring request.pathSegments.[4] 0 5}}T05:00:00+02:00",
-		"time_end": "{{request.pathSegments.[3]}}-{{substring request.pathSegments.[4] 0 5}}T06:00:00+02:00"
-	},
-	{
-		"DKK_per_kWh": 0.79862,
-		"EUR_per_kWh": 0.10683,
-		"EXR": 7.47559,
-		"time_start": "{{request.pathSegments.[3]}}-{{substring request.pathSegments.[4] 0 5}}T06:00:00+02:00",
-		"time_end": "{{request.pathSegments.[3]}}-{{substring request.pathSegments.[4] 0 5}}T07:00:00+02:00"
-	},
-	{
-		"DKK_per_kWh": 0.64925,
-		"EUR_per_kWh": 0.08685,
-		"EXR": 7.47559,
-		"time_start": "{{request.pathSegments.[3]}}-{{substring request.pathSegments.[4] 0 5}}T07:00:00+02:00",
-		"time_end": "{{request.pathSegments.[3]}}-{{substring request.pathSegments.[4] 0 5}}T08:00:00+02:00"
-	},
-	{
-		"DKK_per_kWh": 0.12021,
-		"EUR_per_kWh": 0.01608,
-		"EXR": 7.47559,
-		"time_start": "{{request.pathSegments.[3]}}-{{substring request.pathSegments.[4] 0 5}}T08:00:00+02:00",
-		"time_end": "{{request.pathSegments.[3]}}-{{substring request.pathSegments.[4] 0 5}}T09:00:00+02:00"
-	},
-	{
-		"DKK_per_kWh": -0.00022,
-		"EUR_per_kWh": -3.0e-5,
-		"EXR": 7.47559,
-		"time_start": "{{request.pathSegments.[3]}}-{{substring request.pathSegments.[4] 0 5}}T09:00:00+02:00",
-		"time_end": "{{request.pathSegments.[3]}}-{{substring request.pathSegments.[4] 0 5}}T10:00:00+02:00"
-	},
-	{
-		"DKK_per_kWh": -0.00934,
-		"EUR_per_kWh": -0.00125,
-		"EXR": 7.47559,
-		"time_start": "{{request.pathSegments.[3]}}-{{substring request.pathSegments.[4] 0 5}}T10:00:00+02:00",
-		"time_end": "{{request.pathSegments.[3]}}-{{substring request.pathSegments.[4] 0 5}}T11:00:00+02:00"
-	},
-	{
-		"DKK_per_kWh": -0.03297,
-		"EUR_per_kWh": -0.00441,
-		"EXR": 7.47559,
-		"time_start": "{{request.pathSegments.[3]}}-{{substring request.pathSegments.[4] 0 5}}T11:00:00+02:00",
-		"time_end": "{{request.pathSegments.[3]}}-{{substring request.pathSegments.[4] 0 5}}T12:00:00+02:00"
-	},
-	{
-		"DKK_per_kWh": -0.06212,
-		"EUR_per_kWh": -0.00831,
-		"EXR": 7.47559,
-		"time_start": "{{request.pathSegments.[3]}}-{{substring request.pathSegments.[4] 0 5}}T12:00:00+02:00",
-		"time_end": "{{request.pathSegments.[3]}}-{{substring request.pathSegments.[4] 0 5}}T13:00:00+02:00"
-	},
-	{
-		"DKK_per_kWh": -0.09337,
-		"EUR_per_kWh": -0.01249,
-		"EXR": 7.47559,
-		"time_start": "{{request.pathSegments.[3]}}-{{substring request.pathSegments.[4] 0 5}}T13:00:00+02:00",
-		"time_end": "{{request.pathSegments.[3]}}-{{substring request.pathSegments.[4] 0 5}}T14:00:00+02:00"
-	},
-	{
-		"DKK_per_kWh": -0.10541,
-		"EUR_per_kWh": -0.0141,
-		"EXR": 7.47559,
-		"time_start": "{{request.pathSegments.[3]}}-{{substring request.pathSegments.[4] 0 5}}T14:00:00+02:00",
-		"time_end": "{{request.pathSegments.[3]}}-{{substring request.pathSegments.[4] 0 5}}T15:00:00+02:00"
-	},
-	{
-		"DKK_per_kWh": -0.05958,
-		"EUR_per_kWh": -0.00797,
-		"EXR": 7.47559,
-		"time_start": "{{request.pathSegments.[3]}}-{{substring request.pathSegments.[4] 0 5}}T15:00:00+02:00",
-		"time_end": "{{request.pathSegments.[3]}}-{{substring request.pathSegments.[4] 0 5}}T16:00:00+02:00"
-	},
-	{
-		"DKK_per_kWh": -0.00643,
-		"EUR_per_kWh": -0.00086,
-		"EXR": 7.47559,
-		"time_start": "{{request.pathSegments.[3]}}-{{substring request.pathSegments.[4] 0 5}}T16:00:00+02:00",
-		"time_end": "{{request.pathSegments.[3]}}-{{substring request.pathSegments.[4] 0 5}}T17:00:00+02:00"
-	},
-	{
-		"DKK_per_kWh": 0.1057,
-		"EUR_per_kWh": 0.01414,
-		"EXR": 7.47559,
-		"time_start": "{{request.pathSegments.[3]}}-{{substring request.pathSegments.[4] 0 5}}T17:00:00+02:00",
-		"time_end": "{{request.pathSegments.[3]}}-{{substring request.pathSegments.[4] 0 5}}T18:00:00+02:00"
-	},
-	{
-		"DKK_per_kWh": 0.70727,
-		"EUR_per_kWh": 0.09461,
-		"EXR": 7.47559,
-		"time_start": "{{request.pathSegments.[3]}}-{{substring request.pathSegments.[4] 0 5}}T18:00:00+02:00",
-		"time_end": "{{request.pathSegments.[3]}}-{{substring request.pathSegments.[4] 0 5}}T19:00:00+02:00"
-	},
-	{
-		"DKK_per_kWh": 0.97781,
-		"EUR_per_kWh": 0.1308,
-		"EXR": 7.47559,
-		"time_start": "{{request.pathSegments.[3]}}-{{substring request.pathSegments.[4] 0 5}}T19:00:00+02:00",
-		"time_end": "{{request.pathSegments.[3]}}-{{substring request.pathSegments.[4] 0 5}}T20:00:00+02:00"
-	},
-	{
-		"DKK_per_kWh": 1.11805,
-		"EUR_per_kWh": 0.14956,
-		"EXR": 7.47559,
-		"time_start": "{{request.pathSegments.[3]}}-{{substring request.pathSegments.[4] 0 5}}T20:00:00+02:00",
-		"time_end": "{{request.pathSegments.[3]}}-{{substring request.pathSegments.[4] 0 5}}T21:00:00+02:00"
-	},
-	{
-		"DKK_per_kWh": 1.1247,
-		"EUR_per_kWh": 0.15045,
-		"EXR": 7.47559,
-		"time_start": "{{request.pathSegments.[3]}}-{{substring request.pathSegments.[4] 0 5}}T21:00:00+02:00",
-		"time_end": "{{request.pathSegments.[3]}}-{{substring request.pathSegments.[4] 0 5}}T22:00:00+02:00"
-	},
-	{
-		"DKK_per_kWh": 1.05996,
-		"EUR_per_kWh": 0.14179,
-		"EXR": 7.47559,
-		"time_start": "{{request.pathSegments.[3]}}-{{substring request.pathSegments.[4] 0 5}}T22:00:00+02:00",
-		"time_end": "{{request.pathSegments.[3]}}-{{substring request.pathSegments.[4] 0 5}}T23:00:00+02:00"
-	},
-	{
-		"DKK_per_kWh": 0.95762,
-		"EUR_per_kWh": 0.1281,
-		"EXR": 7.47559,
-		"time_start": "{{request.pathSegments.[3]}}-{{substring request.pathSegments.[4] 0 5}}T23:00:00+02:00",
-		"time_end": "{{request.pathSegments.[3]}}-{{substring request.pathSegments.[4] 0 5}}T00:00:00+02:00"
+		"dato": "{{now offset='1 days' format='yyyy-MM-dd'}}T00:00:00Z",
+		"priser": [
+
+		],
+		"spotExMoms": [
+
+		]
 	}
 ]

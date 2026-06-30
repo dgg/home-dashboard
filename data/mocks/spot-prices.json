@@ -1,7 +1,7 @@
 {
 	"request": {
 		"method": "GET",
-		"urlPathTemplate": "/api/v1/prices/{year}/{month}-{day}_{area}.json"
+		"urlPathTemplate": "/api/Priser/HentPriser"
 	},
 	"response": {
 		"status": 200,

@@ -1,72 +1,62 @@
 import { Column, Series, TimeSeries } from "./time-series.mjs"
 
 const DK_TIMEZONE = "Europe/Copenhagen"
+const API_HOST = "https://billigkwh.dk"
+const API_PATH = "/api/Priser/HentPriser"
 
 class ApiUrl {
-	static build(host, dt, area = "DK1") {
-		const effectiveHost = host ?? new URL("https://www.elprisenligenu.dk")
-
-		const path = `/api/v1/prices/${dt.year}/${this.#month(dt)}-${this.#day(dt)}_${area}.json`
-		return new URL(path, effectiveHost)
-	}
-	static #month(dt) {
-		return String(dt.month).padStart(2, "0")
-	}
-	static #day(dt) {
-		return String(dt.day).padStart(2, "0")
+	static build(host = null) {
+		const effectiveHost = host ?? API_HOST
+		const url = new URL(API_PATH, effectiveHost)
+		url.searchParams.set("sted", "DK1")
+		url.searchParams.set("netselskab", "konstant_c")
+		url.searchParams.set("produkt", "groen_ok_el_spot")
+		return url
 	}
 }
 
 const initForecast = () => {
-	const price = new Column("SpotPrice", "CostPerEnergy", "CCY_DKK-PER-KiloW-HR", "DKK/kWh")
-	const timeSeries = new TimeSeries(Series.regular("PT1H"), [price])
+	const priserColumn = new Column("Spot Price", "CostPerEnergy", "CCY_DKK-PER-KiloW-HR", "DKK/kWh")
+	const exTaxColumn = new Column("Actual Price", "CostPerEnergy", "CCY_DKK-PER-KiloW-HR", "DKK/kWh")
+	const timeSeries = new TimeSeries(Series.regular("PT1H"), [priserColumn, exTaxColumn])
 	return timeSeries
 }
 
-const addRecords = (timeSeries, records) => {
-	for (const record of records) {
-		const annotatedTime = `${record.time_start}[${DK_TIMEZONE}]`
-		const ts = Temporal.ZonedDateTime.from(annotatedTime)
-		timeSeries.addRecord(ts, record.DKK_per_kWh)
+const addRecords = (timeSeries, dayData) => {
+	// UTC designator breaks parsing -> remove
+	const dateStr = dayData.dato.replace('Z', '')
+	const baseDate = Temporal.ZonedDateTime.from(`${dateStr}[${DK_TIMEZONE}]`)
+
+	for (let hour = 0; hour < dayData.priser.length; hour++) {
+		const timestamp = baseDate.add({ hours: hour })
+		const actualPrice = dayData.priser[hour]
+		const spotPrice = dayData.spotExMoms[hour]
+		timeSeries.addRecord(timestamp, spotPrice, actualPrice)
 	}
 }
 
-const assertTodaysResponse = (response) => {
+const assertResponse = (response) => {
 	if (!response.ok) {
-		throw new Error(`Failed to fetch today's spot prices: ${response.statusText}`)
-	}
-}
-
-const assertTomorrowsResponse = (response) => {
-	if (!response.ok && response.status !== 404) {
-		throw new Error(`Failed to fetch tomorrow's spot prices: ${response.statusText}`)
+		throw new Error(`Failed to fetch spot prices: ${response.statusText}`)
 	}
 }
 
 export async function fetchSpotPrices(host = null) {
 	try {
+		const url = ApiUrl.build(host)
+		console.debug("Fetching spot prices from:", url)
 
-		const dkNow = Temporal.Now.zonedDateTimeISO(DK_TIMEZONE)
-		const dkTomorrow = dkNow.add({ days: 1 })
+		const response = await fetch(url)
+		assertResponse(response)
 
-		const todayUrl = ApiUrl.build(host, dkNow)
-		const tomorrowUrl = ApiUrl.build(host, dkTomorrow)
-
-		console.debug("Fetching spot prices from:", todayUrl, tomorrowUrl)
-
-		const [todayResponse, tomorrowResponse] = await Promise.all([fetch(todayUrl), fetch(tomorrowUrl)])
-
-		assertTodaysResponse(todayResponse)
-		assertTomorrowsResponse(tomorrowResponse)
-
-		const todaysData = await todayResponse.json()
-
+		const data = await response.json()
 		const forecast = initForecast()
-		addRecords(forecast, todaysData)
 
-		if (tomorrowResponse.ok) {
-			const tomorrowsData = await tomorrowResponse.json()
-			addRecords(forecast, tomorrowsData)
+		// Add records for each day that has price data
+		for (const dayData of data) {
+			if (dayData.priser.length > 0) {
+				addRecords(forecast, dayData)
+			}
 		}
 
 		return {

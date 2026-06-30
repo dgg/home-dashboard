@@ -23,7 +23,7 @@
 			<div class="container-fluid flex-column px-0">
 				<ul class="navbar-nav flex-column pt-3" role="tablist">
 					<li class="nav-item mb-2" title="Summary" role="presentation">
-						<a class="nav-link active" href="#tabs-summary" data-bs-toggle="tab" role="tab">
+						<a class="nav-link" href="#tabs-summary" data-bs-toggle="tab" role="tab">
 							<h1 class="nav-link-icon">
 								<i class="ti ti-clipboard-data"></i>
 							</h1>
@@ -44,7 +44,7 @@
 						</a>
 					</li>
 					<li class="nav-item mb-2" title="Production" role="presentation">
-						<a class="nav-link" href="#tabs-production" data-bs-toggle="tab" role="tab">
+						<a class="nav-link active" href="#tabs-production" data-bs-toggle="tab" role="tab">
 							<h1 class="nav-link-icon">
 								<i class="ti ti-bolt-filled"></i>
 							</h1>
@@ -62,11 +62,11 @@
 							<h2>Summary</h2>
 						</div>
 					</div>
-					<div class="tab-pane fade bg-green-lt" id="tabs-price" role="tabpanel">
+					<div class="tab-pane fade" id="tabs-price" role="tabpanel">
 						<div class="align-items-center justify-content-center h-100">
 							<article class="card">
 								<div class="card-body">
-									<h2 class="card-title">Electricity Price</h2>
+									<h2 class="card-title">Electricity Prices</h2>
 									<div id="chart-price-container" class="chart-container">
 										<canvas id="chart-price"></canvas>
 									</div>
@@ -74,7 +74,7 @@
 							</article>
 						</div>
 					</div>
-					<div class="tab-pane fade active show" id="tabs-irradiance" role="tabpanel">
+					<div class="tab-pane fade" id="tabs-irradiance" role="tabpanel">
 						<div class="align-items-center justify-content-center h-100">
 							<article class="card">
 								<div class="card-body">
@@ -86,7 +86,7 @@
 							</article>
 						</div>
 					</div>
-					<div class="tab-pane fade" id="tabs-production" role="tabpanel">
+					<div class="tab-pane fade active show" id="tabs-production" role="tabpanel">
 						<div class="align-items-center justify-content-center h-100">
 							<article class="card">
 								<div class="card-body">

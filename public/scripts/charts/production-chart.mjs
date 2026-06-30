@@ -174,6 +174,10 @@ const accumulatedEnergy = (productionData) => {
 		tension: 0.4,
 		fill: false,
 		yAxisID: "yEnergy",
+		segment: {
+			// transparent if descending value
+			borderColor: (ctx) => ctx.p1.parsed.y < ctx.p0.parsed.y ? "transparent" : ctx.p0.options.borderColor
+		},
 		order: 2
 	}
 }

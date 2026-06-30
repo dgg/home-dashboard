@@ -5,6 +5,7 @@ import { fetchSolarProduction } from "./api/solar-production.mjs"
 import { handleNavSelection } from "./ui/navigation.mjs"
 import { ProductionChart } from "./charts/production-chart.mjs"
 import { IrradianceChart } from "./charts/irradiance-chart.mjs"
+import { PriceChart } from "./charts/price-chart.mjs"
 
 const init = async () => {
 	try {
@@ -29,6 +30,9 @@ const init = async () => {
 
 		const irradianceCanvas = document.getElementById("chart-irradiance")
 		const irradianceChart = new IrradianceChart(irradianceCanvas, irradianceData, priceData)
+
+		const pricesCanvas = document.getElementById("chart-price")
+		const priceChart = new PriceChart(pricesCanvas, priceData)
 
 		console.info("Initialized")
 

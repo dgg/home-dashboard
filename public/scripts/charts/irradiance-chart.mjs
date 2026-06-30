@@ -38,26 +38,11 @@ const labels = (timestamps) => (timestamps.map(ts => {
 	return ""
 }))
 
-const priceLegend = () => {
-	const patternCanvas = document.createElement("canvas")
-	patternCanvas.width = 10
-	patternCanvas.height = 10
-
-	const canvasCtx = patternCanvas.getContext("2d")
-	canvasCtx.fillStyle = getColorHex(Color.DANGER)
-	canvasCtx.fillRect(0, 0, 10, 5)
-	canvasCtx.fillStyle = getColorHex(Color.SUCCESS)
-	canvasCtx.fillRect(0, 5, 10, 5)
-	return patternCanvas
-}
-
 const spotPrices = (priceData) => {
 	const cheaper = getColorHex(Color.SUCCESS, true)
 	const pricier = getColorHex(Color.DANGER, true)
 
 	const data = priceData.forecast.data.map(d => d[1])
-	const average = priceData.forecast.header.columns[1].avg
-	const colors = priceData.forecast.data.map(d => d[1] > average ? pricier : cheaper)
 
 	const name = priceData.forecast.header.columns[1].name
 	const unit = priceData.forecast.header.columns[1].symbol
@@ -66,35 +51,12 @@ const spotPrices = (priceData) => {
 	return {
 		label,
 		data,
-		backgroundColor: colors,
-		borderColor: colors,
+		backgroundColor: getColorHex(Color.SUCCESS, true),
+		borderColor: getColorHex(Color.SUCCESS),
 		borderWidth: 1,
 		borderRadius: 2,
-		pointStyle: priceLegend(),
 		yAxisID: "yPrice",
 		order: 4
-	}
-}
-
-const averagePrice = (priceData) => {
-	const name = priceData.forecast.header.columns[1].name
-	const unit = priceData.forecast.header.columns[1].symbol
-	const label = `Avg. ${name} (${unit})`
-
-	const records = priceData.forecast.header.records
-	const average = priceData.forecast.header.columns[1].avg
-	const data = Array(records).fill(average)
-	return {
-		label,
-		data,
-		type: "line",
-		borderColor: getColorHex(Color.GRAY_400),
-		borderWidth: 1.5,
-		borderDash: [5, 5],
-		pointRadius: 0,
-		fill: false,
-		yAxisID: "yPrice",
-		order: 5
 	}
 }
 
@@ -218,7 +180,6 @@ export class IrradianceChart extends Chart {
 				labels: labels(timestamps),
 				datasets: [
 					spotPrices(priceData),
-					averagePrice(priceData),
 					tiltedIrradiance(irradianceData),
 					diffuseRadiation(irradianceData),
 					directRadiation(irradianceData)

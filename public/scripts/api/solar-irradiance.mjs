@@ -27,9 +27,9 @@ const assertResponse = (response) => {
 }
 
 const initForecast = () => {
-	const direct = new Column("DirectRadiation", "PowerPerArea", "W-PER-M2", "W/m²")
-	const diffuse = new Column("DiffuseRadiation", "PowerPerArea", "W-PER-M2", "W/m²")
-	const tilted = new Column("TiltedIrradiance", "PowerPerArea", "W-PER-M2", "W/m²")
+	const direct = new Column("Direct Radiation", "PowerPerArea", "W-PER-M2", "W/m²")
+	const diffuse = new Column("Diffuse Radiation", "PowerPerArea", "W-PER-M2", "W/m²")
+	const tilted = new Column("Tilted Irradiance", "PowerPerArea", "W-PER-M2", "W/m²")
 	const timeSeries = new TimeSeries(Series.regular("PT1H"), [direct, diffuse, tilted])
 	return timeSeries
 }
