@@ -23,7 +23,7 @@
 			<div class="container-fluid flex-column px-0">
 				<ul class="navbar-nav flex-column pt-3" role="tablist">
 					<li class="nav-item mb-2" title="Summary" role="presentation">
-						<a class="nav-link" href="#tabs-summary" data-bs-toggle="tab" role="tab">
+						<a class="nav-link active" href="#tabs-summary" data-bs-toggle="tab" role="tab">
 							<h1 class="nav-link-icon">
 								<i class="ti ti-clipboard-data"></i>
 							</h1>
@@ -44,7 +44,7 @@
 						</a>
 					</li>
 					<li class="nav-item mb-2" title="Production" role="presentation">
-						<a class="nav-link active" href="#tabs-production" data-bs-toggle="tab" role="tab">
+						<a class="nav-link" href="#tabs-production" data-bs-toggle="tab" role="tab">
 							<h1 class="nav-link-icon">
 								<i class="ti ti-bolt-filled"></i>
 							</h1>
@@ -57,10 +57,292 @@
 		<div class="page-wrapper flex-fill">
 			<div class="page-body">
 				<div class="tab-content h-100">
-					<div class="tab-pane fade bg-blue-lt" id="tabs-summary" role="tabpanel">
-						<div class="align-items-center justify-content-center h-100">
-							<h2>Summary</h2>
+					<div class="tab-pane fade active show" id="tabs-summary" role="tabpanel">
+						<div class="row row-cards">
+							<div class="col-12">
+								<article class="card card-vertical">
+									<div class="card-header card-header-vertical">
+										<h2 class="card-title">Day One</h2>
+									</div>
+									<div class="card-body">
+										<div class="row row-cards">
+											<div class="col-2">
+												<ul class="timeline timeline-simple">
+													<li class="timeline-event">
+														<div class="card timeline-event-card">
+															<div class="card-stamp">
+																<div class="card-stamp-icon bg-orange">
+																	<i class="ti ti-sunrise"></i>
+																</div>
+															</div>
+															<div class="card-body bg-orange-lt">
+																<h3><i class="ti ti-sunrise-filled"></i> 04:30</h3>
+															</div>
+														</div>
+													</li>
+													<li class="timeline-event">
+														<div class="card timeline-event-card">
+															<div class="card-stamp">
+																<div class="card-stamp-icon bg-gray">
+																	<i class="ti ti-brightness"></i>
+																</div>
+															</div>
+															<div class="card-body">
+																<h3><i class="ti ti-brightness"></i> 4h 30m</h3>
+															</div>
+														</div>
+													</li>
+													<li class="timeline-event">
+														<div class="card timeline-event-card">
+															<div class="card-stamp">
+																<div class="card-stamp-icon bg-purple">
+																	<i class="ti ti-sunset"></i>
+																</div>
+															</div>
+															<div class="card-body bg-purple-lt">
+																<h3><i class="ti ti-sunset-filled"></i> 22:30</h3>
+															</div>
+														</div>
+													</li>
+												</ul>
+
+											</div>
+											<div class="col-3">
+												<div class="d-flex flex-column h-100">
+													<div class="card flex-fill">
+														<div class="card-stamp">
+															<div class="card-stamp-icon bg-yellow">
+																<i class="ti ti-sun"></i>
+															</div>
+														</div>
+														<div class="card-body pt-3">
+															<span class="text-muted float-end"><sub>13:00 <i
+																		class="ti ti-clock"></i></sub></span>
+															<span class="card-title text-red">
+																<i class="ti ti-solar-panel-2"></i> 875.3 W/m2</span>
+														</div>
+														<div class="card-body pt-3">
+															<span class="text-muted float-end"><sub>14:00 <i
+																		class="ti ti-clock"></i></sub></span>
+															<span class="card-title text-orange">
+																<i class="ti ti-solar-panel-2"></i> 875.3 W/m2</span>
+														</div>
+														<div class="card-body">
+															<span class="text-muted float-end"><sub>13:00 <i
+																		class="ti ti-clock"></i></sub></span>
+															<span class="card-title text-yellow">
+																<i class="ti ti-sun-wind"></i> 224.3 W/m2</span>
+														</div>
+													</div>
+												</div>
+											</div>
+											<div class="col-4">
+												<div class="d-flex flex-column h-100">
+													<div class="card flex-fill">
+														<div class="card-stamp">
+															<div class="card-stamp-icon bg-blue">
+																<i class="ti ti-coin-euro"></i>
+															</div>
+														</div>
+														<div class="card-body">
+															<span class="text-muted float-end"><sub>11:00 <i
+																		class="ti ti-clock"></i></sub> </span>
+															<span class="card-title text-success">
+																<i class="ti ti-math-min"></i> 0.20 DKK/kWh</span>
+														</div>
+														<div class="card-body">
+															<span class="text-muted float-end"><sub>11:00 <i
+																		class="ti ti-clock"></i></sub> </span>
+															<span class="card-title text-primary">
+																<i class="ti ti-math-avg"></i> 0.20 DKK/kWh</span>
+														</div>
+														<div class="card-body">
+															<span class="text-muted float-end"><sub>11:00 <i
+																		class="ti ti-clock"></i></sub> </span>
+															<span class="card-title text-danger">
+																<i class="ti ti-math-max"></i> 0.20 DKK/kWh</span>
+														</div>
+													</div>
+												</div>
+											</div>
+											<div class="col-3">
+												<div class="d-flex flex-column h-100">
+													<div class="card flex-fill">
+														<div class="card-stamp">
+															<div class="card-stamp-icon bg-yellow">
+																<i class="ti ti-solar-electricity"></i>
+															</div>
+														</div>
+														<div class="card-header">
+															<span class="card-title text-danger">
+																<i class="ti ti-battery-charging"></i> 55.80 kWh</span>
+														</div>
+														<div class="card-body pt-3">
+															<span class="text-muted float-end"><sub>12:00 <i
+																		class="ti ti-clock"></i></sub></span>
+															<span class="card-title text-orange">
+																<i class="ti ti-solar-panel-2"></i> 6.5 W</span>
+														</div>
+														<div class="card-body">
+															<span class="text-muted float-end"><sub>13:00 <i
+																		class="ti ti-clock"></i></sub></span>
+															<span class="card-title text-yellow">
+																<i class="ti ti-solar-panel"></i> 6.1 kWh</span>
+														</div>
+													</div>
+												</div>
+											</div>
+								</article>
+							</div>
+							<div class="col-12">
+								<article class="card card-vertical">
+									<div class="card-header card-header-vertical">
+										<h2 class="card-title">Day One</h2>
+									</div>
+									<div class="card-body">
+										<div class="row row-cards">
+											<div class="col-2">
+												<div class="card card-borderless flex-fill">
+													<div class="card-body pe-0 ps-0">
+
+
+														<ul class="timeline timeline-simple">
+															<li class="timeline-event">
+																<div class="card timeline-event-card">
+																	<div class="card-stamp">
+																		<div class="card-stamp-icon bg-orange">
+																			<i class="ti ti-sunrise"></i>
+																		</div>
+																	</div>
+																	<div class="card-body bg-orange-lt">
+																		<h3><i class="ti ti-sunrise-filled"></i> 04:30
+																		</h3>
+																	</div>
+																</div>
+															</li>
+															<li class="timeline-event">
+																<div class="card timeline-event-card">
+																	<div class="card-stamp">
+																		<div class="card-stamp-icon bg-gray">
+																			<i class="ti ti-brightness"></i>
+																		</div>
+																	</div>
+																	<div class="card-body">
+																		<h3><i class="ti ti-brightness"></i> 4h 30m</h3>
+																	</div>
+																</div>
+															</li>
+															<li class="timeline-event">
+																<div class="card timeline-event-card">
+																	<div class="card-stamp">
+																		<div class="card-stamp-icon bg-purple">
+																			<i class="ti ti-sunset"></i>
+																		</div>
+																	</div>
+																	<div class="card-body bg-purple-lt">
+																		<h3><i class="ti ti-sunset-filled"></i> 22:30
+																		</h3>
+																	</div>
+																</div>
+															</li>
+														</ul>
+													</div>
+												</div>
+											</div>
+											<div class="col-3">
+												<div class="d-flex flex-column h-100">
+													<div class="card flex-fill">
+														<div class="card-stamp">
+															<div class="card-stamp-icon bg-yellow">
+																<i class="ti ti-sun"></i>
+															</div>
+														</div>
+														<div class="card-body">
+															<span class="text-dark float-end"><sub>13:00 <i
+																		class="ti ti-clock"></i></sub></span>
+															<span class="card-title text-red">
+																<i class="ti ti-solar-panel-2"></i> 875.3
+																W/m2</span>
+														</div>
+														<div class="card-body">
+															<span class="text-muted float-end"><sub>14:00 <i
+																		class="ti ti-clock"></i></sub></span>
+															<span class="card-title text-orange">
+																<i class="ti ti-solar-panel-2"></i> 875.3
+																W/m2</span>
+														</div>
+														<div class="card-body">
+															<span class="text-muted float-end"><sub>13:00 <i
+																		class="ti ti-clock"></i></sub></span>
+															<span class="card-title text-yellow">
+																<i class="ti ti-sun-wind"></i> 224.3 W/m2</span>
+														</div>
+													</div>
+												</div>
+											</div>
+											<div class="col-4">
+												<div class="d-flex flex-column h-100">
+													<div class="card flex-fill">
+														<div class="card-stamp">
+															<div class="card-stamp-icon bg-blue">
+																<i class="ti ti-coin-euro"></i>
+															</div>
+														</div>
+														<div class="card-body">
+															<span class="text-dark float-end"><sub>11:00 <i
+																		class="ti ti-clock"></i></sub> </span>
+															<span class="card-title text-success">
+																<i class="ti ti-math-min"></i> 0.20 DKK/kWh</span>
+														</div>
+														<div class="card-body">
+															<span class="text-muted float-end"><sub>11:00 <i
+																		class="ti ti-clock"></i></sub> </span>
+															<span class="card-title text-primary">
+																<i class="ti ti-math-avg"></i> 0.20 DKK/kWh</span>
+														</div>
+														<div class="card-body">
+															<span class="text-muted float-end"><sub>11:00 <i
+																		class="ti ti-clock"></i></sub> </span>
+															<span class="card-title text-danger">
+																<i class="ti ti-math-max"></i> 0.20 DKK/kWh</span>
+														</div>
+													</div>
+												</div>
+											</div>
+											<div class="col-3">
+												<div class="d-flex flex-column h-100">
+													<div class="card flex-fill">
+														<div class="card-stamp">
+															<div class="card-stamp-icon bg-yellow">
+																<i class="ti ti-solar-electricity"></i>
+															</div>
+														</div>
+														<div class="card-body">
+															<span class="text-dark float-end"><sub>- <i
+																		class="ti ti-clock"></i></sub></span>
+															<span class="card-title text-danger">
+																<i class="ti ti-battery-charging"></i> 55.80
+																kWh</span>
+														</div>
+														<div class="card-body">
+															<span class="text-muted float-end"><sub>12:00 <i
+																		class="ti ti-clock"></i></sub></span>
+															<span class="card-title text-orange">
+																<i class="ti ti-solar-panel-2"></i> 6.5 W</span>
+														</div>
+														<div class="card-body">
+															<span class="text-muted float-end"><sub>13:00 <i
+																		class="ti ti-clock"></i></sub></span>
+															<span class="card-title text-yellow">
+																<i class="ti ti-solar-panel"></i> 6.1 kWh</span>
+														</div>
+													</div>
+												</div>
+											</div>
+								</article>
+							</div>
 						</div>
+
 					</div>
 					<div class="tab-pane fade" id="tabs-price" role="tabpanel">
 						<div class="align-items-center justify-content-center h-100">
@@ -86,7 +368,7 @@
 							</article>
 						</div>
 					</div>
-					<div class="tab-pane fade active show" id="tabs-production" role="tabpanel">
+					<div class="tab-pane fade" id="tabs-production" role="tabpanel">
 						<div class="align-items-center justify-content-center h-100">
 							<article class="card">
 								<div class="card-body">

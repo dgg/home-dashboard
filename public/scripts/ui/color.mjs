@@ -50,3 +50,14 @@ export const getColorHex = (colorName, lighten = false) => {
 	const color = getComputedStyle(document.documentElement).getPropertyValue(variableName).trim();
 	return color;
 }
+
+export const getColorVariant = (colorName, variant = null) => {
+	// Tabler prefixes its color variables with --tblr-
+	let variableName = `--tblr-${colorName}`
+	if (variant) {
+		variableName += `-${variant}`
+	}
+
+	const color = getComputedStyle(document.documentElement).getPropertyValue(variableName).trim();
+	return color;
+}

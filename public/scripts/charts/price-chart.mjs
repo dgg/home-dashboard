@@ -87,10 +87,6 @@ const actualPrices = (priceData) => {
 	}
 }
 
-const dailyAverage = (a) => a?.length == 24 ?
-	a.reduce((sum, n) => sum + n, 0) / 24 :
-	null
-
 const averageActualPrices = (priceData) => {
 	const name = priceData.forecast.header.columns[2].name
 	const unit = priceData.forecast.header.columns[2].symbol
@@ -128,64 +124,6 @@ const averageActualPrices = (priceData) => {
 	}
 }
 
-/*const todayAverageLine = (priceData) => {
-	const avg = priceData.forecast.header.columns[1].avg
-	if (avg === undefined) {
-		return null
-	}
-
-	const name = priceData.forecast.header.columns[1].name
-	const unit = priceData.forecast.header.columns[1].symbol
-	const label = `Avg. ${name} (${unit})`
-
-	const data = Array(48).fill(null)
-	for (let i = 0; i < 24; i++) {
-		data[i] = avg
-	}
-
-	return {
-		label,
-		data,
-		type: "line",
-		borderColor: "#adadad",
-		borderWidth: 1.5,
-		borderDash: [5, 5],
-		pointRadius: 0,
-		fill: false,
-		stack: undefined,
-		order: 5
-	}
-}
-
-const tomorrowAverageLine = (priceData) => {
-	const avg = priceData.forecast.header.columns[3].avg
-	if (avg === undefined) {
-		return null
-	}
-
-	const name = priceData.forecast.header.columns[3].name
-	const unit = priceData.forecast.header.columns[3].symbol
-	const label = `Avg. ${name} (${unit})`
-
-	const data = Array(48).fill(null)
-	for (let i = 24; i < 48; i++) {
-		data[i] = avg
-	}
-
-	return {
-		label,
-		data,
-		type: "line",
-		borderColor: "#888888",
-		borderWidth: 1.5,
-		borderDash: [5, 5],
-		pointRadius: 0,
-		fill: false,
-		stack: undefined,
-		order: 6
-	}
-}*/
-
 const priceAxis = (priceData) => ({
 	type: "linear",
 	display: true,
@@ -203,16 +141,6 @@ const priceAxis = (priceData) => ({
 export class PriceChart extends Chart {
 	constructor(canvas, priceData) {
 		const timestamps = priceData.forecast.data.map(d => d[0])
-
-		/*const todayAvg = todayAverageLine(priceData)
-		if (todayAvg) {
-			datasets.push(todayAvg)
-		}
-
-		const tomorrowAvg = tomorrowAverageLine(priceData)
-		if (tomorrowAvg) {
-			datasets.push(tomorrowAvg)
-		}*/
 
 		super(canvas, {
 			type: "bar",

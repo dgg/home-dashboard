@@ -18,3 +18,20 @@
 	width: 100%;
 	height: 80vh;
 }
+
+.card-vertical {
+	flex-direction: row !important;
+}
+
+.card-header-vertical {
+	writing-mode: vertical-rl;
+	transform: rotate(180deg);
+	white-space: nowrap;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	border-bottom: 0 !important;
+	border-right: 1px solid var(--tblr-border-color);
+	padding: 1rem 0.5rem !important;
+	background: var(--tblr-card-cap-bg);
+}
