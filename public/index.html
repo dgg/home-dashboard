@@ -67,45 +67,7 @@
 									<div class="card-body">
 										<div class="row row-cards">
 											<div class="col-2">
-												<ul class="timeline timeline-simple">
-													<li class="timeline-event">
-														<div class="card timeline-event-card">
-															<div class="card-stamp">
-																<div class="card-stamp-icon bg-orange">
-																	<i class="ti ti-sunrise"></i>
-																</div>
-															</div>
-															<div class="card-body bg-orange-lt">
-																<h3><i class="ti ti-sunrise-filled"></i> 04:30</h3>
-															</div>
-														</div>
-													</li>
-													<li class="timeline-event">
-														<div class="card timeline-event-card">
-															<div class="card-stamp">
-																<div class="card-stamp-icon bg-gray">
-																	<i class="ti ti-brightness"></i>
-																</div>
-															</div>
-															<div class="card-body">
-																<h3><i class="ti ti-brightness"></i> 4h 30m</h3>
-															</div>
-														</div>
-													</li>
-													<li class="timeline-event">
-														<div class="card timeline-event-card">
-															<div class="card-stamp">
-																<div class="card-stamp-icon bg-purple">
-																	<i class="ti ti-sunset"></i>
-																</div>
-															</div>
-															<div class="card-body bg-purple-lt">
-																<h3><i class="ti ti-sunset-filled"></i> 22:30</h3>
-															</div>
-														</div>
-													</li>
-												</ul>
-
+												<solar-transit-card id="solar-transit-today" day-index="0"/>
 											</div>
 											<div class="col-3">
 												<div class="d-flex flex-column h-100">
@@ -197,55 +159,14 @@
 							<div class="col-12">
 								<article class="card card-vertical">
 									<div class="card-header card-header-vertical">
-										<h2 class="card-title">Day One</h2>
+										<h2 class="card-title">Day Two</h2>
 									</div>
 									<div class="card-body">
 										<div class="row row-cards">
 											<div class="col-2">
 												<div class="card card-borderless flex-fill">
 													<div class="card-body pe-0 ps-0">
-
-
-														<ul class="timeline timeline-simple">
-															<li class="timeline-event">
-																<div class="card timeline-event-card">
-																	<div class="card-stamp">
-																		<div class="card-stamp-icon bg-orange">
-																			<i class="ti ti-sunrise"></i>
-																		</div>
-																	</div>
-																	<div class="card-body bg-orange-lt">
-																		<h3><i class="ti ti-sunrise-filled"></i> 04:30
-																		</h3>
-																	</div>
-																</div>
-															</li>
-															<li class="timeline-event">
-																<div class="card timeline-event-card">
-																	<div class="card-stamp">
-																		<div class="card-stamp-icon bg-gray">
-																			<i class="ti ti-brightness"></i>
-																		</div>
-																	</div>
-																	<div class="card-body">
-																		<h3><i class="ti ti-brightness"></i> 4h 30m</h3>
-																	</div>
-																</div>
-															</li>
-															<li class="timeline-event">
-																<div class="card timeline-event-card">
-																	<div class="card-stamp">
-																		<div class="card-stamp-icon bg-purple">
-																			<i class="ti ti-sunset"></i>
-																		</div>
-																	</div>
-																	<div class="card-body bg-purple-lt">
-																		<h3><i class="ti ti-sunset-filled"></i> 22:30
-																		</h3>
-																	</div>
-																</div>
-															</li>
-														</ul>
+														<solar-transit-card id="solar-transit-tomorrow" day-index="1" />
 													</div>
 												</div>
 											</div>

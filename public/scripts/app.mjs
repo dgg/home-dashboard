@@ -6,6 +6,7 @@ import { handleNavSelection } from "./ui/navigation.mjs"
 import { ProductionChart } from "./charts/production-chart.mjs"
 import { IrradianceChart } from "./charts/irradiance-chart.mjs"
 import { PriceChart } from "./charts/price-chart.mjs"
+import "./ui/solar-transit-card.mjs"
 
 const init = async () => {
 	try {
@@ -25,6 +26,12 @@ const init = async () => {
 		])
 
 		console.info("Data loaded successfully")
+
+		const transitToday = document.getElementById("solar-transit-today")
+		transitToday.data = irradianceData
+		const transitTomorrow = document.getElementById("solar-transit-tomorrow")
+		transitTomorrow.data = irradianceData
+
 		const productionCanvas = document.getElementById("chart-production")
 		const productionChart = new ProductionChart(productionCanvas, productionData)
 
