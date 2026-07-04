@@ -9,6 +9,7 @@ import { PriceChart } from "./charts/price-chart.mjs"
 import "./ui/solar-transit-card.mjs"
 import "./ui/solar-irradiance-card.mjs"
 import "./ui/electricity-price-card.mjs"
+import "./ui/solar-production-card.mjs"
 
 const init = async () => {
 	try {
@@ -44,8 +45,14 @@ const init = async () => {
 		const priceTomorrow = document.getElementById("electricity-price-tomorrow")
 		priceTomorrow.data = priceData
 
+		const productionToday = document.getElementById("solar-production-today")
+		if (productionToday) productionToday.data = productionData
+		const productionTomorrow = document.getElementById("solar-production-tomorrow")
+		if (productionTomorrow) productionTomorrow.data = productionData
+
 		const productionCanvas = document.getElementById("chart-production")
 		const productionChart = new ProductionChart(productionCanvas, productionData)
+		console.log("prod", productionData)
 
 		const irradianceCanvas = document.getElementById("chart-irradiance")
 		const irradianceChart = new IrradianceChart(irradianceCanvas, irradianceData, priceData)
