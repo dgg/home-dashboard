@@ -6,6 +6,7 @@ import { handleNavSelection } from "./ui/navigation.mjs"
 import { ProductionChart } from "./charts/production-chart.mjs"
 import { IrradianceChart } from "./charts/irradiance-chart.mjs"
 import { PriceChart } from "./charts/price-chart.mjs"
+
 import "./ui/solar-transit-card.mjs"
 import "./ui/solar-irradiance-card.mjs"
 import "./ui/electricity-price-card.mjs"
@@ -30,6 +31,18 @@ const init = async () => {
 
 		console.info("Data loaded successfully")
 
+		const productionCanvas = document.getElementById("chart-production")
+		const productionChart = new ProductionChart(productionCanvas, productionData)
+		const productionToday = document.getElementById("solar-production-today")
+		productionToday.data = productionData
+		const productionTomorrow = document.getElementById("solar-production-tomorrow")
+		productionTomorrow.data = productionData
+		console.log(productionData)
+		console.log(priceData)
+		console.log(irradianceData)
+
+		const irradianceCanvas = document.getElementById("chart-irradiance")
+		const irradianceChart = new IrradianceChart(irradianceCanvas, irradianceData, priceData)
 		const transitToday = document.getElementById("solar-transit-today")
 		transitToday.data = irradianceData
 		const transitTomorrow = document.getElementById("solar-transit-tomorrow")
@@ -40,25 +53,12 @@ const init = async () => {
 		const irradianceTomorrow = document.getElementById("solar-irradiance-tomorrow")
 		irradianceTomorrow.data = irradianceData
 
+		const pricesCanvas = document.getElementById("chart-price")
+		const priceChart = new PriceChart(pricesCanvas, priceData)
 		const priceToday = document.getElementById("electricity-price-today")
 		priceToday.data = priceData
 		const priceTomorrow = document.getElementById("electricity-price-tomorrow")
 		priceTomorrow.data = priceData
-
-		const productionToday = document.getElementById("solar-production-today")
-		if (productionToday) productionToday.data = productionData
-		const productionTomorrow = document.getElementById("solar-production-tomorrow")
-		if (productionTomorrow) productionTomorrow.data = productionData
-
-		const productionCanvas = document.getElementById("chart-production")
-		const productionChart = new ProductionChart(productionCanvas, productionData)
-		console.log("prod", productionData)
-
-		const irradianceCanvas = document.getElementById("chart-irradiance")
-		const irradianceChart = new IrradianceChart(irradianceCanvas, irradianceData, priceData)
-
-		const pricesCanvas = document.getElementById("chart-price")
-		const priceChart = new PriceChart(pricesCanvas, priceData)
 
 		console.info("Initialized")
 
