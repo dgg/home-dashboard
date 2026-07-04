@@ -1,3 +1,7 @@
+import { RunningAvg } from "./running-avg.mjs"
+import { RunningMin } from "./running-min.mjs"
+import { RunningMax } from "./running-max.mjs"
+
 /**
  * Represents the series type and period
  */
@@ -40,7 +44,6 @@ export class Series {
  * Represents a column in the time series
  */
 export class Column {
-	#count = 0
 	/**
 	 * Create a Column instance
 	 * @param {string} name - The name of the column
@@ -53,9 +56,10 @@ export class Column {
 		this.quantifiable = quantifiable
 		this.unit = unit
 		this.symbol = symbol
-		this.min = undefined
-		this.max = undefined
-		this.avg = undefined
+
+		this.min = new RunningMin()
+		this.max = new RunningMax()
+		this.avg = new RunningAvg()
 	}
 
 	/**
@@ -70,23 +74,10 @@ export class Column {
 	 * Recalculates the aggregates with each new value added
 	 * @param {number} val - The value to add
 	 */
-	recalculateAggregates(val) {
-		if (typeof val !== "number") {
-			return
-		}
-		// recalculate column minimum
-		if (this.min === undefined || val < this.min) this.min = val
-
-		// recalculate column maximum
-		if (this.max === undefined || val > this.max) this.max = val
-
-		// recalculate column average
-		if (this.avg === undefined) {
-			this.avg = val
-		} else {
-			this.avg = this.avg + (val - this.avg) / (this.#count + 1)
-		}
-		this.#count++
+	recalculateAggregates(val, ts) {
+		this.min.process(val, ts)
+		this.max.process(val, ts)
+		this.avg.process(val)
 	}
 }
 
@@ -141,7 +132,7 @@ export class TimeSeries {
 		this.rows.push([ts, ...values])
 
 		values.forEach((val, i) => {
-			this.columns[i + 1].recalculateAggregates(val)
+			this.columns[i + 1].recalculateAggregates(val, ts)
 		})
 
 		return this
@@ -154,7 +145,7 @@ export class TimeSeries {
 	 * @throws {Error} If the number of values doesn"t match the number of columns
 	 */
 	#assertColumns(values) {
-		const recordLength = this.columns.length -1 // +1 for timestamp
+		const recordLength = this.columns.length - 1 // +1 for timestamp
 		if (values.length !== recordLength) {
 			throw new Error(`Expected ${recordLength} values, but got ${values.length}.`)
 		}

@@ -14,6 +14,7 @@ const maxEnergyLabel = (productionData) => ({
 	id: "maxEnergyLabel",
 	afterDatasetsDraw(chart) {
 		const { ctx: chartCtx, data: chartData } = chart
+		const timestamps = productionData.forecast.data.map(d => d[0])
 		chartCtx.save()
 		chartCtx.font = "bold 13px Inter"
 		chartCtx.textAlign = "center"
@@ -23,8 +24,9 @@ const maxEnergyLabel = (productionData) => ({
 		const maxEnergy = productionData.forecast.header.columns[2].max
 		const meta = chart.getDatasetMeta(0)
 		meta.data.forEach((bar, index) => {
-			const value = chartData.datasets[0].data[index]
-			if (value === maxEnergy && value > 0) {
+			const ts = timestamps[index]
+			if (ts.epochMilliseconds === maxEnergy.ts.epochMilliseconds) {
+				const value = chartData.datasets[0].data[index]
 				chartCtx.fillText(value.toFixed(2), bar.x, bar.y - 5)
 			}
 		})
