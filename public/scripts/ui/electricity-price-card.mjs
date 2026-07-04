@@ -95,7 +95,7 @@ export class ElectricityPriceCard extends HTMLElement {
 	}
 }
 
-const response = await fetch(new URL("./electricity-price-card.template.html", import.meta.url))
+const response = await fetch(new URL("../../components/electricity-price-card.template.html", import.meta.url))
 const templateContent = await response.text()
 
 const template = document.createElement("template")
