@@ -11,6 +11,7 @@ import "./ui/solar-transit-card.mjs"
 import "./ui/solar-irradiance-card.mjs"
 import "./ui/electricity-price-card.mjs"
 import "./ui/solar-production-card.mjs"
+import "./ui/last-refresh.mjs"
 
 const init = async () => {
 	try {
@@ -24,9 +25,9 @@ const init = async () => {
 
 		// Load data in parallel
 		const [priceData, irradianceData, productionData] = await Promise.all([
-			fetchSpotPrices(),
-			fetchSolarIrradiance(),
-			fetchSolarProduction()
+			fetchSpotPrices(localhost),
+			fetchSolarIrradiance(localhost),
+			fetchSolarProduction(localhost)
 		])
 
 		console.info("Data loaded successfully")
@@ -59,6 +60,9 @@ const init = async () => {
 		priceToday.data = priceData
 		const priceTomorrow = document.getElementById("electricity-price-tomorrow")
 		priceTomorrow.data = priceData
+
+		const lastRefresh = document.getElementById("last-refresh")
+		lastRefresh.fetchedAt = priceData.fetchedAt
 
 		console.info("Initialized")
 
