@@ -1,63 +1,21 @@
+import { labels, thickenDayLabel } from "./labels.mjs"
+import { title } from "./tooltips.mjs"
+
 import { getColorHex, Color } from "../ui/color.mjs"
 
-const TIME_FORMATTER = new Intl.DateTimeFormat("en", {
-	hour: "2-digit",
-	minute: "2-digit",
-	hour12: false
-})
-
-const DAY_FORMATTER = new Intl.DateTimeFormat("da", {
-	day: "2-digit",
-	month: "2-digit"
-})
-
-const DATE_FORMATTER = new Intl.DateTimeFormat("en", {
-	day: "2-digit",
-	month: "short",
-	hour: "2-digit",
-	minute: "2-digit",
-	hour12: false
-})
-
-const isMidnight = (ts) => ts.hour === 0
-const isPrintable = (ts) => ts.hour % 6 === 0
-
-const labels = (timestamps) => timestamps.map(ts => {
-
-	if (isMidnight(ts)) {
-		return DAY_FORMATTER.format(ts.toInstant())
-	} else if (isPrintable(ts)) {
-		return TIME_FORMATTER.format(ts.toInstant())
-	}
-	return ""
-})
-
-const onTickFont = (context) => {
-	const label = context.tick.label
-	const isDayOfTheMonth = label &&
-		label.length === 5 &&
-		!label.includes(":")
-	if (isDayOfTheMonth) {
-		return { weight: "bold" }
-	}
-}
-
-const title = (timestamps, context) => {
-	const instant = timestamps[context[0].dataIndex].toInstant()
-	return DATE_FORMATTER.format(instant)
-}
+import { COL_ACTUAL, COL_SPOT, COL_TS } from "../api/spot-prices.mjs"
 
 const spotPrices = (priceData) => {
 	const backgroundColor = getColorHex(Color.BLUE)
 	const borderColor = getColorHex(Color.BLUE)
 
-	const name = priceData.forecast.header.columns[1].name
-	const unit = priceData.forecast.header.columns[1].symbol
+	const name = priceData.forecast.header.columns[COL_SPOT].name
+	const unit = priceData.forecast.header.columns[COL_SPOT].symbol
 	const label = `${name} (${unit})`
 
 	return {
 		label,
-		data: priceData.forecast.data.map(d => d[1]),
+		data: priceData.forecast.data.map(d => d[COL_SPOT]),
 		backgroundColor,
 		borderColor,
 		borderWidth: 1,
@@ -71,13 +29,13 @@ const actualPrices = (priceData) => {
 	const backgroundColor = getColorHex(Color.BLUE, true)
 	const borderColor = getColorHex(Color.BLUE)
 
-	const name = priceData.forecast.header.columns[2].name
-	const unit = priceData.forecast.header.columns[2].symbol
+	const name = priceData.forecast.header.columns[COL_ACTUAL].name
+	const unit = priceData.forecast.header.columns[COL_ACTUAL].symbol
 	const label = `${name} (${unit})`
 
 	return {
 		label,
-		data: priceData.forecast.data.map(d => d[2]),
+		data: priceData.forecast.data.map(d => d[COL_ACTUAL]),
 		backgroundColor,
 		borderColor,
 		borderWidth: 1,
@@ -87,22 +45,20 @@ const actualPrices = (priceData) => {
 	}
 }
 
-const averageActualPrices = (priceData) => {
-	const name = priceData.forecast.header.columns[2].name
-	const unit = priceData.forecast.header.columns[2].symbol
-	const label = `Avg. ${name} (${unit})`
+const hideStep = (ctx) => ctx.p0.parsed.y !== ctx.p1.parsed.y
+	? "transparent"
+	: ctx.p0.options.borderColor
 
-	const records = priceData.forecast.header.records
+const averageActualPrices = (priceData, timestamps) => {
+	const col = priceData.forecast.header.columns[COL_ACTUAL]
+	const unit = col.symbol
+	const label = `Avg. ${col.name} (${unit})`
 
-	const actualSum = (sum, n) => sum + n[2]
-
-	const todaysSum = priceData.forecast.data.slice(0, 24).reduce(actualSum, 0)
-	let data = Array(24).fill(todaysSum /24)
-
-	if (records == 48) {
-		const tomorrowsSum = priceData.forecast.data.slice(24).reduce(actualSum, 0)
-		data = [...data, ...Array(24).fill(tomorrowsSum / 24)]
-	}
+	const aggregates = col.aggregates
+	const data = timestamps.map(ts => {
+		const entry = aggregates.forTimestamp(ts)
+		return entry ? entry.avg.avg : null
+	})
 
 	const borderColor = getColorHex(Color.GRAY_400)
 
@@ -116,8 +72,7 @@ const averageActualPrices = (priceData) => {
 		pointRadius: 0,
 		fill: false,
 		segment: {
-			// transparent if horizontal
-			borderColor: (ctx) => ctx.p0.parsed.y !== ctx.p1.parsed.y ? "transparent" : ctx.p0.options.borderColor
+			borderColor: hideStep
 		},
 		stepped: true,
 		order: 3
@@ -131,7 +86,7 @@ const priceAxis = (priceData) => ({
 	stacked: false,
 	title: {
 		display: true,
-		text: priceData.forecast.header.columns[1].symbol,
+		text: priceData.forecast.header.columns[COL_SPOT].symbol,
 		font: { weight: "bold" }
 	},
 	beginAtZero: true,
@@ -140,7 +95,7 @@ const priceAxis = (priceData) => ({
 
 export class PriceChart extends Chart {
 	constructor(canvas, priceData) {
-		const timestamps = priceData.forecast.data.map(d => d[0])
+		const timestamps = priceData.forecast.data.map(d => d[COL_TS])
 
 		super(canvas, {
 			type: "bar",
@@ -149,7 +104,7 @@ export class PriceChart extends Chart {
 				datasets: [
 					spotPrices(priceData),
 					actualPrices(priceData),
-					averageActualPrices(priceData)
+					averageActualPrices(priceData, timestamps)
 				]
 			},
 			options: {
@@ -183,7 +138,7 @@ export class PriceChart extends Chart {
 						ticks: {
 							maxRotation: 0,
 							minRotation: 0,
-							font: onTickFont
+							font: thickenDayLabel
 						}
 					},
 					y: priceAxis(priceData)

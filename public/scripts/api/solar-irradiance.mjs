@@ -1,4 +1,13 @@
-import { Column, Series, TimeSeries } from "./time-series.mjs"
+import { Column, Series, TimeSeries } from "./series/time-series.mjs"
+
+export { COL_TS } from "./series/time-series.mjs"
+
+export const COL_DIRECT = 1
+export const COL_DIFFUSE = 2
+export const COL_TILTED = 3
+
+export const COL_SUNRISE = 1
+export const COL_SUNSET = 2
 
 const DK_TIMEZONE = "Europe/Copenhagen"
 

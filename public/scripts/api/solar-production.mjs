@@ -1,4 +1,10 @@
-import { Column, Series, TimeSeries } from "./time-series.mjs"
+import { Column, Series, TimeSeries } from "./series/time-series.mjs"
+
+export { COL_TS } from "./series/time-series.mjs"
+
+export const COL_POWER = 1
+export const COL_ENERGY = 2
+export const COL_ACC_ENERGY = 3
 
 const DK_TIMEZONE = "Europe/Copenhagen"
 

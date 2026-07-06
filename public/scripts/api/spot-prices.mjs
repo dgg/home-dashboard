@@ -1,4 +1,9 @@
-import { Column, Series, TimeSeries } from "./time-series.mjs"
+import { Column, Series, TimeSeries } from "./series/time-series.mjs"
+
+export { COL_TS } from "./series/time-series.mjs"
+
+export const COL_SPOT = 1
+export const COL_ACTUAL = 2
 
 const DK_TIMEZONE = "Europe/Copenhagen"
 const API_HOST = "https://billigkwh.dk"
@@ -16,9 +21,9 @@ class ApiUrl {
 }
 
 const initForecast = () => {
-	const priserColumn = new Column("Spot Price", "CostPerEnergy", "CCY_DKK-PER-KiloW-HR", "DKK/kWh")
-	const exTaxColumn = new Column("Actual Price", "CostPerEnergy", "CCY_DKK-PER-KiloW-HR", "DKK/kWh")
-	const timeSeries = new TimeSeries(Series.regular("PT1H"), [priserColumn, exTaxColumn])
+	const spotColumn = new Column("Spot Price", "CostPerEnergy", "CCY_DKK-PER-KiloW-HR", "DKK/kWh")
+	const actualColumn = new Column("Actual Price", "CostPerEnergy", "CCY_DKK-PER-KiloW-HR", "DKK/kWh")
+	const timeSeries = new TimeSeries(Series.regular("PT1H"), [spotColumn, actualColumn])
 	return timeSeries
 }
 

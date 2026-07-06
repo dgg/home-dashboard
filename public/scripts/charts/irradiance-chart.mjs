@@ -1,51 +1,16 @@
+import { labels, thickenDayLabel } from "./labels.mjs"
+import { title } from "./tooltips.mjs"
+
 import { getColorHex, Color } from "../ui/color.mjs"
 
-/**
- * Returns style of axis text
-* @param {Object} context
- * @returns {Object} Axis style object
- */
-const onTickFont = (context) => {
-	const label = context.tick.label
-	const isDayOfTheMonth = label &&
-		label.length === 5 && // day of the month
-		!label.includes(":") // no time separator
-	if (isDayOfTheMonth) {
-		return { weight: "bold" }
-	}
-}
-
-const TIME_FORMATTER = new Intl.DateTimeFormat("en", {
-	hour: "2-digit",
-	minute: "2-digit",
-	hour12: false
-})
-
-const DAY_FORMATTER = new Intl.DateTimeFormat("da", {
-	day: "2-digit",
-	month: "2-digit"
-})
-
-const isMidnight = (ts) => ts.hour === 0
-const isPrintable = (ts) => ts.hour % 6 === 0
-
-const labels = (timestamps) => (timestamps.map(ts => {
-	if (isMidnight(ts)) {
-		return DAY_FORMATTER.format(ts.toInstant())
-	} else if (isPrintable(ts)) {
-		return TIME_FORMATTER.format(ts.toInstant())
-	}
-	return ""
-}))
+import { COL_DIFFUSE, COL_DIRECT, COL_TILTED, COL_TS } from "../api/solar-irradiance.mjs"
+import { COL_SPOT } from "../api/spot-prices.mjs"
 
 const spotPrices = (priceData) => {
-	const cheaper = getColorHex(Color.SUCCESS, true)
-	const pricier = getColorHex(Color.DANGER, true)
+	const data = priceData.forecast.data.map(d => d[COL_SPOT])
 
-	const data = priceData.forecast.data.map(d => d[1])
-
-	const name = priceData.forecast.header.columns[1].name
-	const unit = priceData.forecast.header.columns[1].symbol
+	const name = priceData.forecast.header.columns[COL_SPOT].name
+	const unit = priceData.forecast.header.columns[COL_SPOT].symbol
 	const label = `${name} (${unit})`
 
 	return {
@@ -63,13 +28,13 @@ const spotPrices = (priceData) => {
 const tiltedIrradiance = (irradianceData) => {
 	const orange = getColorHex(Color.ORANGE)
 
-	const name = irradianceData.forecast.header.columns[3].name
-	const unit = irradianceData.forecast.header.columns[3].symbol
+	const name = irradianceData.forecast.header.columns[COL_TILTED].name
+	const unit = irradianceData.forecast.header.columns[COL_TILTED].symbol
 	const label = `${name} (${unit})`
 
 	return {
 		label,
-		data: irradianceData.forecast.data.map(d => d[3]),
+		data: irradianceData.forecast.data.map(d => d[COL_TILTED]),
 		type: "line",
 		borderColor: orange,
 		pointBackgroundColor: getColorHex(Color.WHITE),
@@ -86,13 +51,13 @@ const tiltedIrradiance = (irradianceData) => {
 const diffuseRadiation = (irradianceData) => {
 	const yellow = getColorHex(Color.YELLOW)
 
-	const name = irradianceData.forecast.header.columns[2].name
-	const unit = irradianceData.forecast.header.columns[2].symbol
+	const name = irradianceData.forecast.header.columns[COL_DIFFUSE].name
+	const unit = irradianceData.forecast.header.columns[COL_DIFFUSE].symbol
 	const label = `${name} (${unit})`
 
 	return {
 		label,
-		data: irradianceData.forecast.data.map(d => d[2]),
+		data: irradianceData.forecast.data.map(d => d[COL_DIFFUSE]),
 		type: "line",
 		borderColor: yellow,
 		pointBackgroundColor: yellow,
@@ -108,13 +73,13 @@ const diffuseRadiation = (irradianceData) => {
 const directRadiation = (irradianceData) => {
 	const orange = getColorHex(Color.ORANGE)
 
-	const name = irradianceData.forecast.header.columns[1].name
-	const unit = irradianceData.forecast.header.columns[1].symbol
+	const name = irradianceData.forecast.header.columns[COL_DIRECT].name
+	const unit = irradianceData.forecast.header.columns[COL_DIRECT].symbol
 	const label = `${name} (${unit})`
 
 	return {
 		label,
-		data: irradianceData.forecast.data.map(d => d[1]),
+		data: irradianceData.forecast.data.map(d => d[COL_DIRECT]),
 		type: "line",
 		borderColor: orange,
 		pointBackgroundColor: orange,
@@ -128,26 +93,13 @@ const directRadiation = (irradianceData) => {
 	}
 }
 
-const DATE_FORMATTER = new Intl.DateTimeFormat("en", {
-	day: "2-digit",
-	month: "short",
-	hour: "2-digit",
-	minute: "2-digit",
-	hour12: false
-})
-
-const title = (timestamps, context) => {
-	const instant = timestamps[context[0].dataIndex].toInstant()
-	return DATE_FORMATTER.format(instant)
-}
-
 const priceAxis = (priceData) => ({
 	type: "linear",
 	display: true,
 	position: "right",
 	title: {
 		display: true,
-		text: priceData.forecast.header.columns[1].symbol,
+		text: priceData.forecast.header.columns[COL_DIRECT].symbol,
 		font: { weight: "bold" }
 	},
 	beginAtZero: true,
@@ -164,7 +116,7 @@ const irradianceAxis = (irradianceData) => ({
 	position: "left",
 	title: {
 		display: true,
-		text: irradianceData.forecast.header.columns[3].symbol,
+		text: irradianceData.forecast.header.columns[COL_TILTED].symbol,
 		font: { weight: "bold" }
 	},
 	beginAtZero: true,
@@ -173,7 +125,7 @@ const irradianceAxis = (irradianceData) => ({
 
 export class IrradianceChart extends Chart {
 	constructor(canvas, irradianceData, priceData) {
-		const timestamps = irradianceData.forecast.data.map(d => d[0])
+		const timestamps = irradianceData.forecast.data.map(d => d[COL_TS])
 		super(canvas, {
 			type: "bar",
 			data: {
@@ -215,7 +167,7 @@ export class IrradianceChart extends Chart {
 						ticks: {
 							maxRotation: 0,
 							minRotation: 0,
-							font: onTickFont
+							font: thickenDayLabel
 						}
 					},
 					yRadiation: irradianceAxis(irradianceData),

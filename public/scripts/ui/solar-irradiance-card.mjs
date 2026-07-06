@@ -1,3 +1,7 @@
+import { formatTime, formatValue } from "./card-formatter.mjs"
+
+import { COL_DIFFUSE, COL_DIRECT, COL_TILTED } from "../api/solar-irradiance.mjs"
+
 export class SolarIrradianceCard extends HTMLElement {
 	#data = null
 	#dayIndex = 0
@@ -37,45 +41,28 @@ export class SolarIrradianceCard extends HTMLElement {
 	}
 
 	#update() {
-		if (!this.#data || !this.#data.transit || !this.#data.transit.data || !this.#data.forecast || !this.#data.forecast.data) return
+		if (!this.#data || !this.#data.transit || !this.#data.transit.data || !this.#data.forecast) return
 
-		const transitRow = this.#data.transit.data[this.#dayIndex]
-		if (!transitRow) return
+		// same unit for all values
+		const symbol = this.#data.forecast.header.columns[COL_TILTED].symbol
 
-		const transitDate = transitRow[0].toPlainDate()
-		const dayRows = this.#data.forecast.data.filter(row => row[0].toPlainDate().equals(transitDate))
+		const tiltedEntry = this.#data.forecast.header.columns[COL_TILTED].aggregates.day(this.#dayIndex)
+		const tiltedVal = tiltedEntry?.max.max ?? Infinity
+		this.shadowRoot.getElementById("tilted-val").textContent = formatValue(tiltedVal, symbol, 1)
+		const tiltedTime = tiltedEntry?.max.ts ?? null
+		this.shadowRoot.getElementById("tilted-time").textContent = formatTime(tiltedTime)
 
-		if (dayRows.length === 0) return
+		const directEntry = this.#data.forecast.header.columns[COL_DIRECT].aggregates.day(this.#dayIndex)
+		const directVal = directEntry?.max.max ?? Infinity
+		this.shadowRoot.getElementById("direct-val").textContent = formatValue(directVal, symbol, 1)
+		const directTime = directEntry?.max.ts ?? null
+		this.shadowRoot.getElementById("direct-time").textContent = formatTime(directTime)
 
-		const tiltedMax = this.#findMax(dayRows, 3)
-		const directMax = this.#findMax(dayRows, 1)
-		const diffuseMax = this.#findMax(dayRows, 2)
-
-		const pad = (v) => String(v).padStart(2, "0")
-		const formatTime = (t) => t ? `${pad(t.hour)}:${pad(t.minute)}` : "-"
-		const formatVal = (v) => v !== -Infinity ? `${v.toFixed(1)} W/m2` : "-"
-
-		this.shadowRoot.getElementById("tilted-time").textContent = formatTime(tiltedMax.time)
-		this.shadowRoot.getElementById("tilted-val").textContent = formatVal(tiltedMax.val)
-
-		this.shadowRoot.getElementById("direct-time").textContent = formatTime(directMax.time)
-		this.shadowRoot.getElementById("direct-val").textContent = formatVal(directMax.val)
-
-		this.shadowRoot.getElementById("diffuse-time").textContent = formatTime(diffuseMax.time)
-		this.shadowRoot.getElementById("diffuse-val").textContent = formatVal(diffuseMax.val)
-	}
-
-	#findMax(rows, colIdx) {
-		let maxVal = -Infinity
-		let maxTime = null
-		for (const row of rows) {
-			const val = row[colIdx]
-			if (val > maxVal) {
-				maxVal = val
-				maxTime = row[0]
-			}
-		}
-		return { val: maxVal, time: maxTime }
+		const diffuseEntry = this.#data.forecast.header.columns[COL_DIFFUSE].aggregates.day(this.#dayIndex)
+		const diffuseVal = diffuseEntry?.max.max ?? Infinity
+		this.shadowRoot.getElementById("diffuse-val").textContent = formatValue(diffuseVal, symbol, 1)
+		const diffuseTime = diffuseEntry?.max.ts ?? null
+		this.shadowRoot.getElementById("diffuse-time").textContent = formatTime(diffuseTime)
 	}
 }
 
