@@ -24,12 +24,15 @@ const init = async () => {
 
 		// Load data in parallel
 		const [priceData, irradianceData, productionData] = await Promise.all([
-			fetchSpotPrices(localhost),
-			fetchSolarIrradiance(localhost),
-			fetchSolarProduction(localhost)
+			fetchSpotPrices(),
+			fetchSolarIrradiance(),
+			fetchSolarProduction()
 		])
 
 		console.info("Data loaded successfully")
+		console.debug("production", productionData)
+		console.debug("irradiance", irradianceData)
+		console.debug("prices", priceData)
 
 		const productionCanvas = document.getElementById("chart-production")
 		const productionChart = new ProductionChart(productionCanvas, productionData)
@@ -37,9 +40,6 @@ const init = async () => {
 		productionToday.data = productionData
 		const productionTomorrow = document.getElementById("solar-production-tomorrow")
 		productionTomorrow.data = productionData
-		console.log(productionData)
-		console.log(priceData)
-		console.log(irradianceData)
 
 		const irradianceCanvas = document.getElementById("chart-irradiance")
 		const irradianceChart = new IrradianceChart(irradianceCanvas, irradianceData, priceData)

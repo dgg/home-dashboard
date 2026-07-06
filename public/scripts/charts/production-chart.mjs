@@ -14,7 +14,6 @@ const isPrintable = (ts) => ts.hour % 6 === 0
 
 const labels = (timestamps) => (timestamps.map(ts => {
 	if (isPrintable(ts)) {
-		console.log("printable", TIME_FORMATTER.format(ts.toInstant()))
 		return TIME_FORMATTER.format(ts.toInstant())
 	}
 	return ""
