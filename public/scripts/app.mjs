@@ -25,9 +25,9 @@ const init = async () => {
 
 		// Load data in parallel
 		const [priceData, irradianceData, productionData] = await Promise.all([
-			fetchSpotPrices(localhost),
-			fetchSolarIrradiance(localhost),
-			fetchSolarProduction(localhost)
+			fetchSpotPrices(),
+			fetchSolarIrradiance(),
+			fetchSolarProduction()
 		])
 
 		console.info("Data loaded successfully")
