@@ -18,14 +18,13 @@
 
 <body>
 	<div class="page flex-row">
-		<!-- Sidebar -->
 		<aside class="navbar navbar-vertical navbar-expand-lg nav-minimal" data-bs-theme="dark">
 			<div class="container-fluid flex-column px-0">
 				<ul class="navbar-nav flex-column pt-3" role="tablist">
-					<li class="nav-item mb-2" title="Summary" role="presentation">
-						<a class="nav-link active" href="#tabs-summary" data-bs-toggle="tab" role="tab">
+					<li class="nav-item mb-2" title="Irradiation" role="presentation">
+						<a class="nav-link active" href="#tabs-irradiance" data-bs-toggle="tab" role="tab">
 							<h1 class="nav-link-icon">
-								<i class="ti ti-clipboard-data"></i>
+								<i class="ti ti-sun-filled"></i>
 							</h1>
 						</a>
 					</li>
@@ -36,17 +35,17 @@
 							</h1>
 						</a>
 					</li>
-					<li class="nav-item mb-2" title="Irradiation" role="presentation">
-						<a class="nav-link" href="#tabs-irradiance" data-bs-toggle="tab" role="tab">
-							<h1 class="nav-link-icon">
-								<i class="ti ti-sun-filled"></i>
-							</h1>
-						</a>
-					</li>
 					<li class="nav-item mb-2" title="Production" role="presentation">
 						<a class="nav-link" href="#tabs-production" data-bs-toggle="tab" role="tab">
 							<h1 class="nav-link-icon">
 								<i class="ti ti-bolt-filled"></i>
+							</h1>
+						</a>
+					</li>
+					<li class="nav-item mb-2" title="Summary" role="presentation">
+						<a class="nav-link" href="#tabs-summary" data-bs-toggle="tab" role="tab">
+							<h1 class="nav-link-icon">
+								<i class="ti ti-clipboard-data"></i>
 							</h1>
 						</a>
 					</li>
@@ -57,7 +56,43 @@
 		<div class="page-wrapper flex-fill">
 			<div class="page-body">
 				<div class="tab-content h-100">
-					<div class="tab-pane fade active show" id="tabs-summary" role="tabpanel">
+					<div class="tab-pane fade active show" id="tabs-irradiance" role="tabpanel">
+						<div class="align-items-center justify-content-center h-100">
+							<article class="card">
+								<div class="card-body">
+									<h2 class="card-title">Solar Irradiance</h2>
+									<div id="chart-irradiance-container" class="chart-container">
+										<canvas id="chart-irradiance"></canvas>
+									</div>
+								</div>
+							</article>
+						</div>
+					</div>
+					<div class="tab-pane fade" id="tabs-price" role="tabpanel">
+						<div class="align-items-center justify-content-center h-100">
+							<article class="card">
+								<div class="card-body">
+									<h2 class="card-title">Electricity Prices</h2>
+									<div id="chart-price-container" class="chart-container">
+										<canvas id="chart-price"></canvas>
+									</div>
+								</div>
+							</article>
+						</div>
+					</div>
+					<div class="tab-pane fade" id="tabs-production" role="tabpanel">
+						<div class="align-items-center justify-content-center h-100">
+							<article class="card">
+								<div class="card-body">
+									<h2 class="card-title">Energy Production</h2>
+									<div id="chart-production-container" class="chart-container">
+										<canvas id="chart-production"></canvas>
+									</div>
+								</div>
+							</article>
+						</div>
+					</div>
+					<div class="tab-pane fade" id="tabs-summary" role="tabpanel">
 						<div class="row row-cards">
 							<div class="col-12">
 								<article class="card card-vertical">
@@ -103,42 +138,6 @@
 							</div>
 						</div>
 						<last-refresh id="last-refresh" />
-					</div>
-					<div class="tab-pane fade" id="tabs-price" role="tabpanel">
-						<div class="align-items-center justify-content-center h-100">
-							<article class="card">
-								<div class="card-body">
-									<h2 class="card-title">Electricity Prices</h2>
-									<div id="chart-price-container" class="chart-container">
-										<canvas id="chart-price"></canvas>
-									</div>
-								</div>
-							</article>
-						</div>
-					</div>
-					<div class="tab-pane fade" id="tabs-irradiance" role="tabpanel">
-						<div class="align-items-center justify-content-center h-100">
-							<article class="card">
-								<div class="card-body">
-									<h2 class="card-title">Solar Irradiance</h2>
-									<div id="chart-irradiance-container" class="chart-container">
-										<canvas id="chart-irradiance"></canvas>
-									</div>
-								</div>
-							</article>
-						</div>
-					</div>
-					<div class="tab-pane fade" id="tabs-production" role="tabpanel">
-						<div class="align-items-center justify-content-center h-100">
-							<article class="card">
-								<div class="card-body">
-									<h2 class="card-title">Energy Production</h2>
-									<div id="chart-production-container" class="chart-container">
-										<canvas id="chart-production"></canvas>
-									</div>
-								</div>
-							</article>
-						</div>
 					</div>
 				</div>
 			</div>
