@@ -50,6 +50,7 @@ const energyAxis = (productionData) => {
 			font: { weight: "bold" }
 		},
 		beginAtZero: true,
+		max: 60,
 		grid: {
 			drawOnChartArea: false,
 		}
@@ -92,7 +93,8 @@ const powerAxis = (productionData) => {
 			text,
 			font: { weight: "bold" }
 		},
-		beginAtZero: true
+		beginAtZero: true,
+		max: 9
 	}
 }
 

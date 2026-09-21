@@ -120,7 +120,8 @@ const irradianceAxis = (irradianceData) => ({
 		font: { weight: "bold" }
 	},
 	beginAtZero: true,
-	min: 0
+	min: 0,
+	max: 800
 })
 
 export class IrradianceChart extends Chart {
